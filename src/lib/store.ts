@@ -21,6 +21,8 @@ export type Profile = {
   reminder: string;
   /** User consent for the coach to use goals/reflections to personalise answers. */
   memoryConsent: boolean;
+  /** UI sounds. Undefined in data saved by older versions means on. */
+  sound?: boolean;
   email: string;
 };
 export type LevelProgress = {
@@ -117,7 +119,7 @@ const emptyDay = (): DayLog => ({ habits: [], practices: [] });
 
 export const initialState = (): State => ({
   hydrated: false,
-  profile: { onboarded: false, name: '', lang: 'es', areas: [], goalText: '', why: '', minutes: 10, coachStyle: 'warm', identity: '', reminder: '08:00', memoryConsent: true, email: '' },
+  profile: { onboarded: false, name: '', lang: 'es', areas: [], goalText: '', why: '', minutes: 10, coachStyle: 'warm', identity: '', reminder: '08:00', memoryConsent: true, sound: true, email: '' },
   progress: {},
   xp: 0,
   hearts: 5,

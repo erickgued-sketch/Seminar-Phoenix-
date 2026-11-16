@@ -7,6 +7,7 @@ import { Button, Field, Header, Screen, Txt } from '@/components/ui';
 import { today } from '@/lib/dates';
 import { useT } from '@/lib/i18n';
 import { pendingEvidence } from '@/lib/progress';
+import { play } from '@/lib/sound';
 import { useStore } from '@/lib/store';
 import { colors, space } from '@/theme/tokens';
 
@@ -38,7 +39,7 @@ export default function Evening() {
     );
   }
   return (
-    <Screen footer={<Button testID="evening-save" label={t('Guardar reflexión', 'Save reflection')} disabled={!Object.values(e).some((v) => v.trim())} onPress={() => { setEvening(e); setSaved(true); }} />}>
+    <Screen footer={<Button testID="evening-save" label={t('Guardar reflexión', 'Save reflection')} disabled={!Object.values(e).some((v) => v.trim())} sound={null} onPress={() => { setEvening(e); play('complete'); setSaved(true); }} />}>
       <Header title={t('Reflexión nocturna', 'Evening reflection')} />
       <View style={{ gap: space.md }}>
         <Txt v="small" color={colors.text2}>{t('Dos minutos. Responde con honestidad; nadie más lo lee.', 'Two minutes. Answer honestly; no one else reads it.')}</Txt>

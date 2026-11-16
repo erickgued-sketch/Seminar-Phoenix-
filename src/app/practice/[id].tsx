@@ -6,6 +6,7 @@ import { Rai } from '@/components/Rai';
 import { Bar, Button, Card, Empty, Field, Header, Label, Screen, Txt, haptic } from '@/components/ui';
 import { practiceById } from '@/content/practices';
 import { useLang, useT } from '@/lib/i18n';
+import { play } from '@/lib/sound';
 import { useStore } from '@/lib/store';
 import { colors, radius, space } from '@/theme/tokens';
 import { mmss } from '../focus';
@@ -34,7 +35,7 @@ export default function PracticeScreen() {
     const tick = setInterval(() => {
       const l = Math.max(0, Math.round((end - Date.now()) / 1000));
       setLeft(l);
-      if (l === 0) { setRunning(false); haptic('ok'); }
+      if (l === 0) { setRunning(false); haptic('ok'); play('bell'); }
     }, 500);
     return () => clearInterval(tick);
   }, [running]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -48,6 +49,7 @@ export default function PracticeScreen() {
     const out = p.mode === 'timer' ? [`${Math.round((total - left) / 60)} min`] : p.mode === 'steps' ? p.steps.filter((_, i) => checks[i]).map((s) => s[lang]) : p.mode === 'text' ? items.map((x, i) => (x.trim() ? `${p.prompts![i][lang]} ${x.trim()}` : '')).filter(Boolean) : items.map((x) => x.trim()).filter(Boolean);
     if (p.mode === 'affirm') setAffirmations(out);
     logPractice(p.id, out);
+    play('complete');
     setSaved(true);
   };
   const phase = Math.floor(((total - left) % 16) / 4); // box breathing: 4 × 4 s
@@ -65,7 +67,7 @@ export default function PracticeScreen() {
   }
 
   return (
-    <Screen footer={<Button testID="practice-save" kind="success" label={t('Guardar práctica', 'Save practice')} disabled={!ready} onPress={save} />}>
+    <Screen footer={<Button testID="practice-save" kind="success" sound={null} label={t('Guardar práctica', 'Save practice')} disabled={!ready} onPress={save} />}>
       <Header title={p.title[lang]} />
       <View style={{ gap: space.md }}>
         <Label color={p.origin === 'seminar' ? colors.primaryDeep : colors.infoDeep}>{`${p.minutes} min · ${p.origin === 'seminar' ? `${t('Seminario Fénix', 'Seminario Fénix')} p. ${p.pages.join(', ')}` : t('Práctica complementaria', 'Complementary practice')}`}</Label>
@@ -89,7 +91,7 @@ export default function PracticeScreen() {
         ) : null}
 
         {p.mode === 'steps' ? p.steps.map((s, i) => (
-          <Pressable key={i} testID={`step-${i}`} accessibilityRole="checkbox" accessibilityState={{ checked: checks[i] }} onPress={() => { haptic(); setChecks(checks.map((c, j) => (j === i ? !c : c))); }} style={{ flexDirection: 'row', gap: space.sm, alignItems: 'center', backgroundColor: checks[i] ? colors.successSoft : colors.surface, borderRadius: radius.md, borderWidth: 2, borderColor: checks[i] ? colors.success : colors.line, padding: space.md, minHeight: 56 }}>
+          <Pressable key={i} testID={`step-${i}`} accessibilityRole="checkbox" accessibilityState={{ checked: checks[i] }} onPress={() => { haptic(); if (!checks[i]) play('check'); setChecks(checks.map((c, j) => (j === i ? !c : c))); }} style={{ flexDirection: 'row', gap: space.sm, alignItems: 'center', backgroundColor: checks[i] ? colors.successSoft : colors.surface, borderRadius: radius.md, borderWidth: 2, borderColor: checks[i] ? colors.success : colors.line, padding: space.md, minHeight: 56 }}>
             <Txt v="h3">{checks[i] ? '✓' : i + 1}</Txt>
             <Txt v="body" style={{ flex: 1 }}>{s[lang]}</Txt>
           </Pressable>

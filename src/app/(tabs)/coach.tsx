@@ -9,6 +9,7 @@ import { Button, Chip, Field, Screen, Txt } from '@/components/ui';
 import { askCoach } from '@/lib/coach';
 import { modes } from '@/lib/coach/compose';
 import { useLang, useT } from '@/lib/i18n';
+import { play } from '@/lib/sound';
 import { uid, useStore, type CoachReply } from '@/lib/store';
 import { cloudEnabled } from '@/lib/supabase';
 import { colors, radius, space } from '@/theme/tokens';
@@ -33,6 +34,7 @@ export default function Coach() {
     try {
       const reply = await askCoach(m);
       pushChat({ id: uid(), role: 'coach', reply, at: new Date().toISOString() });
+      play('nudge', 0.7);
     } catch {
       setError(true);
     } finally {

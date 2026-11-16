@@ -8,6 +8,7 @@ import {
   type StyleProp, type TextInputProps, type TextProps, type TextStyle, type ViewStyle,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { play, type SoundName } from '@/lib/sound';
 import { colors, motion, radius, shadow, space, type } from '@/theme/tokens';
 
 export const haptic = (kind: 'tap' | 'ok' | 'bad' = 'tap') => {
@@ -61,7 +62,7 @@ const btnColors: Record<BtnKind, { bg: string; edge: string; fg: string }> = {
 };
 
 /** Chunky button that physically depresses on press. */
-export function Button({ label, onPress, kind = 'primary', disabled, small, style, testID }: { label: string; onPress: () => void; kind?: BtnKind; disabled?: boolean; small?: boolean; style?: StyleProp<ViewStyle>; testID?: string }) {
+export function Button({ label, onPress, kind = 'primary', disabled, small, style, testID, sound = 'tap' }: { label: string; onPress: () => void; kind?: BtnKind; disabled?: boolean; small?: boolean; style?: StyleProp<ViewStyle>; testID?: string; sound?: SoundName | null }) {
   const y = useState(() => new Animated.Value(0))[0];
   const c = btnColors[kind];
   const to = (v: number) => Animated.timing(y, { toValue: v, duration: motion.press, useNativeDriver: true }).start();
@@ -74,7 +75,7 @@ export function Button({ label, onPress, kind = 'primary', disabled, small, styl
       disabled={disabled}
       onPressIn={() => to(4)}
       onPressOut={() => to(0)}
-      onPress={() => { haptic(); onPress(); }}
+      onPress={() => { haptic(); if (sound) play(sound, 0.6); onPress(); }}
       style={[{ opacity: disabled ? 0.45 : 1 }, style]}
     >
       <View style={[styles.btnEdge, { backgroundColor: c.edge }]}>
@@ -97,7 +98,7 @@ export function Card({ children, style, onPress, label, testID }: { children: Re
 
 export function Chip({ label, selected, onPress, testID }: { label: string; selected?: boolean; onPress: () => void; testID?: string }) {
   return (
-    <Pressable testID={testID} accessibilityRole="button" accessibilityState={{ selected: !!selected }} onPress={() => { haptic(); onPress(); }} style={[styles.chip, selected && styles.chipOn]}>
+    <Pressable testID={testID} accessibilityRole="button" accessibilityState={{ selected: !!selected }} onPress={() => { haptic(); play('select', 0.5); onPress(); }} style={[styles.chip, selected && styles.chipOn]}>
       <Txt v="bodyBold" color={selected ? colors.onPrimary : colors.text}>{label}</Txt>
     </Pressable>
   );
@@ -105,9 +106,17 @@ export function Chip({ label, selected, onPress, testID }: { label: string; sele
 
 export function Bar({ value, color = colors.primary, height = 12 }: { value: number; color?: string; height?: number }) {
   const pct = Math.max(0, Math.min(1, value));
+  const reduce = useReduceMotion();
+  const w = useState(() => new Animated.Value(pct))[0];
+  useEffect(() => {
+    if (reduce) w.setValue(pct);
+    else Animated.spring(w, { toValue: pct, friction: 9, tension: 60, useNativeDriver: false }).start(); // width cannot use the native driver
+  }, [pct, reduce]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <View accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: 100, now: Math.round(pct * 100) }} style={{ height, borderRadius: height, backgroundColor: colors.line, overflow: 'hidden' }}>
-      <View style={{ width: `${pct * 100}%`, height, borderRadius: height, backgroundColor: color }} />
+      <Animated.View style={{ width: w.interpolate({ inputRange: [0, 1], outputRange: ['0%', '100%'] }), height, borderRadius: height, backgroundColor: color }}>
+        <View style={{ position: 'absolute', top: 2, left: 6, right: 6, height: Math.max(2, height * 0.22), borderRadius: height, backgroundColor: 'rgba(255,255,255,0.35)' }} />
+      </Animated.View>
     </View>
   );
 }

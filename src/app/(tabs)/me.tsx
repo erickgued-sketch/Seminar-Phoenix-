@@ -120,6 +120,7 @@ export default function Me() {
               {reminder === 'denied' ? <Txt v="small" color={colors.dangerDeep}>{t('Permiso de notificaciones denegado. Actívalo en los ajustes del sistema.', 'Notification permission denied. Enable it in system settings.')}</Txt> : null}
             </View>
           ) : null}
+          <Chip testID="sound-toggle" label={`${s.profile.sound !== false ? '🔊 ' : '🔇 '}${t('Sonidos', 'Sounds')}: ${s.profile.sound !== false ? t('activados', 'on') : t('desactivados', 'off')}`} selected={s.profile.sound !== false} onPress={() => s.setProfile({ sound: s.profile.sound === false })} />
           <Chip testID="consent" label={`${s.profile.memoryConsent ? '✓ ' : ''}${t('El coach puede usar mis metas y registros para personalizar', 'The coach may use my goals and records to personalise')}`} selected={s.profile.memoryConsent} onPress={() => s.setProfile({ memoryConsent: !s.profile.memoryConsent })} />
         </Card>
 

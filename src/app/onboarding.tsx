@@ -67,7 +67,7 @@ export default function Onboarding() {
     return (
       <Screen scroll={false}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: space.md }}>
-          <Rai state="focus" size={180} />
+          <Rai state="walk" size={190} />
           <Txt v="h1" center>{t('Preparando tu programa…', 'Building your program…')}</Txt>
           <Txt v="body" color={colors.text2} center>{t(`${totalLevels} niveles · ${minutes} min al día`, `${totalLevels} levels · ${minutes} min a day`)}</Txt>
         </View>

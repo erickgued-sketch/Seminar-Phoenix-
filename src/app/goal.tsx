@@ -7,6 +7,7 @@ import { Bar, Button, Card, Chip, Field, Header, Label, Screen, Txt, haptic } fr
 import { diffDays, today } from '@/lib/dates';
 import { buildWeeks, draftIssues, toGoal, type Draft } from '@/lib/goalPlan';
 import { formatDate, useLang, useT } from '@/lib/i18n';
+import { play } from '@/lib/sound';
 import { activeGoal, uid, useStore, type Week } from '@/lib/store';
 import { colors, space } from '@/theme/tokens';
 
@@ -46,7 +47,7 @@ export default function GoalArchitect() {
           {nextWeek ? <RaiSays state="focus"><Txt v="label" color={colors.primaryDeep}>{t('ESTA SEMANA', 'THIS WEEK')}</Txt><Txt v="bodyBold">{nextWeek.focus}</Txt></RaiSays> : null}
           <Label>{t('Plan semanal', 'Weekly plan')}</Label>
           {goal.weeks.map((w) => (
-            <Pressable key={w.week} testID={`week-${w.week}`} accessibilityRole="checkbox" accessibilityState={{ checked: w.done }} onPress={() => { haptic(w.done ? 'tap' : 'ok'); s.toggleWeek(goal.id, w.week); }} style={{ flexDirection: 'row', gap: space.sm, alignItems: 'center', minHeight: 48 }}>
+            <Pressable key={w.week} testID={`week-${w.week}`} accessibilityRole="checkbox" accessibilityState={{ checked: w.done }} onPress={() => { haptic(w.done ? 'tap' : 'ok'); if (!w.done) play('check'); s.toggleWeek(goal.id, w.week); }} style={{ flexDirection: 'row', gap: space.sm, alignItems: 'center', minHeight: 48 }}>
               <View style={{ width: 28, height: 28, borderRadius: 9, borderWidth: 2, borderColor: w.done ? colors.success : colors.line, backgroundColor: w.done ? colors.success : colors.surface, alignItems: 'center', justifyContent: 'center' }}>{w.done ? <Txt v="bodyBold" color="#173B00">✓</Txt> : null}</View>
               <Txt v="body" style={{ flex: 1 }} color={w.done ? colors.text3 : colors.text}><Txt v="bodyBold" color={w.done ? colors.text3 : colors.text}>{t('S', 'W')}{w.week} · </Txt>{w.focus}</Txt>
             </Pressable>
@@ -61,11 +62,12 @@ export default function GoalArchitect() {
   // ---------- step 2: review and approve the plan ----------
   if (step === 'plan') {
     return (
-      <Screen footer={<><Button testID="goal-approve" kind="success" label={t('Aprobar y activar plan', 'Approve and activate plan')} onPress={() => {
+      <Screen footer={<><Button testID="goal-approve" kind="success" sound={null} label={t('Aprobar y activar plan', 'Approve and activate plan')} onPress={() => {
         const g = { ...toGoal(d, lang, goal?.id), weeks };
         s.saveGoal(g);
         s.setProfile({ goalText: g.title, why: g.why, identity: g.identity });
         if (habit && !s.habits.some((h) => h.name === g.dailyAction && !h.archived)) s.saveHabit({ id: uid(), name: g.dailyAction, area: 'goal', perWeek: 5, goalId: g.id, createdAt: today() });
+        play('levelup');
         setStep('define'); setEditing(false);
       }} /><Button kind="ghost" small label={t('Volver a editar', 'Back to editing')} onPress={() => setStep('define')} /></>}>
         <Header title={t('Tu plan de 90 días', 'Your 90-day plan')} back={false} />

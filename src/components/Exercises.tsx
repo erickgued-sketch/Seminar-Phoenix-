@@ -3,7 +3,9 @@
 import React, { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import type { Exercise, Lang } from '@/content/types';
+import { play } from '@/lib/sound';
 import { colors, radius, space } from '@/theme/tokens';
+import { Feedback } from './fx';
 import { Button, Txt, haptic } from './ui';
 
 /** Deterministic shuffle so a level always looks the same (and tests are stable). */
@@ -27,11 +29,18 @@ const kindLabel = (ex: Exercise, t: Props['t']) =>
   ({ mc: t('Elige la respuesta', 'Choose the answer'), scenario: t('¿Qué harías?', 'What would you do?'), fill: t('Completa la frase', 'Fill in the blank'), order: t('Ordena las palabras', 'Arrange the words'), match: t('Une las parejas', 'Match the pairs') })[ex.type];
 
 export function ExerciseView(p: Props) {
+  // Wrong answers shake, right answers pop — feedback you can feel before reading it.
+  const [fx, setFx] = useState({ shake: 0, pop: 0 });
+  const onResult = (ok: boolean) => {
+    setFx((f) => (ok ? { ...f, pop: f.pop + 1 } : { ...f, shake: f.shake + 1 }));
+    p.onResult(ok);
+  };
+  const q = { ...p, onResult };
   return (
-    <View style={{ gap: space.md }}>
+    <Feedback shake={fx.shake} pop={fx.pop} style={{ gap: space.md }}>
       <Txt v="label" color={colors.primaryDeep}>{kindLabel(p.ex, p.t).toUpperCase()}</Txt>
-      {p.ex.type === 'order' ? <Order {...p} /> : p.ex.type === 'match' ? <Match {...p} /> : <Choice {...p} />}
-    </View>
+      {p.ex.type === 'order' ? <Order {...q} /> : p.ex.type === 'match' ? <Match {...q} /> : <Choice {...q} />}
+    </Feedback>
   );
 }
 
@@ -53,7 +62,7 @@ function Choice({ ex, lang, locked, onResult, t }: Props) {
               accessibilityRole="radio"
               accessibilityState={{ selected: on, disabled: locked }}
               disabled={locked}
-              onPress={() => { haptic(); setSel(i); }}
+              onPress={() => { haptic(); play('select', 0.5); setSel(i); }}
               style={[styles.opt, on && styles.optOn, right && styles.optRight, wrong && styles.optWrong]}
             >
               <Txt v="bodyBold" color={right ? '#173B00' : wrong ? colors.dangerDeep : colors.text}>{o[lang]}</Txt>
@@ -77,7 +86,7 @@ function Order({ ex, lang, seed, locked, onResult, t }: Props) {
       <Txt v="h2">{ex.q[lang]}</Txt>
       <View style={styles.answerRow} accessibilityLabel={answer || t('Respuesta vacía', 'Empty answer')}>
         {picked.map((i) => (
-          <Pressable key={i} disabled={locked} accessibilityRole="button" accessibilityLabel={`${tokens[i]}, ${t('quitar', 'remove')}`} onPress={() => { haptic(); setPicked(picked.filter((x) => x !== i)); }} style={[styles.tile, styles.tileOn]}>
+          <Pressable key={i} disabled={locked} accessibilityRole="button" accessibilityLabel={`${tokens[i]}, ${t('quitar', 'remove')}`} onPress={() => { haptic(); play('tap', 0.5); setPicked(picked.filter((x) => x !== i)); }} style={[styles.tile, styles.tileOn]}>
             <Txt v="bodyBold">{tokens[i]}</Txt>
           </Pressable>
         ))}
@@ -86,7 +95,7 @@ function Order({ ex, lang, seed, locked, onResult, t }: Props) {
         {pool.map(({ w, i }) => {
           const used = picked.includes(i);
           return (
-            <Pressable key={i} testID={`tile-${i}`} disabled={locked || used} accessibilityRole="button" accessibilityLabel={w} onPress={() => { haptic(); setPicked([...picked, i]); }} style={[styles.tile, used && { opacity: 0.25 }]}>
+            <Pressable key={i} testID={`tile-${i}`} disabled={locked || used} accessibilityRole="button" accessibilityLabel={w} onPress={() => { haptic(); play('select', 0.5); setPicked([...picked, i]); }} style={[styles.tile, used && { opacity: 0.25 }]}>
               <Txt v="bodyBold">{w}</Txt>
             </Pressable>
           );
@@ -111,12 +120,14 @@ function Match({ ex, lang, seed, locked, onResult, t }: Props) {
     if (a === null) return;
     if (a === i) {
       haptic('ok');
+      play('check', 0.7);
       const next = [...done, i];
       setDone(next);
       setA(null);
       if (next.length === pairs.length) onResult(miss === 0);
     } else {
       haptic('bad');
+      play('wrong', 0.5);
       setMiss(miss + 1);
       setFlash(i);
       setTimeout(() => setFlash(null), 350);
@@ -130,7 +141,7 @@ function Match({ ex, lang, seed, locked, onResult, t }: Props) {
       <View style={{ flexDirection: 'row', gap: space.sm }}>
         <View style={{ flex: 1, gap: space.sm }}>
           {pairs.map((p, i) => (
-            <Pressable key={i} testID={`ma-${i}`} disabled={locked || done.includes(i)} accessibilityRole="button" accessibilityState={{ selected: a === i }} onPress={() => { haptic(); setA(i); }} style={[styles.opt, styles.matchCell, a === i && styles.optOn, done.includes(i) && styles.optRight]}>
+            <Pressable key={i} testID={`ma-${i}`} disabled={locked || done.includes(i)} accessibilityRole="button" accessibilityState={{ selected: a === i }} onPress={() => { haptic(); play('select', 0.5); setA(i); }} style={[styles.opt, styles.matchCell, a === i && styles.optOn, done.includes(i) && styles.optRight]}>
               <Txt v="small" style={{ fontFamily: 'Nunito_700Bold' }}>{p.a[lang]}</Txt>
             </Pressable>
           ))}

@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import { Rai } from '@/components/Rai';
 import { Bar, Button, Card, Header, Screen, Txt, haptic } from '@/components/ui';
 import { useT } from '@/lib/i18n';
+import { play } from '@/lib/sound';
 import { useStore } from '@/lib/store';
 import { colors, space } from '@/theme/tokens';
 
@@ -25,15 +26,15 @@ export default function Focus() {
     const id = setInterval(() => {
       const l = Math.max(0, Math.round((end - Date.now()) / 1000));
       setLeft(l);
-      if (l === 0) { setRunning(false); haptic('ok'); }
+      if (l === 0) { setRunning(false); haptic('ok'); play('bell'); }
     }, 500);
     return () => clearInterval(id);
   }, [running]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const finish = () => { addXp(10); touch(); router.back(); };
+  const finish = () => { addXp(10); touch(); play('xp'); router.back(); };
   return (
     <Screen footer={left === 0 || left < total
-      ? <><Button testID="focus-done" kind="success" label={t('Lo hice (+10 XP)', 'I did it (+10 XP)')} onPress={finish} />{left > 0 ? <Button kind="ghost" small label={running ? t('Pausar', 'Pause') : t('Reanudar', 'Resume')} onPress={() => setRunning(!running)} /> : null}</>
+      ? <><Button testID="focus-done" kind="success" sound={null} label={t('Lo hice (+10 XP)', 'I did it (+10 XP)')} onPress={finish} />{left > 0 ? <Button kind="ghost" small label={running ? t('Pausar', 'Pause') : t('Reanudar', 'Resume')} onPress={() => setRunning(!running)} /> : null}</>
       : <Button testID="focus-start" label={t('Empezar ahora', 'Start now')} onPress={() => setRunning(true)} />}>
       <Header title={t(`Modo ${Math.round(total / 60)} min`, `${Math.round(total / 60)}-min mode`)} />
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: space.md }}>
