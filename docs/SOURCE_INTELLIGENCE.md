@@ -4,9 +4,9 @@
 
 Source: transcript PDF, 211 pages. Every level is tied to the pages it paraphrases.
 
-- **Levels mapped:** 117 (18 fully authored and playable, 99 blueprint rows awaiting generation + validation)
-- **Pages covered:** 204/211 (97%)
-- **Pages not mapped to a level:** 25, 45, 62, 119, 147, 177, 192 — not yet mapped; candidates for future levels
+- **Levels mapped:** 117 (117 fully authored and playable, 0 blueprint rows awaiting generation + validation)
+- **Pages covered:** 205/211 (97%)
+- **Pages not mapped to a level:** 25, 45, 119, 147, 177, 192 — not yet mapped; candidates for future levels
 - **Practices (Mind Studio):** 14
 
 Legend — **Status**: ✅ authored · 📝 blueprint. **Type**: T = seminar teaching; T⚠ = seminar teaching that is metaphysical, historical or a health/psychology claim and is shown with a caveat (not established science).
@@ -48,145 +48,145 @@ Legend — **Status**: ✅ authored · 📝 blueprint. **Type**: T = seminar tea
 
 | # | Level | Principle (ES) | Pages | Type | Status | Exercise → practice |
 |---|---|---|---|---|---|---|
-| 19 | El árbol de las emociones negativas | Las emociones negativas se sostienen en raíces que puedes cortar. | 36–38 | T | 📝 | — |
-| 20 | Dejar de justificar | Mientras te explicas por qué tienes derecho a estar enojado, el enojo sigue vivo. | 38 | T | 📝 | — |
-| 21 | No tomarlo personal | Si no te identificas con lo que pasa, la emoción pierde fuerza. | 38–39 | T | 📝 | — |
-| 22 | Culpar: el tronco del árbol | Casi toda emoción negativa necesita a alguien a quien culpar; sin culpa, se apaga. | 39–40 | T | 📝 | «Soy responsable» |
-| 23 | Libre para elegir tu respuesta | No eliges lo que ocurre, pero sí cómo te sentirás y qué harás al respecto. | 35 | T | 📝 | — |
-| 24 | Lo que repites, lo alimentas | Hablar una y otra vez de tus problemas mantiene vivas las emociones que provocan. | 41–42 | T | 📝 | — |
-| 25 | Cambiarlo o aceptarlo | Ante lo que te hace infeliz hay dos salidas responsables: actuar o aceptarlo sin queja. | 43–44 | T | 📝 | — |
-| 26 | De dónde viene la culpa | La culpa se aprende en la infancia y a menudo se usa para controlar. | 46–49 | T | 📝 | — |
-| 27 | Cómo se nota la culpa | Sentirte inferior, no merecer o dejarte manipular son señales de culpa aprendida. | 50–51 | T | 📝 | — |
-| 28 | El lenguaje de víctima | Palabras como «trataré» o «desearía» anuncian que no esperas lograrlo. | 51–52 | T | 📝 | — |
-| 29 | Soltar la culpa | Deja de criticarte, de culpar a otros y de usar la culpa con los demás. | 53 | T | 📝 | Perdonar y soltar |
-| 30 | El perdón | Perdonar libera al que perdona: sueltas el peso para poder avanzar. | 53–54 | T | 📝 | Perdonar y soltar |
-| 31 | Decir «lo siento» | Disculparte cuando te equivocas cierra el asunto y fortalece tu carácter. | 54 | T | 📝 | Perdonar y soltar |
+| 19 | El árbol de las emociones negativas | Las emociones negativas son ramas de un mismo árbol: corta lo que lo sostiene y se apagan juntas. | 36–38 | T⚠ | ✅ | Aplicar: Escribe esa emoción y debajo: «¿Qué me estoy diciendo para mantenerla viva?». |
+| 20 | Deja de justificar | Una emoción negativa dura lo que duran tus razones para tenerla. | 38 | T | ✅ | Aplicar: Hoy, cuando empieces a explicar por qué estás molesto, detente a mitad de frase y di: «¿Y qué voy a hacer?». |
+| 21 | No lo tomes personal | Cuanto menos te identificas con lo que pasa, menos poder tiene sobre ti. | 38–39 | T | ✅ | Aplicar: Elige esa situación y escríbela en tercera persona, como si le pasara a otra persona. Luego escribe qué le aconsejarías. |
+| 22 | Culpar: el tronco | Deja de culpar y el árbol entero se queda sin corriente. | 39–40 | T⚠ | ✅ | Aplicar: Piensa en esa persona, di tres veces «soy responsable» y escribe una cosa que depende de ti en esa situación. |
+| 23 | Libre para elegir tu respuesta | Entre lo que pasa y cómo respondes hay una decisión, y es tuya. | 35 | T | ✅ | Aplicar: Elige esa situación y decide ahora tu respuesta para la próxima vez. Escríbela: «Cuando pase ___, voy a ___». |
+| 24 | Lo que repites, lo alimentas | Las emociones negativas son frágiles: sin conversación que las cultive, se apagan. | 41–42 | T | ✅ | Aplicar: Durante las próximas 24 horas, no menciones ese problema salvo para proponer una solución. |
+| 25 | Cambiarlo o aceptarlo | Ante lo que te hace infeliz hay dos salidas adultas: actuar o aceptar. Quejarse no es una tercera. | 43–44 | T | ✅ | Aplicar: Escríbela y marca una opción: «la cambio» (con el primer paso) o «la acepto» (y dejo de quejarme). |
+| 26 | De dónde viene la culpa | La culpa no es innata: se enseña, muchas veces para castigar o controlar. | 46–49 | T⚠ | ✅ | Aplicar: Escribe esa frase y, al lado, una versión adulta y justa de lo que realmente pasó. |
+| 27 | Cómo se nota la culpa | La culpa aprendida se disfraza: sentir que no mereces, dejarte manipular y culpar a otros. | 50–51 | T | ✅ | Aplicar: Hoy, ante el próximo elogio, responde solo «gracias». Sin restarle mérito. |
+| 28 | El lenguaje de víctima | Tus palabras anuncian lo que esperas: «lo haré» compromete, «trataré» se despide. | 51–52 | T | ✅ | Aplicar: Durante el día de hoy, cada vez que digas «trataré» o «tengo que», corrígelo en voz alta por «lo haré» o «elijo». |
+| 29 | Soltar la culpa | Cuatro pasos: no te critiques, no te dejes manejar, no culpes a otros y perdona. | 53 | T | ✅ | Aplicar: Escribe esa crítica, táchala y escribe debajo la instrucción que sí quieres darte. |
+| 30 | El perdón | Perdonar no es darle la razón al otro: es dejar de cargar tú con el peso. | 53–54 | T⚠ | ✅ | Aplicar: Abre Mente → «Perdonar y soltar» y complétala con una persona de tu lista. |
+| 31 | Decir «lo siento» | Disculparte cuando fallas requiere valor, cierra el asunto y fortalece tu carácter. | 54 | T | ✅ | Aplicar: Escribe la disculpa en dos frases, sin «pero», y envíala o dila hoy. |
 
 ## 5. Preocupación, cambio y hábitos / Worry, change and habits
 
 | # | Level | Principle (ES) | Pages | Type | Status | Exercise → practice |
 |---|---|---|---|---|---|---|
-| 32 | La paz mental como meta | Pocas personas tienen paz mental porque no la ponen como meta. | 55 | T | 📝 | — |
-| 33 | Qué hay detrás de la preocupación | La mayoría de lo que te preocupa nunca ocurre o no depende de ti. | 56 | T⚠ | 📝 | — |
-| 34 | Un día a la vez y con hechos | Vive el día de hoy y consigue los datos antes de preocuparte. | 56–57 | T | 📝 | Destructor de preocupaciones |
-| 35 | El destructor de preocupaciones | Define la preocupación, imagina lo peor, acéptalo y trabaja para mejorarlo. | 57–58 | T | 📝 | Destructor de preocupaciones |
-| 36 | Acción con propósito | No puedes preocuparte y actuar con decisión sobre lo mismo a la vez. | 59 | T | 📝 | — |
-| 37 | El equivalente mental | Para tener algo afuera, primero construye su imagen clara adentro. | 60 | T⚠ | 📝 | — |
-| 38 | Flexibilidad frente a ideas fijas | Sé claro en la meta y flexible en el camino; la rigidez frena el cambio. | 61 | T | 📝 | — |
-| 39 | La ley del hábito | Casi todo lo que haces es hábito; sin una decisión nueva, seguirás igual. | 63 | T | 📝 | — |
-| 40 | La ley de la emoción | Decides por emoción; el deseo y el miedo compiten y gana el más fuerte. | 63–64 | T | 📝 | — |
-| 41 | La ley de la expresión | Lo que imprimes en tu mente con emoción acaba expresándose en tu conducta. | 64 | T | 📝 | — |
-| 42 | La ley de la reversibilidad | Actuar como si ya sintieras algo ayuda a generar ese sentimiento. | 65 | T | 📝 | — |
-| 43 | Práctica y repetición | Lo que practicas una y otra vez se vuelve un hábito nuevo. | 66–67 | T | 📝 | — |
-| 44 | Decisión y disciplina | El cambio pide una decisión firme y la disciplina de sostenerla. | 67–68 | T | 📝 | — |
-| 45 | La dieta mental de 21 días | Mantén tu mente en lo que quieres durante 21 días para instalar el patrón. | 69 | T | 📝 | Dieta mental de 21 días |
+| 32 | La paz mental como meta | Lo que no pones como meta, no lo proteges: decide que tu calma importa. | 55 | T | ✅ | Aplicar: Escribe: «Mi paz mental es una meta. Esta semana la protejo haciendo ___ y dejando de ___». |
+| 33 | Qué hay detrás de la preocupación | Casi todo lo que te preocupa no ocurre o no depende de ti: preocúpate menos y actúa donde sí puedes. | 56 | T⚠ | ✅ | Aplicar: Haz una lista de lo que te preocupa hoy. Junto a cada punto escribe: «depende de mí», «no depende» o «poco probable». |
+| 34 | Un día a la vez, con los hechos | Vive el día de hoy y consigue los datos antes de preocuparte. | 56–57 | T | ✅ | Aplicar: Haz esa llamada o pregunta ahora. Si no es posible, escribe exactamente qué dato te falta y a quién pedirlo. |
+| 35 | El destructor de preocupaciones | Cuatro pasos por escrito: define, imagina lo peor, acéptalo y mejóralo. | 57–58 | T | ✅ | Aplicar: Abre Mente → «Destructor de preocupaciones» y completa los cuatro pasos con esa preocupación. |
+| 36 | Acción con propósito | No puedes preocuparte y actuar con decisión sobre lo mismo a la vez: muévete. | 59 | T | ✅ | Aplicar: Escribe tres acciones concretas sobre ese asunto y haz la primera ahora, aunque sean dos minutos. |
+| 37 | El equivalente mental | Antes de construir algo afuera, constrúyelo con claridad adentro. | 60 | T⚠ | ✅ | Aplicar: Describe por escrito, en cinco líneas y en presente, cómo se ve ese resultado ya logrado. |
+| 38 | Flexibilidad frente a ideas fijas | Firme en la meta, flexible en el camino: la rigidez te deja atascado en la zona de confort. | 61–62 | T | ✅ | Aplicar: Elige una rutina tuya y hazla hoy de otra manera, a propósito. Anota qué descubres. |
+| 39 | La ley del hábito | Sin una decisión nueva, mañana harás lo mismo que hoy. | 63 | T⚠ | ✅ | Aplicar: Escribe una decisión específica: «A partir de hoy, a las ___ en ___ voy a ___». Añádela como hábito en la app. |
+| 40 | La ley de la emoción | Decides por emoción: haz crecer el deseo para que le gane al miedo. | 63–64 | T | ✅ | Aplicar: Sobre esa decisión, escribe cinco razones por las que quieres el resultado. Léelas en voz alta. |
+| 41 | La ley de la expresión | Lo que imprimes en tu mente con emoción termina expresándose en lo que haces. | 64 | T | ✅ | Aplicar: Escribe una frase en presente sobre cómo quieres actuar hoy y léela tres veces con intención. |
+| 42 | La ley de la reversibilidad | Si lograrlo te haría sentir de cierta forma, sentirte así desde ya te acerca a lograrlo. | 65 | T⚠ | ✅ | Aplicar: Durante los próximos diez minutos, camina, siéntate y habla como esa persona. Luego haz una tarea desde ese estado. |
+| 43 | Práctica y repetición | Lo que repites una y otra vez se convierte en un hábito nuevo. | 66–67 | T⚠ | ✅ | Aplicar: Define su versión mínima (dos minutos) y hazla ahora. Márcala en Hábitos. |
+| 44 | Decisión y disciplina | El cambio empieza con una decisión sin vuelta atrás y se sostiene haciendo lo que toca, te apetezca o no. | 67–68 | T | ✅ | Aplicar: Tómala ahora: escríbela con fecha de inicio y cuéntasela hoy a una persona. |
+| 45 | La dieta mental de 21 días | Tres semanas con la mente en lo que quieres: así se instala el nuevo patrón. | 69 | T | ✅ | Aplicar: Abre Mente → «Dieta mental de 21 días», marca lo que cumpliste hoy y añádela como hábito diario. |
 
 ## 6. Programar la mente / Programming the mind
 
 | # | Level | Principle (ES) | Pages | Type | Status | Exercise → practice |
 |---|---|---|---|---|---|---|
-| 46 | Diseña tu ideal | Define a la persona que quieres ser y estudia a quienes ya admiras. | 70–71 | T | 📝 | — |
-| 47 | Una nueva autoimagen | Piensa en ti como la persona que quieres ser, también en tus días difíciles. | 72 | T | 📝 | Visualización |
-| 48 | Visualización | Ensayar mentalmente una conducta te prepara para ejecutarla con calma. | 72–73 | T | 📝 | Visualización |
-| 49 | Afirmaciones: las tres P | Una afirmación eficaz es personal, positiva y en presente. | 74–76 | T | 📝 | Afirmaciones personales |
-| 50 | Actúa el papel | Compórtate como la persona que quieres ser hasta que se vuelva natural. | 77–78 | T | 📝 | — |
-| 51 | Proteína mental | Tu mente se nutre de lo que lee, ve y oye: elige alimento de calidad. | 79–86 | T | 📝 | Dieta mental de 21 días |
-| 52 | Leer y escuchar cada día | Una hora diaria de lectura o audio en tu campo cambia tu carrera con los años. | 81–82 | T | 📝 | — |
-| 53 | Tu grupo de referencia | Te pareces a las personas con quienes más te juntas: elígelas a conciencia. | 83–85 | T | 📝 | — |
-| 54 | «La próxima vez…» | Tras un error, cancélalo y di cómo lo harás la próxima vez. | 87 | T | 📝 | — |
-| 55 | Metas creíbles | Una meta demasiado lejana no la cree tu mente; sube por escalones. | 88–89 | T | 📝 | — |
-| 56 | Programar por escrito | Escribir tus metas en presente cada día las graba con más fuerza. | 90–91 | T | 📝 | Metas por escrito |
-| 57 | El repaso mental | Antes de un evento, recuerda un éxito anterior e imagina el resultado ideal. | 93–94 | T | 📝 | Visualización |
-| 58 | Tarjetas de metas | Repasa tus metas en tarjetas dos veces al día, relajado y viéndolas cumplidas. | 92–97 | T | 📝 | Visualización, Metas por escrito |
+| 46 | Diseña tu ideal | Define con precisión a la persona que quieres ser: las cualidades que admiras son tu mapa. | 70–71 | T | ✅ | Aplicar: Escribe sus nombres y una cualidad de cada una. Elige la que más necesitas hoy. |
+| 47 | Una nueva autoimagen | Piénsate como la persona que quieres ser, sobre todo en las situaciones donde sueles fallar. | 72 | T | ✅ | Aplicar: Describe en dos frases cómo actúa ahí la persona que quieres ser. Léelo justo antes de la próxima vez. |
+| 48 | Visualización | Una imagen mental clara y con emoción prepara a tu mente para hacerla real. | 72–73 | T⚠ | ✅ | Aplicar: Abre Mente → «Visualización» y haz tres minutos con ese momento. |
+| 49 | Afirmaciones: las tres P | Una afirmación útil es personal, positiva y en presente. | 74–76 | T⚠ | ✅ | Aplicar: Abre Mente → «Afirmaciones personales» y escribe tres con las tres P. Léelas en voz alta. |
+| 50 | Actúa el papel | Compórtate como la persona que quieres ser hasta que deje de ser un papel. | 77–78 | T | ✅ | Aplicar: Elige una tarea de hoy y hazla «en el papel» de alguien excelente en ella. Empieza por la postura y el tono. |
+| 51 | Proteína mental | Tu mente se construye con lo que le das de comer: elige el menú. | 79–86 | T | ✅ | Aplicar: Deja esta noche un libro o lectura valiosa junto a la cama y mañana empieza por ahí, antes del teléfono. |
+| 52 | Leer y escuchar cada día | Un poco de estudio diario en tu campo, sostenido durante años, te vuelve experto. | 81–82 | T⚠ | ✅ | Aplicar: Elige ahora un libro o audio de tu campo y prográmalo para tu próximo trayecto o para mañana a primera hora. |
+| 53 | Tu grupo de referencia | Te pareces a las personas con quienes pasas más tiempo: elígelas a conciencia. | 83–85 | T⚠ | ✅ | Aplicar: Escribe a una persona que te inspire y proponle un café o una llamada este mes. |
+| 54 | «La próxima vez…» | Cancela cada error con una instrucción para la próxima vez, no con una etiqueta. | 87 | T | ✅ | Aplicar: Piensa en tu último error y escribe: «La próxima vez, yo ___». |
+| 55 | Metas creíbles | Tu mente rechaza un salto que no cree: súbelo por escalones. | 88–89 | T⚠ | ✅ | Aplicar: Reescríbela como un primer escalón que hoy sí te parezca posible, con cifra y fecha. |
+| 56 | Programar por escrito | Reescribir tus metas cada día, en presente, las graba con vista, mano y atención a la vez. | 90–91 | T | ✅ | Aplicar: Abre Mente → «Metas por escrito» y escribe tres en presente, de memoria. |
+| 57 | El repaso mental | Antes de un momento importante, revive un éxito anterior e imagina el resultado ideal. | 93–94 | T | ✅ | Aplicar: Cierra los ojos dos minutos: revive ese éxito y luego imagina tu próximo momento importante con el mismo sentimiento. |
+| 58 | Tarjetas de metas | Repasa tus metas en tarjetas dos veces al día, relajado y viéndolas ya cumplidas. | 92–97 | T | ✅ | Aplicar: Escribe una tarjeta (o nota fijada en el teléfono) con tu meta principal en presente. Repásala hoy por la tarde, relajado. |
 
 ## 7. Aprender y relajarse / Learning and relaxing
 
 | # | Level | Principle (ES) | Pages | Type | Status | Exercise → practice |
 |---|---|---|---|---|---|---|
-| 59 | Eres más capaz de lo que crees | La inteligencia es una forma de actuar y crece cuando la usas. | 98–99 | T | 📝 | — |
-| 60 | Dos hemisferios y ritmos de la mente | El seminario describe estados relajados como los mejores para aprender. | 100–101 | T⚠ | 📝 | — |
-| 61 | Aprendizaje acelerado | Relajación, música suave y repaso mejoran, según el seminario, la retención. | 102–104 | T⚠ | 📝 | — |
-| 62 | Reglas para aprender | Aprendes mejor con un motivo propio, en bloques cortos y practicando. | 104–105 | T | 📝 | — |
-| 63 | Meditación sencilla | Cierra los ojos, respira hondo y repite una palabra al exhalar. | 106 | T | 📝 | Meditación sencilla |
-| 64 | Relajación con afirmaciones | Relájate a fondo dos veces al día y repasa tus afirmaciones en calma. | 107–111 | T | 📝 | — |
+| 59 | Eres más capaz de lo que crees | La inteligencia se comporta como un músculo: crece cuando la usas. | 98–99 | T | ✅ | Aplicar: Dedica cinco minutos ahora a algo que quieras aprender. Solo el primer paso. |
+| 60 | Dos hemisferios y ritmos de la mente | Según el seminario, se aprende mejor en calma que en estado de agitación. | 100–101 | T⚠ | ✅ | Aplicar: Antes de tu próxima tarea de concentración, haz un minuto de respiración lenta y luego empieza. |
+| 61 | Aprendizaje acelerado | Relajación, música suave y repaso: tres apoyos que el seminario propone para recordar más. | 102–104 | T⚠ | ✅ | Aplicar: Repasa ahora, durante tres minutos, lo último que aprendiste (en la app o fuera de ella). |
+| 62 | Reglas para aprender | Aprendes mejor con un propósito propio, variedad y sesiones cortas. | 104–105 | T | ✅ | Aplicar: Escribe en una línea: «Aprendo ___ para ___». Colócala donde estudias. |
+| 63 | Meditación sencilla | Cerrar los ojos, respirar hondo y repetir una palabra al exhalar: con eso basta para empezar. | 106 | T⚠ | ✅ | Aplicar: Abre Mente → «Meditación sencilla» y haz los cinco minutos ahora. |
+| 64 | Relajación con afirmaciones | Relájate a fondo dos veces al día y repasa tus afirmaciones en ese estado de calma. | 107–111 | T⚠ | ✅ | Aplicar: Haz ahora dos minutos: ojos cerrados, afloja hombros y mandíbula, y repite despacio tu afirmación principal. |
 
 ## 8. Metas: la habilidad maestra / Goals: the master skill
 
 | # | Level | Principle (ES) | Pages | Type | Status | Exercise → practice |
 |---|---|---|---|---|---|---|
-| 65 | El éxito son las metas | Quien no tiene metas propias trabaja para las metas de otros. | 112–113 | T | 📝 | — |
-| 66 | Un mecanismo que busca metas | Tu mente avanza sola hacia una meta clara; sin meta, da vueltas. | 114–115 | T | 📝 | — |
-| 67 | Por qué casi nadie fija metas | No nos enseñaron cómo, tememos la crítica y tememos fallar. | 115–117 | T | 📝 | — |
-| 68 | Fallar es aprender | Cada tropiezo trae una lección; quien más intenta, más aprende. | 117–118 | T | 📝 | — |
-| 69 | Acres de diamantes | Muchas veces la oportunidad está donde ya estás; mírala antes de irte. | 120 | T | 📝 | — |
-| 70 | Metas en equilibrio | Fija metas personales y familiares, de trabajo y de mejora propia. | 120–121 | T | 📝 | — |
-| 71 | Las siete preguntas | Responder rápido a siete preguntas revela lo que de verdad quieres. | 122–124 | T | 📝 | Las siete preguntas |
-| 72 | Metas que encajan con tus valores | La autoestima sube cuando tus metas y tus valores coinciden. | 124 | T | 📝 | Las siete preguntas |
-| 73 | Tu propósito principal definido | Elige la meta que más cambiaría tu vida y dale prioridad. | 125–126 | T | 📝 | — |
-| 74 | Pasos 1 y 2: deseo y creencia | Quiérelo de verdad y hazlo creíble para ti. | 126–127 | T | 📝 | — |
-| 75 | Paso 3: escríbelo | Una meta sin escribir es un deseo; al escribirla la concretas. | 127–128 | T | 📝 | — |
-| 76 | Paso 4: tus porqués | Cuantas más razones tengas, más fuerza tendrás para persistir. | 128–129 | T | 📝 | — |
-| 77 | Pasos 5 y 6: punto de partida y fecha | Mide dónde estás hoy y ponle fecha a la meta. | 129–130 | T | 📝 | — |
-| 78 | Paso 7: tu mayor obstáculo | Identifica la roca principal del camino y empieza por ella. | 130–132 | T | 📝 | — |
-| 79 | Pasos 8 y 9: saber y cooperar | Define qué necesitas aprender y a quién necesitas ayudar para que te ayuden. | 132–135 | T | 📝 | — |
-| 80 | Pasos 10–12: plan, imagen y persistencia | Haz una lista ordenada, visualiza el resultado y no te rindas. | 135–136 | T | 📝 | — |
+| 65 | El éxito son las metas | Si no tienes metas propias, acabas trabajando para las de otra persona. | 112–113 | T⚠ | ✅ | Aplicar: Escribe en una frase qué te gustaría haber logrado dentro de doce meses. |
+| 66 | Un mecanismo que busca metas | Estás hecho para avanzar hacia objetivos: dale uno claro o caerás en la comodidad. | 114–115 | T | ✅ | Aplicar: Para esa área, escribe un objetivo para los próximos siete días, con número. |
+| 67 | Por qué casi nadie fija metas | No nos enseñaron cómo, tememos la crítica y tememos fallar: tres frenos que puedes soltar. | 115–117 | T | ✅ | Aplicar: Escríbelo ahora, solo para ti. Debajo, un primer paso que nadie tiene por qué saber. |
+| 68 | Fallar es aprender | Cada intento fallido descarta un camino y te acerca al que funciona. | 117–118 | T | ✅ | Aplicar: Piensa en un intento reciente que salió mal y escribe dos lecciones concretas que te dejó. |
+| 69 | Acres de diamantes | Antes de buscar lejos, mira bajo tus pies: tu oportunidad suele estar donde ya estás. | 120 | T | ✅ | Aplicar: Escribe cinco recursos que ya tienes (habilidades, personas, experiencia) y una oportunidad que salga de uno de ellos. |
+| 70 | Metas en equilibrio | Tres tipos de meta: el porqué (personales y familiares), el cómo (trabajo) y los medios (mejora propia). | 120–121 | T | ✅ | Aplicar: Escribe una meta de cada tipo. Marca la que hoy pesa menos en tu agenda y agenda una acción para ella. |
+| 71 | Las siete preguntas | Responder deprisa, sin editar, revela lo que de verdad quieres. | 122–124 | T | ✅ | Aplicar: Abre Mente → «Las siete preguntas» y respóndelas ahora, deprisa y sin corregir. |
+| 72 | Metas que encajan con tus valores | El malestar aparece cuando vives contra lo que valoras: alinea metas y valores. | 124 | T | ✅ | Aplicar: Escribe tus tres valores principales y, junto a cada uno, el tiempo que le diste la semana pasada. Ajusta una cosa. |
+| 73 | Tu propósito principal definido | Una meta por encima de las demás: la que, lograda, más cambiaría tu vida. | 125–126 | T | ✅ | Aplicar: Abre el Arquitecto de metas y define (o confirma) tu meta principal. |
+| 74 | Pasos 1 y 2: deseo y creencia | Quiérelo de verdad —que sea tuya— y hazla creíble para ti. | 126–127 | T | ✅ | Aplicar: Califica del 1 al 10 cuánto la deseas y cuánto la crees posible. Si algo baja de 7, ajústala hasta que suba. |
+| 75 | Paso 3: escríbelo | Una meta sin escribir es un deseo; por escrito, clara y detallada, se vuelve un compromiso. | 127–128 | T | ✅ | Aplicar: Escríbela ahora con todo detalle: qué, cuánto y cómo sabrás que la lograste. |
+| 76 | Paso 4: tus porqués | Las razones son el combustible: cuantas más tengas, más aguantarás. | 128–129 | T | ✅ | Aplicar: Escribe al menos diez razones por las que quieres tu meta principal. Subraya las tres que más te mueven. |
+| 77 | Pasos 5 y 6: punto de partida y fecha | Mide dónde estás hoy y ponle fecha a la meta, con recompensas por el camino. | 129–130 | T | ✅ | Aplicar: Anota tu punto de partida con un número y una fecha límite. Define una recompensa para la mitad del camino. |
+| 78 | Paso 7: tu mayor obstáculo | Entre tú y tu meta hay obstáculos; uno es la roca principal. Empieza por esa. | 130–132 | T | ✅ | Aplicar: Lista cinco obstáculos, marca el mayor y escribe la primera acción para moverlo. |
+| 79 | Pasos 8 y 9: saber y cooperar | Define qué necesitas aprender y a quién necesitas —y cómo puedes servirles primero. | 132–135 | T⚠ | ✅ | Aplicar: Escribe una habilidad que necesitas y una persona clave. Decide hoy qué le ofrecerás tú primero. |
+| 80 | Pasos 10 a 12: plan, imagen y persistencia | Haz una lista ordenada, visualiza el resultado cada día y decide de antemano que no te rendirás. | 135–136 | T | ✅ | Aplicar: Escribe las cinco próximas acciones de tu meta en orden. Haz la primera hoy. |
 
 ## 9. Tiempo y ejecución / Time and execution
 
 | # | Level | Principle (ES) | Pages | Type | Status | Exercise → practice |
 |---|---|---|---|---|---|---|
-| 81 | Claridad antes que prisa | Muchos pierden tiempo porque no saben con claridad qué quieren. | 136–138 | T | 📝 | — |
-| 82 | Piensa en papel | Empieza cada día con una lista escrita de lo que harás. | 138 | T | 📝 | — |
-| 83 | Lo vital frente a lo trivial | Pregúntate cuál es el uso más valioso de tu tiempo ahora mismo. | 139 | T | 📝 | — |
-| 84 | Una sola cosa hasta terminar | Toma la tarea más importante y no la sueltes hasta acabarla. | 140 | T | 📝 | — |
-| 85 | Sentido de urgencia | Prioriza bien y luego muévete rápido. | 141 | T | 📝 | — |
-| 86 | Hazlo ahora | Terminar una tarea da energía; dejarla a medias la roba. | 174 | T | 📝 | Perdonar y soltar |
+| 81 | Claridad antes que prisa | Dominar tu tiempo empieza por saber con exactitud qué quieres lograr con él. | 136–138 | T | ✅ | Aplicar: Escribe en una línea el resultado más importante de hoy. Solo uno. |
+| 82 | Piensa en papel | Saca todo de la cabeza a una lista, mejor la noche anterior. | 138 | T | ✅ | Aplicar: Escribe ahora la lista completa de mañana. No la ordenes todavía: solo vacía la mente. |
+| 83 | Lo vital frente a lo trivial | Pocas cosas, las correctas: ordena tu lista por consecuencias, no por comodidad. | 139 | T | ✅ | Aplicar: Toma tu lista de hoy y marca cada tarea con A, B, C, D o E. Empieza por la A más importante. |
+| 84 | Una sola cosa hasta terminar | Empieza por la tarea más importante y no la sueltes hasta acabarla. | 140 | T | ✅ | Aplicar: Usa el modo de enfoque de 25 minutos con esa tarea. Nada más hasta que suene. |
+| 85 | Urgencia y equilibrio | Decide bien qué va primero y muévete rápido; y deja cada día un espacio para lo que importa. | 141 | T | ✅ | Aplicar: Elige una tarea importante de hoy y hazla en la próxima hora. Luego agenda treinta minutos para alguien cercano. |
+| 86 | Hazlo ahora | Lo que terminas te da energía; lo que dejas a medias te la quita. | 174 | T | ✅ | Aplicar: Di tres veces «hazlo ahora» y haz ese pendiente antes de seguir con cualquier otra cosa. |
 
 ## 10. Creatividad e intuición / Creativity and intuition
 
 | # | Level | Principle (ES) | Pages | Type | Status | Exercise → practice |
 |---|---|---|---|---|---|---|
-| 87 | La mente superconsciente | El seminario describe una fuente de ideas que se activa con metas claras. | 141–144 | T⚠ | 📝 | — |
-| 88 | Claridad y expectativa confiada | Define con precisión lo que quieres y espera con calma una solución. | 145–146 | T | 📝 | — |
-| 89 | Los obstáculos enseñan | Las dificultades del camino suelen traer la lección que necesitabas. | 148–149 | T | 📝 | — |
-| 90 | Coincidencias útiles | Con una meta clara notas personas y datos que antes pasaban de largo. | 150–151 | T⚠ | 📝 | — |
-| 91 | Entrar en el silencio | Siéntate a solas y en silencio de 30 a 60 minutos y escucha lo que surge. | 152–153 | T | 📝 | Entrar en el silencio |
-| 92 | Concentración como un láser | Enfocar toda tu atención en una sola pregunta multiplica tus ideas. | 154–156 | T | 📝 | — |
-| 93 | El método de las 20 ideas | Escribe tu meta como pregunta y oblígate a dar 20 respuestas. | 157–158 | T | 📝 | Método de las 20 ideas |
-| 94 | Resolver problemas con método | Llámalo situación, defínelo por escrito, busca causas y varias soluciones. | 159–162 | T | 📝 | — |
-| 95 | Lluvia de ideas en grupo | Separa generar ideas de evaluarlas para que fluyan más y mejores. | 163 | T | 📝 | — |
+| 87 | La mente superconsciente | El seminario llama así a la fuente de tus mejores ideas: se activa con una meta clara y un deseo intenso. | 141–144 | T⚠ | ✅ | Aplicar: Escribe tu problema actual como una pregunta clara. Déjala reposar y lleva encima dónde anotar lo que surja hoy. |
+| 88 | En serio y con confianza | Las cosas cambian el día en que decides ir en serio y esperas, con calma, que haya solución. | 145–146 | T | ✅ | Aplicar: Elige una señal concreta de «ir en serio» para esa meta (inscribirte, agendar, pagar, avisar a alguien) y hazla hoy. |
+| 89 | Los obstáculos enseñan | Muchas dificultades del camino traen justo la lección que necesitabas para llegar. | 148–149 | T | ✅ | Aplicar: Piensa en tu mayor dificultad actual y escribe tres cosas que podría estar enseñándote. |
+| 90 | Coincidencias útiles | Con una meta clara empiezas a notar personas, datos y ocasiones que antes pasaban de largo. | 150–151 | T⚠ | ✅ | Aplicar: Cuéntale hoy tu meta a dos personas distintas. Anota cualquier dato, nombre o idea que surja. |
+| 91 | Entrar en el silencio | Sentarte a solas, en silencio, de 30 a 60 minutos deja que la mente se aclare y surjan respuestas. | 152–153 | T⚠ | ✅ | Aplicar: Agenda hoy tu sesión en Mente → «Entrar en el silencio». Si no puedes 30 minutos, empieza con 10. |
+| 92 | Concentración como un láser | Toda tu atención sobre una sola pregunta, con la mente abierta a cualquier respuesta. | 154–156 | T | ✅ | Aplicar: Escribe ese problema arriba de una hoja y piensa solo en él durante diez minutos, anotando todo lo que salga. |
+| 93 | El método de las 20 ideas | Escribe tu meta como pregunta y oblígate a dar veinte respuestas. Luego actúa sobre una. | 157–158 | T | ✅ | Aplicar: Abre Mente → «Método de las 20 ideas», llega al menos a diez ahora y elige una para hoy. |
+| 94 | Resolver problemas con método | Llámalo situación, defínelo por escrito, busca causas y varias soluciones, y decide con fecha. | 159–162 | T | ✅ | Aplicar: Escríbela en una frase clara, lista tres causas posibles y dos soluciones. Pon fecha para decidir. |
+| 95 | Lluvia de ideas en grupo | Una pregunta precisa, muchas ideas sin juzgar y la evaluación para después. | 163 | T | ✅ | Aplicar: Escribe esa pregunta con cifra y plazo y proponla hoy a una o dos personas para una sesión de quince minutos. |
 
 ## 11. Salud, energía y estrés / Health, energy and stress
 
 | # | Level | Principle (ES) | Pages | Type | Status | Exercise → practice |
 |---|---|---|---|---|---|---|
-| 96 | Tu cuerpo también refleja | El seminario aplica la correspondencia a la salud: todo lo que haces cuenta. | 164–165 | T⚠ | 📝 | — |
-| 97 | Peso y alimentación | El seminario propone peso adecuado, comida sencilla y mucha agua. | 165–168 | T⚠ | 📝 | — |
-| 98 | Moverte y no fumar | Ejercicio aeróbico regular y evitar el tabaco como bases de energía. | 168–169 | T⚠ | 📝 | — |
-| 99 | Descanso y afirmaciones de salud | Duerme lo suficiente y háblate de tu salud en presente. | 170–171 | T⚠ | 📝 | — |
-| 100 | Felicidad es avanzar | Te sientes feliz cuando avanzas paso a paso hacia algo que valoras. | 172–173 | T | 📝 | — |
-| 101 | Cerrar asuntos incompletos | Suelta relaciones o trabajos que terminaron: responsabilízate, perdona y desea bien. | 174–175 | T | 📝 | Perdonar y soltar |
-| 102 | Haz lo que temes | Enfrentar el miedo lo reduce; di «puedo hacerlo» y da el paso. | 175–176 | T | 📝 | Perdonar y soltar |
-| 103 | El patrón «tipo A» | Trabajar sin parar para ganar aprobación agota; el seminario propone equilibrio. | 178–181 | T | 📝 | — |
-| 104 | Dejar de negar | Negar un problema crea tensión; nombrarlo es el primer alivio. | 181–182 | T | 📝 | — |
-| 105 | El enojo y su precio | El enojo necesita que te veas como víctima; pregúntate qué precio pagarías por soltarlo. | 183–185 | T | 📝 | — |
+| 96 | Tu cuerpo también refleja | En salud todo cuenta: cada elección diaria suma o resta energía. | 164–165 | T⚠ | ✅ | Aplicar: Elige ese hábito y sustitúyelo hoy una sola vez por una opción que sume. |
+| 97 | Peso y alimentación | El seminario propone comer variado y sencillo, beber agua y reducir azúcar, harina blanca y sal. | 165–168 | T⚠ | ✅ | Aplicar: En tu próxima comida, añade un alimento distinto al habitual y bebe un vaso de agua. |
+| 98 | Moverte y no fumar | Actividad aeróbica regular y dejar el tabaco: las dos palancas físicas que más subraya el seminario. | 168–169 | T⚠ | ✅ | Aplicar: Sal a caminar cinco minutos ahora, o agenda una caminata de veinte para hoy. |
+| 99 | Descanso y diálogo sobre tu salud | Duerme lo que tu cuerpo necesita y háblate de tu salud en presente y en positivo. | 170–171 | T⚠ | ✅ | Aplicar: Decide tu hora de acostarte de hoy y escríbela. Añade una afirmación de salud en presente. |
+| 100 | Felicidad es avanzar | Te sientes bien cuando avanzas, paso a paso, hacia algo que valoras. | 172–173 | T⚠ | ✅ | Aplicar: Elige una meta diminuta para la próxima hora y complétala. |
+| 101 | Cerrar asuntos incompletos | Una relación o un trabajo que terminó «a medias» sigue pesando hasta que lo cierras por dentro. | 174–175 | T⚠ | ✅ | Aplicar: Escribe la carta de tres partes. No hace falta enviarla hoy: basta con escribirla completa. |
+| 102 | Haz lo que temes | El miedo se reduce enfrentándolo: di «puedo hacerlo» y da el paso, una y otra vez. | 175–176 | T⚠ | ✅ | Aplicar: Elige la versión más pequeña de eso que temes y hazla hoy, repitiendo antes «puedo hacerlo». |
+| 103 | El patrón «tipo A» | Vivir con prisa permanente para ganar aprobación agota; se puede elegir otro ritmo. | 178–181 | T⚠ | ✅ | Aplicar: Agenda hoy treinta minutos de descanso sin pantalla y cúmplelos como si fueran una reunión. |
+| 104 | Dejar de negar | Lo que te niegas a mirar te tensa; nombrarlo es el primer alivio. | 181–182 | T⚠ | ✅ | Aplicar: Escribe la respuesta honesta a «¿qué no estoy enfrentando?» y un primer paso pequeño. |
+| 105 | El enojo y su precio | El enojo necesita que te veas como víctima; la responsabilidad lo desarma. | 183–185 | T | ✅ | Aplicar: Escribe ese enojo, el precio de resolverlo y cuándo lo pagarás. |
 
 ## 12. Relaciones, familia y propósito / Relationships, family and purpose
 
 | # | Level | Principle (ES) | Pages | Type | Status | Exercise → practice |
 |---|---|---|---|---|---|---|
-| 106 | El esfuerzo indirecto | Para que se interesen por ti, interésate de verdad por los demás. | 186–187 | T | 📝 | — |
-| 107 | Hacer sentir importante | Lo que haces por la autoestima de otro eleva también la tuya. | 188 | T | 📝 | — |
-| 108 | Aceptar y no discutir | Acepta a la gente como es y busca entender antes de ser entendido. | 188–189 | T | 📝 | — |
-| 109 | Eliminar la crítica | Deja de criticar, sobre todo en casa. | 189–190 | T | 📝 | — |
-| 110 | Reconocer y agradecer | Di «gracias» a menudo y sonríe: eleva a quien lo recibe y a ti. | 190 | T | 📝 | — |
-| 111 | Admirar y aprobar | Elogia de forma concreta y a tiempo lo que otros hacen bien. | 190–191 | T | 📝 | — |
-| 112 | Pareja: compatibilidad y comunicación | Las parejas duran por valores compartidos y por hablar y escuchar a diario. | 193–196 | T | 📝 | — |
-| 113 | Errores que desgastan una relación | Querer cambiar al otro, los celos y la autocompasión dañan el vínculo. | 197–199 | T | 📝 | — |
-| 114 | Criar con amor incondicional | Dile a tus hijos que los quieres, míralos, abrázalos y dales atención plena. | 200–204 | T | 📝 | — |
-| 115 | Pedir perdón a un hijo | Reconocer tus errores ante tus hijos les enseña valor y los libera. | 205–207 | T | 📝 | — |
-| 116 | Tu misión | El seminario propone que el propósito es servir a otros con lo mejor de ti. | 207–209 | T | 📝 | — |
-| 117 | Amar y aceptar | Empieza por aceptarte y extiende esa tolerancia a los demás. | 210–211 | T | 📝 | — |
+| 106 | El esfuerzo indirecto | En las relaciones consigues más por el camino indirecto: da primero lo que quieres recibir. | 186–187 | T | ✅ | Aplicar: En tu próxima conversación, haz tres preguntas sobre la otra persona antes de hablar de ti. |
+| 107 | Hacer sentir importante | Lo que haces por la autoestima de otra persona eleva también la tuya. | 188 | T | ✅ | Aplicar: Elige a una persona y haz hoy algo concreto para que se sienta valiosa. |
+| 108 | Aceptar y entender primero | Acepta a la gente como es y, antes de defender tu punto, entiende el suyo. | 188–189 | T | ✅ | Aplicar: En tu próximo desacuerdo, di primero: «ayúdame a entender cómo lo ves» y escucha sin interrumpir. |
+| 109 | Eliminar la crítica | La crítica destructiva es lo que más hunde la autoestima: sácala de tu casa y de tu trabajo. | 188–190 | T | ✅ | Aplicar: Durante las próximas 24 horas, no critiques a nadie en casa. Si necesitas corregir, usa «la próxima vez…». |
+| 110 | Reconocer y agradecer | «Gracias», dicho a menudo y de verdad, eleva a quien lo recibe y a quien lo dice. | 190 | T⚠ | ✅ | Aplicar: Da las gracias hoy a tres personas, de forma concreta. Después abre Mente → «Diario de gratitud». |
+| 111 | Admirar, aprobar y escuchar | Elogia lo concreto, a tiempo, y regala tu atención completa. | 190–191 | T | ✅ | Aplicar: Hoy, haz un elogio específico a alguien y escucha a otra persona cinco minutos sin interrumpir ni mirar pantallas. |
+| 112 | Pareja: compatibilidad y comunicación | Las parejas duran por lo que comparten en el fondo y por hablarse y escucharse cada día. | 193–196 | T⚠ | ✅ | Aplicar: Hoy pregunta «¿cómo te fue?» y escucha cinco minutos sin interrumpir ni aconsejar. |
+| 113 | Errores que desgastan una relación | Falta de compromiso, querer cambiar al otro, celos y autocompasión: cuatro desgastes evitables. | 197–199 | T⚠ | ✅ | Aplicar: Escribe tres cosas que aprecias de esa persona tal como es y dile una hoy. |
+| 114 | Criar con amor incondicional | Dile que lo quieres, míralo, abrázalo, escúchalo y repítele «creo en ti». | 200–204 | T⚠ | ✅ | Aplicar: Hoy dile «creo en ti» a un niño o joven de tu vida (o a alguien a tu cargo), con un motivo concreto. |
+| 115 | Pedir perdón a un hijo | Reconocer tus errores ante tus hijos derriba el muro que levantó la crítica. | 205–207 | T | ✅ | Aplicar: Escribe esa disculpa en dos frases y dila hoy, si es posible. |
+| 116 | Tu misión | Tu propósito aparece donde lo que más te llama se cruza con una forma de servir a otros. | 207–209 | T⚠ | ✅ | Aplicar: Completa: «Mi forma de contribuir es ___, para ___». Guárdala como tu identidad en Perfil. |
+| 117 | Amar y aceptar | Empieza por aceptarte sin condiciones; desde ahí se extiende la tolerancia a los demás. | 210–211 | T | ✅ | Aplicar: Escribe los tres principios que seguirás practicando cada día y conviértelos en hábitos en la app. |
 
 ## Practices derived from the source
 

@@ -144,13 +144,13 @@ await step('habits: habit from goal exists, check today', async () => {
   await tap('habit-Leer 15 minutos');
 });
 
-await step('journey map: 110 levels, unlock + locked info', async () => {
+await step('journey map: 117 playable levels, sequential unlock', async () => {
   await page.goto(`${base}/journey`);
   await see('Nivel 2 de tu ascenso');
   await page.waitForTimeout(600);
   await shot('11-journey');
   await tap('node-3'); await see('Completa el nivel anterior'); await page.getByText('Entendido').click();
-  await tap('node-40'); await see('Lección en preparación'); await page.getByText('Entendido').click();
+  await tap('node-117'); await see('Amar y aceptar'); await see('Completa el nivel anterior'); await page.getByText('Entendido').click();
 });
 
 await step('mind studio: gratitude journal', async () => {
@@ -227,6 +227,12 @@ await step('language switch keeps progress', async () => {
 await step('persistence across reload + level 2 playable in English', async () => {
   await page.reload(); await see('Today’s mission');
   await tap('start-level'); await see('Peace of mind');
+});
+
+await step('late levels load with their chapter art and lesson (l45, l80, l117)', async () => {
+  for (const [id, text] of [['l45', '21-day mental diet'], ['l80', 'Steps 10 to 12'], ['l117', 'Love and accept']]) {
+    await page.goto(`${base}/level/${id}`); await see(text); await tap('next-card');
+  }
 });
 
 await step('small screen (320×568) has no horizontal overflow', async () => {

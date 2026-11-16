@@ -35,12 +35,21 @@ describe('program map', () => {
     expect([...seq].sort((a, b) => a - b)).toEqual(seq);
     for (const c of chapters) expect(path.some((p) => p.chapter === c.n)).toBe(true);
   });
-  it('ties every blueprint level to real source pages and a bilingual principle', () => {
-    for (const b of blueprint) {
-      expect(b.pages.length).toBeGreaterThan(0);
-      expect(b.pages.every((p) => p >= 1 && p <= TOTAL_PAGES)).toBe(true);
-      expect(b.principle.es.length).toBeGreaterThan(20);
-      expect(b.principle.en.length).toBeGreaterThan(20);
+  it('publishes every level of every chapter (no blueprint placeholders left)', () => {
+    expect(blueprint).toEqual([]);
+    expect(authored.length).toBe(totalLevels);
+    for (const c of chapters) expect(authored.filter((l) => l.chapter === c.n).length).toBeGreaterThanOrEqual(4);
+  });
+  it('flags caveats on the metaphysical, historical and health lessons', () => {
+    const flagged = authored.filter((l) => l.caveat).map((l) => l.id);
+    for (const id of ['l09', 'l10', 'l60', 'l61', 'l65', 'l87', 'l96', 'l97', 'l98', 'l99']) expect(flagged).toContain(id);
+  });
+  it('keeps every lesson short enough for a three-minute level', () => {
+    for (const l of authored) {
+      expect(l.cards.length).toBeLessThanOrEqual(5);
+      expect(l.exercises.length).toBeLessThanOrEqual(6);
+      const chars = l.cards.reduce((n, c) => n + c.body.es.length + c.example.es.length, 0);
+      expect(chars).toBeLessThan(1400);
     }
   });
   it('covers the transcript broadly (no long unmapped stretches)', () => {
