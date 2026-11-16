@@ -66,7 +66,7 @@ const rows: Row[] = [
   [6, '88-89', 0, 'Metas creíbles', 'Believable goals', 'Una meta demasiado lejana no la cree tu mente; sube por escalones.', 'Your mind will not believe a goal that is too far; climb by steps.'],
   [6, '90-91', 0, 'Programar por escrito', 'Programming in writing', 'Escribir tus metas en presente cada día las graba con más fuerza.', 'Writing your goals in the present tense every day engraves them more deeply.'],
   [6, '93-94', 0, 'El repaso mental', 'Mental rehearsal', 'Antes de un evento, recuerda un éxito anterior e imagina el resultado ideal.', 'Before an event, recall a past success and picture the ideal outcome.'],
-  [6, '95-97', 0, 'Tarjetas de metas', 'Goal cards', 'Repasa tus metas en tarjetas dos veces al día, relajado y viéndolas cumplidas.', 'Review your goals on cards twice a day, relaxed and seeing them achieved.'],
+  [6, '92,95-97', 0, 'Tarjetas de metas', 'Goal cards', 'Repasa tus metas en tarjetas dos veces al día, relajado y viéndolas cumplidas.', 'Review your goals on cards twice a day, relaxed and seeing them achieved.'],
   // 7 — Aprender y relajarse
   [7, '98-99', 0, 'Eres más capaz de lo que crees', 'You are more capable than you think', 'La inteligencia es una forma de actuar y crece cuando la usas.', 'Intelligence is a way of acting and it grows when you use it.'],
   [7, '100-101', 1, 'Dos hemisferios y ritmos de la mente', 'Two hemispheres and rhythms of mind', 'El seminario describe estados relajados como los mejores para aprender.', 'The seminar describes relaxed states as the best for learning.'],

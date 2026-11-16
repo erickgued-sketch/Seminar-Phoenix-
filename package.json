@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.3.0",
+    "tsx": "^4.23.15",
     "typescript": "~6.0.3",
     "vitest": "^5.1.0"
   },
@@ -40,8 +41,10 @@
     "export:web": "expo export -p web",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "content:validate": "vitest run tests/content.test.ts",
-    "docs:matrix": "node --experimental-strip-types scripts/build-matrix.ts"
+    "docs:matrix": "tsx scripts/content.mts matrix",
+    "content": "tsx scripts/content.mts",
+    "e2e": "expo export -p web && node scripts/e2e.mjs",
+    "test:db": "./scripts/test-migration.sh"
   },
   "private": true
 }

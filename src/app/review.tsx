@@ -52,7 +52,7 @@ export default function Review() {
               <ScoreRing value={score.total} size={92} label="SCORE" />
               <View style={{ flex: 1, gap: 2 }}>
                 <Txt v="h3">{score.rank[lang]}</Txt>
-                <Txt v="small" color={colors.text2}>{t(`${r.levels.length} niveles · ${r.evidence} evidencias · ${r.practices} prácticas · ${r.prioritiesDone}/${r.prioritiesSet} prioridades`, `${r.levels.length} levels · ${r.evidence} evidence logs · ${r.practices} practices · ${r.prioritiesDone}/${r.prioritiesSet} priorities`)}</Txt>
+                <Txt v="small" color={colors.text2}>{t(`Niveles: ${r.levels.length} · Evidencias: ${r.evidence} · Prácticas: ${r.practices} · Prioridades: ${r.prioritiesDone}/${r.prioritiesSet}`, `Levels: ${r.levels.length} · Evidence: ${r.evidence} · Practices: ${r.practices} · Priorities: ${r.prioritiesDone}/${r.prioritiesSet}`)}</Txt>
               </View>
             </Card>
             {r.goal ? (
