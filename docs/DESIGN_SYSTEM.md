@@ -40,7 +40,10 @@ Source of truth: [`src/theme/tokens.ts`](../src/theme/tokens.ts). Components: [`
 Every screen handles: loading (root spinner until fonts + storage hydrate), empty (`Empty`, or Rai with a next step), error (inline message; coach falls back to local), success (Rai + XP).
 
 ## Motion
-Press 120 ms · enter 320 ms · Rai breathing 2.2 s loop · celebration bounce 0.5 s · current-level pulse 0.9 s. All loops and entrances are disabled when the OS "Reduce Motion" setting is on.
+Press 120 ms · card and exercise slide-in (spring) · wrong answer shakes, right answer pops · progress bars spring to value · confetti burst and XP count-up on level complete · pulsing primary button and walking Rai on the current level · Rai frame loops ~1 s. Cards also respond to swipe. All loops, entrances and frame animations are replaced by their resting state when the OS "Reduce Motion" setting is on.
+
+## Sound
+Eleven short tones (tap, select, card, correct, wrong, check, xp, complete, levelup, bell, nudge) confirm actions; never used as the only signal, and switchable in Profile.
 
 ## Accessibility
 Touch targets ≥ 44 pt · roles and labels on every control (`button`, `radio`, `checkbox`, `progressbar`, `header`) · selected/checked/disabled states announced · feedback panel is a live region · colour is never the only signal (✓, ★, 🔒, text) · text contrast ≥ 4.5:1 for body.

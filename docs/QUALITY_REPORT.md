@@ -6,10 +6,10 @@
 |---|---|---|
 | TypeScript strict | 0 errors | `npm run typecheck` |
 | ESLint (`expo lint`, React Compiler rules) | 0 problems | `npx expo lint` |
-| Unit + content tests | **57 / 57 pass** | `npm test` |
-| End-to-end in Chromium (exported web build, 390×844) | **18 / 18 steps pass**, 0 console errors | `npm run e2e` |
+| Unit + content tests | **158 / 158 pass** | `npm test` |
+| End-to-end in Chromium (exported web build, 390×844) | **19 / 19 steps pass**, 0 console errors | `npm run e2e` |
 | Database migration + Row Level Security | **18 / 18 checks pass** on PostgreSQL 16 | `npm run test:db` |
-| Web export | builds; 7.6 MB total, 1.1 MB entry JS, 1.5 MB art | `npm run export:web` |
+| Web export | builds; 6.3 MB total (2.1 MB JS including all 117 lessons, 2.7 MB art and animation, 0.14 MB sound) | `npm run export:web` |
 
 ## What the end-to-end run proves
 
@@ -21,14 +21,15 @@ Time from first screen to first win in the automated run: ~11 s (a person readin
 
 | Check | Result |
 |---|---|
-| Authored levels pass the validator (structure, bilingual, 3+ exercise types, action ≤ 5 min, pages cited) | 18 / 18 |
+| Levels pass the validator (structure, bilingual, 3+ exercise types, action ≤ 5 min, pages cited) | 117 / 117 |
 | No repeated titles or principles | ✓ |
 | Program map: sequential, unique ids, chapters in order | 117 levels, 12 chapters |
-| Transcript coverage by mapped levels | 204 / 211 pages (97 %) |
+| Transcript coverage by levels | 205 / 211 pages (97 %) |
+| Lessons short enough for a 3-minute level; caveats present on metaphysical, historical and health lessons | ✓ (unit tests) |
 | Practices sourced or labelled as complements | 14 / 14 |
 | Copy check detects verbatim source text | ✓ (unit test) |
 
-**How the lessons were grounded.** The full 211-page transcript was extracted and indexed by page; every law and exercise was located by search, and the passages behind the 18 authored levels and the practices were read directly. Blueprint rows were written from a per-page digest plus keyword index, so their page ranges are accurate to the section but their one-line principles should be re-read against the source when each level is generated (the generator receives the pages themselves).
+**How the lessons were grounded.** The full 211-page transcript was extracted and indexed by page. For every level, the key passage on its pages was located by search and read before writing (roughly 600 characters around each principle), and the lesson was then written as original text. This is targeted reading, not a line-by-line review of all 211 pages: named lists, steps and figures were checked against the passage, but a secondary detail in a card may come from the wider seminar tradition rather than that exact page. A human read-through of each chapter against the source is still advisable before commercial release.
 
 ## Problems found and fixed during QA
 
@@ -57,8 +58,9 @@ Time from first screen to first win in the automated run: ~11 s (a person readin
 
 ## Known gaps in scope
 
-- Levels 19–117 are mapped but not playable; published levels are not yet fetched from the database.
+- Levels generated later through the cloud pipeline are not yet fetched from the database (the 117 bundled levels need no server).
 - Vault accepts pasted text only (no PDF upload) and is on-device.
 - No paywall/purchases, share cards, server push, analytics or crash reporting.
-- No video/Rive motion; Rai is animated in code.
+- Rai's animations are 12-frame loops at 384 px (GIF-derived, 1-bit transparency edges); no video clips or rigged character.
+- Sounds were verified to load and trigger without errors in the browser run, but nobody has listened to them on a device: volume and character need a human ear.
 - Per-level personalisation of the action is a template using the user's goal, not an LLM rewrite.

@@ -11,7 +11,7 @@ Two engines behind one interface (`askCoach` in `src/lib/coach/index.ts`). The a
 
 ## Knowledge base
 
-`src/lib/coach/kb.ts` builds **129 chunks × 2 languages**: every authored level (principle + cards), every blueprint principle, and every seminar practice. Each chunk carries: title, summary, body, **source pages**, chapter, kind, an action, a reflection question and a caveat where the teaching is not established science. All of it is original paraphrase — the transcript is never bundled or served to clients.
+`src/lib/coach/kb.ts` builds **129 chunks × 2 languages**: every level (principle + cards) and every seminar practice. Each chunk carries: title, summary, body, **source pages**, chapter, kind, an action, a reflection question and a caveat where the teaching is not established science. All of it is original paraphrase — the transcript is never bundled or served to clients.
 
 ## Answer contract (both engines)
 
@@ -42,7 +42,9 @@ So the user can always tell apart: what the seminar teaches, what the coach sugg
 
 Not enabled: server-side refusal fallbacks (`fallbacks`), because they need the beta endpoint and this function could not be exercised against the live API in the build environment. The local-coach fallback covers the same case for the user.
 
-## Content engine (levels 19–117)
+## Content engine (for future chapters)
+
+Levels 1–117 were written by hand in this repository and ship in the bundle. The pipeline below is the path for adding chapters later (for example from a user's own vault).
 
 ```
 blueprint row (title, principle, pages)          src/content/curriculum.ts
@@ -60,7 +62,7 @@ human review → status `published` → readable by the app
 
 The validator is the same file the unit tests run against the 18 authored levels (`src/lib/validateLevel.ts`).
 
-**Remaining wiring:** the app currently reads levels from its bundle. Loading `published` rows from the `levels` table into the Journey map is not implemented yet, so generated levels do not appear in the app until that fetch (or a bundle export step) is added.
+**Remaining wiring:** the app reads levels from its bundle. Loading `published` rows from the `levels` table into the Journey map is not implemented yet, so *generated* levels would not appear in the app until that fetch (or a bundle export step) is added.
 
 ## Ingestion
 

@@ -24,7 +24,7 @@ Learning without applying is not full progress: *Application* is the largest com
 | 1 | RISEPRO vs NEXTME | One brand: **NEXTME AI**, tiger mascot **Rai**. RISEPRO contributes strategy only (goal architecture, daily loop, CEO review, score). | The brief asks for a single identity. |
 | 2 | "Not a course app" (RISEPRO) vs 100-level program (NEXTME) | The program is the spine, but every level ends in a real-life action and the home screen is *Today's Mission*, not the map. | Keeps the daily game without becoming a PDF-turned-course. |
 | 3 | Dark premium (RISEPRO tone) vs bright cream (NEXTME) | Bright cream + orange. | Explicit palette in the master prompt. |
-| 4 | "100+ levels" vs "no placeholder levels" | 117 levels are **mapped** to source pages; 18 are fully authored. The other 99 show as "in preparation" and become playable only after generation **and** validation. | Honest scope; no fake lessons. |
+| 4 | "100+ levels" vs "no placeholder levels" | All **117 levels are fully authored** (3 cards, 4 exercises, reflection, action, evidence prompt, ES + EN) and pass the validator. The blueprint/generator path stays for future chapters. | No fake lessons. |
 | 5 | Chapter structure | 12 chapters instead of the suggested 10, following the transcript's real order (time management, creativity and health each needed their own chapter). | The PDF is the authority on content. |
 | 6 | Sign-up | None required. Local-first; optional account only for backup. | First win in < 3 min, privacy by default. |
 | 7 | AI coach without a server | On-device retrieval + grounded composer ships now; the cloud coach (RAG + Claude) is a drop-in upgrade behind the same interface. | The app must be useful with zero credentials and offline. |
@@ -57,4 +57,4 @@ Shown with its formula in the app. It is an activity index — not a measure of 
 
 ## Not in this version
 
-Paywall and purchases · push from a server (only a local daily reminder) · share cards · leagues/friends · voice · PDF upload in the vault (paste text only) · video/Rive animation · analytics and crash reporting SDKs · levels 19–117 as playable content.
+Paywall and purchases · push from a server (only a local daily reminder) · share cards · leagues/friends · voice · PDF upload in the vault (paste text only) · video clips · analytics and crash reporting SDKs.

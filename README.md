@@ -12,8 +12,9 @@ App móvil (iOS · Android · web) que convierte los principios del Seminario F�
 | Área | Estado |
 |---|---|
 | Onboarding conversacional sin registro → primer nivel | ✅ |
-| Reproductor de niveles: tarjetas → 4 minijuegos (+ escenario) → reflexión → acción personalizada | ✅ |
-| Programa Fénix: **117 niveles** mapeados a páginas; **18 jugables** redactados a mano; 99 en plano | ✅ / 📝 |
+| Reproductor de niveles: tarjetas deslizables → 4 minijuegos (+ escenario) → reflexión → acción personalizada | ✅ |
+| Rai animado (9 animaciones en bucle), 11 sonidos de interfaz, confeti y respuesta háptica; respeta «Reducir movimiento» y se puede silenciar | ✅ |
+| Programa Fénix: **117 niveles jugables** en 12 capítulos, todos redactados y trazados a las páginas del seminario | ✅ |
 | Evidencia de aplicación (PROVE) y repaso espaciado 1-3-7-14-30 días | ✅ |
 | Hoy: Morning Prime, lección, acción pendiente, hábitos, reflexión nocturna, sesiones de 3/10/25 min | ✅ |
 | Arquitecto de metas: plan de 90 días editable y aprobable | ✅ |
@@ -40,8 +41,8 @@ No necesita cuentas ni claves: funciona 100 % en el dispositivo. La nube es opci
 ```bash
 npm run typecheck    # TypeScript estricto
 npx expo lint        # ESLint con las reglas de React
-npm test             # 57 pruebas: lógica + validación de contenido
-npm run e2e          # compila web y recorre el flujo real en Chromium (18 pasos)
+npm test             # 158 pruebas: lógica + validación de los 117 niveles
+npm run e2e          # compila web y recorre el flujo real en Chromium (19 pasos)
 npm run test:db      # migración + 18 pruebas de Row Level Security (necesita Postgres local)
 npm run docs:matrix  # regenera la matriz de cobertura del seminario
 ```
