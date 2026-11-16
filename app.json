@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "NEXTME AI",
+    "slug": "nextme-ai",
+    "scheme": "nextme",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": { "image": "./assets/splash-icon.png", "resizeMode": "contain", "backgroundColor": "#FFF8EE" },
+    "ios": { "supportsTablet": false, "bundleIdentifier": "ai.nextme.app" },
+    "android": {
+      "package": "ai.nextme.app",
+      "adaptiveIcon": { "backgroundColor": "#FF9E2C", "foregroundImage": "./assets/android-icon-foreground.png" },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": { "favicon": "./assets/favicon.png", "bundler": "metro", "output": "single" },
+    "plugins": ["expo-router", "expo-localization", "expo-font"],
+    "experiments": { "typedRoutes": false }
+  }
+}
