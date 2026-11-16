@@ -1,6 +1,6 @@
 // Gate for generated lessons. Nothing produced by the content engine is published
 // to the map unless it passes these checks.
-import type { Exercise, L, Level } from '@/content/types';
+import type { Exercise, L, Level } from '../content/types'; // relative on purpose: also imported by the Edge Function
 
 export const TOTAL_PAGES = 211;
 const ok = (l: unknown): l is L =>

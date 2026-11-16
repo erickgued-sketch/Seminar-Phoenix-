@@ -8,6 +8,7 @@ import { Bar, Button, Card, Chip, Field, Label, Screen, Txt } from '@/components
 import { authored, totalLevels } from '@/content/curriculum';
 import { today } from '@/lib/dates';
 import { useLang, useT } from '@/lib/i18n';
+import { cancelDaily, scheduleDaily } from '@/lib/notifications';
 import { computeScore } from '@/lib/score';
 import { snapshot, useStore, type CoachStyle } from '@/lib/store';
 import { cloudEnabled } from '@/lib/supabase';
@@ -22,6 +23,7 @@ export default function Me() {
   const applied = Object.values(s.progress).filter((p) => p.evidence).length;
   const [confirm, setConfirm] = useState(false);
   const [exported, setExported] = useState(false);
+  const [reminder, setReminder] = useState<'idle' | 'on' | 'denied'>('idle');
 
   const exportData = async () => {
     const { hydrated, ...data } = snapshot();
@@ -89,6 +91,7 @@ export default function Me() {
         {link('📊', 'Revisión CEO semanal', 'Weekly CEO Review', '/review', 'link-review')}
         {link('🔭', 'Mi futuro yo', 'My future self', '/future', 'link-future')}
         {link('📚', 'Bóveda de conocimiento', 'Knowledge Vault', '/vault', 'link-vault')}
+        {cloudEnabled ? link('☁️', 'Cuenta y respaldo', 'Account & backup', '/account', 'link-account') : null}
 
         <Label>{t('Preferencias', 'Preferences')}</Label>
         <Card style={{ gap: space.md }}>
@@ -107,6 +110,16 @@ export default function Me() {
               {([['warm', 'Cálido', 'Warm'], ['direct', 'Directo', 'Direct'], ['elite', 'Élite', 'Elite']] as [CoachStyle, string, string][]).map(([k, es, en]) => <Chip key={k} label={t(es, en)} selected={s.profile.coachStyle === k} onPress={() => s.setProfile({ coachStyle: k })} />)}
             </View>
           </View>
+          {Platform.OS !== 'web' ? (
+            <View style={{ gap: 6 }}>
+              <Field label={t('Recordatorio diario (HH:MM)', 'Daily reminder (HH:MM)')} value={s.profile.reminder} onChangeText={(reminder) => s.setProfile({ reminder })} />
+              <View style={{ flexDirection: 'row', gap: space.sm }}>
+                <Button small style={{ flex: 1 }} label={reminder === 'on' ? t('Activado ✓', 'On ✓') : t('Activar', 'Turn on')} disabled={!/^([01]\d|2[0-3]):[0-5]\d$/.test(s.profile.reminder)} onPress={async () => setReminder((await scheduleDaily(s.profile.reminder, lang)) ? 'on' : 'denied')} />
+                <Button small kind="ghost" style={{ flex: 1 }} label={t('Desactivar', 'Turn off')} onPress={async () => { await cancelDaily(); setReminder('idle'); }} />
+              </View>
+              {reminder === 'denied' ? <Txt v="small" color={colors.dangerDeep}>{t('Permiso de notificaciones denegado. Actívalo en los ajustes del sistema.', 'Notification permission denied. Enable it in system settings.')}</Txt> : null}
+            </View>
+          ) : null}
           <Chip testID="consent" label={`${s.profile.memoryConsent ? '✓ ' : ''}${t('El coach puede usar mis metas y registros para personalizar', 'The coach may use my goals and records to personalise')}`} selected={s.profile.memoryConsent} onPress={() => s.setProfile({ memoryConsent: !s.profile.memoryConsent })} />
         </Card>
 
