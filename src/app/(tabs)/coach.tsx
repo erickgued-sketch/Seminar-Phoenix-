@@ -86,17 +86,20 @@ export default function Coach() {
   );
 }
 
-function ReplyCard({ r, t, lang }: { r: CoachReply; t: (es: string, en: string) => string; lang: 'es' | 'en' }) {
-  const src = r.source;
-  const srcLabel = src.kind === 'seminar' || src.kind === 'practice'
-    ? `${t('Seminario Fénix', 'Seminario Fénix')} · ${src.title}${src.pages.length ? ` · p. ${src.pages[0]}${src.pages.length > 1 ? `–${src.pages[src.pages.length - 1]}` : ''}` : ''}`
-    : src.kind === 'vault' ? `${t('Tu bóveda', 'Your vault')} · ${src.title}` : t('Sin fuente: no encontré evidencia', 'No source: I found no evidence');
-  const Row = ({ tag, color, children }: { tag: string; color: string; children: string }) => (
+function Row({ tag, color, children }: { tag: string; color: string; children: string }) {
+  return (
     <View style={{ gap: 2 }}>
       <Txt v="label" color={color}>{tag.toUpperCase()}</Txt>
       <Txt v="body">{children}</Txt>
     </View>
   );
+}
+
+function ReplyCard({ r, t, lang }: { r: CoachReply; t: (es: string, en: string) => string; lang: 'es' | 'en' }) {
+  const src = r.source;
+  const srcLabel = src.kind === 'seminar' || src.kind === 'practice'
+    ? `${t('Seminario Fénix', 'Seminario Fénix')} · ${src.title}${src.pages.length ? ` · p. ${src.pages[0]}${src.pages.length > 1 ? `–${src.pages[src.pages.length - 1]}` : ''}` : ''}`
+    : src.kind === 'vault' ? `${t('Tu bóveda', 'Your vault')} · ${src.title}` : t('Sin fuente: no encontré evidencia', 'No source: I found no evidence');
   return (
     <View testID="coach-reply" style={{ backgroundColor: colors.surface, borderRadius: radius.lg, borderBottomLeftRadius: 8, padding: space.md, gap: space.md, borderWidth: 2, borderColor: r.safety ? colors.danger : colors.line }}>
       <Row tag={t('Idea clave', 'Key insight')} color={colors.primaryDeep}>{r.insight}</Row>

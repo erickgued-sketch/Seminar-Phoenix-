@@ -2,7 +2,7 @@
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AccessibilityInfo, Animated, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View,
   type StyleProp, type TextInputProps, type TextProps, type TextStyle, type ViewStyle,
@@ -62,7 +62,7 @@ const btnColors: Record<BtnKind, { bg: string; edge: string; fg: string }> = {
 
 /** Chunky button that physically depresses on press. */
 export function Button({ label, onPress, kind = 'primary', disabled, small, style, testID }: { label: string; onPress: () => void; kind?: BtnKind; disabled?: boolean; small?: boolean; style?: StyleProp<ViewStyle>; testID?: string }) {
-  const y = useRef(new Animated.Value(0)).current;
+  const y = useState(() => new Animated.Value(0))[0];
   const c = btnColors[kind];
   const to = (v: number) => Animated.timing(y, { toValue: v, duration: motion.press, useNativeDriver: true }).start();
   return (
@@ -142,7 +142,7 @@ export function Label({ children, color = colors.primaryDeep }: { children: stri
 /** Fade + rise entrance; instant when the OS asks for reduced motion. */
 export function Enter({ children, delay = 0, k }: { children: React.ReactNode; delay?: number; k?: string | number }) {
   const reduce = useReduceMotion();
-  const a = useRef(new Animated.Value(0)).current;
+  const a = useState(() => new Animated.Value(0))[0];
   useEffect(() => {
     a.setValue(reduce ? 1 : 0);
     if (!reduce) Animated.timing(a, { toValue: 1, duration: motion.enter, delay, useNativeDriver: true }).start();

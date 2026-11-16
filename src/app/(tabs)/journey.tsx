@@ -1,6 +1,6 @@
 // My Journey — the winding map of the whole Fénix program.
 import { router } from 'expo-router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Animated, Image, Pressable, View } from 'react-native';
 import { Rai } from '@/components/Rai';
 import { Bar, Button, Card, Label, Screen, Txt, haptic, useReduceMotion } from '@/components/ui';
@@ -103,7 +103,7 @@ export default function Journey() {
 
 function Node({ n, state, onPress, label, testID }: { n: number; state: 'done' | 'current' | 'locked' | 'soon'; onPress: () => void; label: string; testID: string }) {
   const reduce = useReduceMotion();
-  const pulse = useRef(new Animated.Value(0)).current;
+  const pulse = useState(() => new Animated.Value(0))[0];
   useEffect(() => {
     if (state !== 'current' || reduce) return;
     const loop = Animated.loop(Animated.sequence([

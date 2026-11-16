@@ -29,6 +29,8 @@
   },
   "devDependencies": {
     "@types/react": "~19.3.0",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~58.0.4",
     "tsx": "^4.23.15",
     "typescript": "~6.0.3",
     "vitest": "^5.1.0"
@@ -44,7 +46,8 @@
     "docs:matrix": "tsx scripts/content.mts matrix",
     "content": "tsx scripts/content.mts",
     "e2e": "expo export -p web && node scripts/e2e.mjs",
-    "test:db": "./scripts/test-migration.sh"
+    "test:db": "./scripts/test-migration.sh",
+    "lint": "expo lint"
   },
   "private": true
 }

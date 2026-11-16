@@ -5,6 +5,7 @@
 | Suite | Result | How to run |
 |---|---|---|
 | TypeScript strict | 0 errors | `npm run typecheck` |
+| ESLint (`expo lint`, React Compiler rules) | 0 problems | `npx expo lint` |
 | Unit + content tests | **57 / 57 pass** | `npm test` |
 | End-to-end in Chromium (exported web build, 390×844) | **18 / 18 steps pass**, 0 console errors | `npm run e2e` |
 | Database migration + Row Level Security | **18 / 18 checks pass** on PostgreSQL 16 | `npm run test:db` |
@@ -38,6 +39,7 @@ Time from first screen to first win in the automated run: ~11 s (a person readin
 | RLS test | In Supabase a column-level `REVOKE` is ineffective under default table grants: a user could have set `role = 'admin'` on their own profile. | Table-level revoke + column-level grants; tests for update **and** insert paths. |
 | visual review | Rai covered the level title on the map; coach showed only a title as the insight for some principles. | Repositioned; chunks carry an explicit summary. |
 | contrast check | White on brand orange ≈ 2.2:1. | Dark-brown text on orange (≈ 8:1). |
+| lint | 22 errors: animated values read from refs during render; a component defined inside another's render. | `useState`-held animated values; component hoisted. |
 
 ## Not verified — be aware
 
@@ -51,7 +53,7 @@ Time from first screen to first win in the automated run: ~11 s (a person readin
 | EAS builds (`.ipa` / `.aab`) | Not produced (needs Expo and store accounts). |
 | Screen reader pass (VoiceOver/TalkBack) | Roles, labels and states are set; not audited with a real screen reader. |
 | 60 fps / memory profiling | Not measured on hardware. |
-| `expo-doctor`, `expo lint` | Not run: both need hosts outside the sandbox allowlist / an ESLint setup that was not added. |
+| `expo-doctor` | Not run. Package versions were pinned from the SDK's own `bundledNativeModules.json` instead. |
 
 ## Known gaps in scope
 

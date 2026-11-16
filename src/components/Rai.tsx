@@ -1,7 +1,7 @@
 // Rai, the NextMe tiger. Art generated with Higgsfield (see docs/ASSET_LIBRARY.md) from one
 // master reference so every state is the same character. Motion (breathing, bounce) is done in
 // code so it stays light and respects reduce-motion.
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Animated, Easing, Image, View } from 'react-native';
 import { colors } from '@/theme/tokens';
 import { useReduceMotion } from './ui';
@@ -27,11 +27,16 @@ const alt: Record<RaiState, string> = {
 
 export function Rai({ state = 'idle', size = 140, breathe }: { state?: RaiState; size?: number; breathe?: number }) {
   const reduce = useReduceMotion();
-  const a = useRef(new Animated.Value(0)).current;
-  const pop = useRef(new Animated.Value(reduce ? 1 : 0.9)).current;
+  const a = useState(() => new Animated.Value(0))[0];
+  const pop = useState(() => new Animated.Value(0.9))[0];
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce) {
+      // Reduce Motion: settle at rest, no loops.
+      pop.setValue(1);
+      a.setValue(0);
+      return;
+    }
     // Idle "breathing": slow for calm states, quicker bounce for celebrations.
     const period = breathe ?? (state === 'celebrate' || state === 'levelup' ? 520 : 2200);
     const loop = Animated.loop(

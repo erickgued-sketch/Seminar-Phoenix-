@@ -39,6 +39,7 @@ No necesita cuentas ni claves: funciona 100 % en el dispositivo. La nube es opci
 
 ```bash
 npm run typecheck    # TypeScript estricto
+npx expo lint        # ESLint con las reglas de React
 npm test             # 57 pruebas: lógica + validación de contenido
 npm run e2e          # compila web y recorre el flujo real en Chromium (18 pasos)
 npm run test:db      # migración + 18 pruebas de Row Level Security (necesita Postgres local)
