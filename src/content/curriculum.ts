@@ -5,6 +5,7 @@
 import { part1 } from './levels/part1';
 import { ch04 } from './levels/ch04';
 import { ch05 } from './levels/ch05';
+import { ch06 } from './levels/ch06';
 import { part2 } from './levels/part2';
 import type { Blueprint, Chapter, Level } from './types';
 
@@ -145,7 +146,7 @@ const parsePages = (s: string): number[] => {
   return out;
 };
 
-export const authored: Level[] = [...part1, ...part2, ...ch04, ...ch05];
+export const authored: Level[] = [...part1, ...part2, ...ch04, ...ch05, ...ch06];
 
 // A chapter leaves the blueprint as soon as its lessons are authored.
 const authoredChapters = new Set(authored.map((l) => l.chapter));
