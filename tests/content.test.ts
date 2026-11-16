@@ -5,9 +5,11 @@ import { practices } from '@/content/practices';
 import { longestSharedRun, TOTAL_PAGES, validateLevel } from '@/lib/validateLevel';
 
 describe('authored levels', () => {
-  it('has 15–20 hand-authored levels', () => {
-    expect(authored.length).toBeGreaterThanOrEqual(15);
-    expect(authored.length).toBeLessThanOrEqual(20);
+  it('has the hand-authored seed plus every chapter written since, with sequential ids', () => {
+    expect(authored.length).toBeGreaterThanOrEqual(18);
+    expect(authored.map((l) => l.id)).toEqual(authored.map((_, i) => `l${String(i + 1).padStart(2, '0')}`));
+    const ch = authored.map((l) => l.chapter);
+    expect([...ch].sort((a, b) => a - b)).toEqual(ch);
   });
   it.each(authored.map((l) => [l.id, l] as const))('%s passes validation', (_id, level) => {
     expect(validateLevel(level)).toEqual([]);
