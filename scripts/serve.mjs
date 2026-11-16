@@ -8,9 +8,8 @@ const types = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'applic
 const port = Number(process.argv[2] ?? 4173);
 createServer(async (req, res) => {
   const p = normalize(decodeURIComponent(new URL(req.url, 'http://x').pathname)).replace(/^(\.\.[/\\])+/, '');
-  try {
-    res.writeHead(200, { 'content-type': types[extname(p)] ?? 'application/octet-stream' }).end(await readFile(join(dist, p)));
-  } catch {
-    res.writeHead(200, { 'content-type': 'text/html' }).end(await readFile(join(dist, 'index.html')));
-  }
+  // Read before writing headers: a directory or missing file must fall through to the SPA shell.
+  const file = await readFile(join(dist, p)).catch(() => null);
+  if (file) res.writeHead(200, { 'content-type': types[extname(p)] ?? 'application/octet-stream' }).end(file);
+  else res.writeHead(200, { 'content-type': 'text/html' }).end(await readFile(join(dist, 'index.html')));
 }).listen(port, () => console.log(`NEXTME AI → http://localhost:${port}`));
