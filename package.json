@@ -47,7 +47,9 @@
     "content": "tsx scripts/content.mts",
     "e2e": "expo export -p web && node scripts/e2e.mjs",
     "test:db": "./scripts/test-migration.sh",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "serve": "node scripts/serve.mjs",
+    "build:page": "expo export -p web && node scripts/build-artifact.mjs"
   },
   "private": true
 }

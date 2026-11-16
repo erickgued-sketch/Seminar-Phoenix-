@@ -1,5 +1,9 @@
-import { Baloo2_700Bold, Baloo2_800ExtraBold } from '@expo-google-fonts/baloo-2';
-import { Nunito_600SemiBold, Nunito_700Bold, Nunito_800ExtraBold } from '@expo-google-fonts/nunito';
+// Per-weight imports: the package index would bundle every weight and italic (~3 MB of fonts).
+import { Baloo2_700Bold } from '@expo-google-fonts/baloo-2/700Bold';
+import { Baloo2_800ExtraBold } from '@expo-google-fonts/baloo-2/800ExtraBold';
+import { Nunito_600SemiBold } from '@expo-google-fonts/nunito/600SemiBold';
+import { Nunito_700Bold } from '@expo-google-fonts/nunito/700Bold';
+import { Nunito_800ExtraBold } from '@expo-google-fonts/nunito/800ExtraBold';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
