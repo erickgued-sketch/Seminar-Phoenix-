@@ -1,5 +1,5 @@
 // Single persisted store (offline-first). Everything the user creates lives here and in
-// AsyncStorage; optional cloud sync mirrors it to Supabase (see src/lib/sync.ts).
+// AsyncStorage; an optional signed-in backup copies it to Supabase (see src/lib/backup.ts).
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -216,7 +216,7 @@ export const useStore = create<State & Actions>()(
       addVault: (title, text) => set((s) => ({ vault: [{ id: uid(), title, text, addedAt: today() }, ...s.vault] })),
       removeVault: (id) => set((s) => ({ vault: s.vault.filter((v) => v.id !== id) })),
       importAll: (data) => set((s) => ({ ...s, ...data, hydrated: true })),
-      resetAll: () => set({ ...initialState(), hydrated: true }),
+      resetAll: () => set((s) => ({ ...initialState(), profile: { ...initialState().profile, lang: s.profile.lang }, hydrated: true })),
     }),
     {
       name: 'nextme-v1',

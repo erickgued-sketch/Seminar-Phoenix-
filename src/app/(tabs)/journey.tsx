@@ -60,7 +60,7 @@ export default function Journey() {
                 const title = nd.kind === 'level' ? nd.level.title[lang] : nd.bp.title[lang];
                 return (
                   <View key={nd.id} style={{ transform: [{ translateX: OFFSETS[i % OFFSETS.length] }], alignItems: 'center' }}>
-                    {isCurrent ? <View style={{ position: 'absolute', top: -58, left: 62, zIndex: 2 }} pointerEvents="none"><Rai state="idle" size={86} /></View> : null}
+                    {isCurrent ? <View style={[{ position: 'absolute', top: -14, zIndex: 2 }, OFFSETS[i % OFFSETS.length] > 0 ? { right: '50%', marginRight: 44 } : { left: '50%', marginLeft: 44 }]} pointerEvents="none"><Rai state="idle" size={92} /></View> : null}
                     <Node
                       n={nd.n}
                       state={isDone ? 'done' : isCurrent ? 'current' : nd.kind === 'blueprint' ? 'soon' : 'locked'}

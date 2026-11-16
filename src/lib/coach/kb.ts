@@ -8,6 +8,8 @@ export type Chunk = {
   id: string;
   kind: 'seminar' | 'practice' | 'vault';
   title: L;
+  /** One-sentence statement of the principle — what the coach quotes as the insight. */
+  summary: L;
   text: L;
   pages: number[];
   chapter?: number;
@@ -26,6 +28,7 @@ export const seminarChunks: Chunk[] = [
     id: lv.id,
     kind: 'seminar',
     title: lv.title,
+    summary: lv.principle,
     text: {
       es: [lv.principle.es, ...lv.cards.map((c) => `${c.title.es}. ${c.body.es}`), chapterOf(lv.chapter).title.es].join(' '),
       en: [lv.principle.en, ...lv.cards.map((c) => `${c.title.en}. ${c.body.en}`), chapterOf(lv.chapter).title.en].join(' '),
@@ -40,6 +43,7 @@ export const seminarChunks: Chunk[] = [
     id: b.id,
     kind: 'seminar',
     title: b.title,
+    summary: b.principle,
     text: { es: `${b.title.es}. ${b.principle.es} ${chapterOf(b.chapter).title.es}`, en: `${b.title.en}. ${b.principle.en} ${chapterOf(b.chapter).title.en}` },
     pages: b.pages,
     chapter: b.chapter,
@@ -49,6 +53,7 @@ export const seminarChunks: Chunk[] = [
     id: `p-${p.id}`,
     kind: 'practice',
     title: p.title,
+    summary: p.what,
     text: { es: `${p.title.es}. ${p.what.es} ${p.steps.map((s) => s.es).join(' ')}`, en: `${p.title.en}. ${p.what.en} ${p.steps.map((s) => s.en).join(' ')}` },
     pages: p.pages,
     action: { es: `Abre Mente → «${p.title.es}» (${p.minutes} min) y complétala ahora.`, en: `Open Mind → "${p.title.en}" (${p.minutes} min) and complete it now.` },

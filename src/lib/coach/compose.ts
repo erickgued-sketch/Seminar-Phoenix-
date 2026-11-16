@@ -54,7 +54,7 @@ export function composeReply(message: string, ctx: Ctx): CoachReply {
     };
   }
   const c = top.chunk;
-  const first = c.text[lang].split(/(?<=[.!?])\s+/).slice(0, c.kind === 'vault' ? 2 : 1).join(' ');
+  const first = c.kind === 'vault' ? c.summary[lang].split(/(?<=[.!?])\s+/).slice(0, 2).join(' ') : c.summary[lang];
   const goalBit = goal
     ? T(lang, `Lo conecto con tu meta «${goal.title}»: ${tone[ctx.profile.coachStyle].es} Aplicarlo hoy te acerca más que entenderlo mejor.`, `I connect it to your goal "${goal.title}": ${tone[ctx.profile.coachStyle].en} Applying it today moves you more than understanding it better.`)
     : T(lang, `${tone[ctx.profile.coachStyle].es} Sin una meta activa es difícil personalizar: créala en Hoy → Arquitecto de metas.`, `${tone[ctx.profile.coachStyle].en} Without an active goal it is hard to personalise: create one in Today → Goal Architect.`);

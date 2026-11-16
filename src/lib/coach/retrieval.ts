@@ -23,7 +23,14 @@ const SYN: Record<string, string[]> = {
 export const tokenize = (s: string): string[] =>
   s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9\s]/g, ' ').split(/\s+/)
     .filter((w) => w.length > 1 && !STOP.has(w))
-    .map((w) => (w.length > 5 ? w.replace(/(aciones|acion|mente|ando|iendo|ing|ness|es|s)$/, '') : w));
+    .map(stem);
+
+/** Light bilingual stemmer so "preocupado", "preocupación" and "preocupaciones" meet on one stem. */
+export function stem(w: string): string {
+  if (w.length <= 5) return w;
+  const s = w.replace(/(aciones|acion|amientos?|imientos?|mente|idades|idad|ando|iendo|ados?|adas?|idos?|idas?|ations?|tions?|ness|ing|ies|ed|ly|ar|er|ir|os|as|es|s|o|a|e|y)$/, '');
+  return s.length >= 4 ? s : w;
+}
 
 const expand = (tokens: string[]): string[] => {
   const out = [...tokens];
@@ -38,7 +45,7 @@ export function vaultChunks(vault: VaultDoc[]): Chunk[] {
       if (last !== undefined && last.length < 360) acc[acc.length - 1] = `${last} ${part}`.trim();
       else acc.push(part.trim());
       return acc;
-    }, []).filter((t) => t.length > 20).map((text, i): Chunk => ({ id: `${doc.id}-${i}`, kind: 'vault', title: { es: doc.title, en: doc.title }, text: { es: text, en: text }, pages: [] })),
+    }, []).filter((t) => t.length > 20).map((text, i): Chunk => ({ id: `${doc.id}-${i}`, kind: 'vault', title: { es: doc.title, en: doc.title }, summary: { es: text, en: text }, text: { es: text, en: text }, pages: [] })),
   );
 }
 
