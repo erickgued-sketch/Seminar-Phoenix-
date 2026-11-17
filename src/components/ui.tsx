@@ -34,7 +34,9 @@ export function Txt({ v = 'body', color = colors.text, center, style, ...p }: Te
 
 /** Page scaffold: cream background with a soft warm bloom, safe areas, centered max width for tablets/web. */
 export function Screen({ children, scroll = true, pad = true, footer, edges = ['top'] }: { children: React.ReactNode; scroll?: boolean; pad?: boolean; footer?: React.ReactNode; edges?: ('top' | 'bottom')[] }) {
-  const body = <View style={[styles.inner, pad && { paddingHorizontal: space.md }]}>{children}</View>;
+  // A non-scrolling screen must be height-bounded (flex: 1 + minHeight: 0); otherwise an inner list grows with its
+  // content, pushes the footer off-screen and nothing can scroll.
+  const body = <View style={[styles.inner, !scroll && styles.innerFixed, pad && { paddingHorizontal: space.md }]}>{children}</View>;
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg }}>
       <LinearGradient colors={['#FFE8CC', colors.bg]} style={styles.bloom} pointerEvents="none" />
@@ -171,6 +173,7 @@ export function Empty({ emoji, title, body }: { emoji: string; title: string; bo
 
 const styles = StyleSheet.create({
   inner: { width: '100%', maxWidth: 560, alignSelf: 'center', flexGrow: 1 },
+  innerFixed: { flex: 1, minHeight: 0 },
   bloom: { position: 'absolute', top: 0, left: 0, right: 0, height: 280 },
   footer: { paddingHorizontal: space.md, paddingTop: space.sm, paddingBottom: space.md, backgroundColor: colors.bg, borderTopWidth: 1, borderTopColor: colors.line },
   footerInner: { width: '100%', maxWidth: 560, alignSelf: 'center', gap: space.sm },

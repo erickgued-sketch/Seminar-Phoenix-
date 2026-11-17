@@ -163,6 +163,7 @@ await step('mind studio: gratitude journal', async () => {
   await tid('p-input-1').fill('Terminar el informe a tiempo');
   await tid('p-input-2').fill('El café de esta mañana');
   await tap('practice-save'); await see('Práctica registrada'); await tap('practice-close');
+  await see('Estudio mental'); // let the back navigation settle before the next page.goto
 });
 
 await step('mind studio: timer practice + steps practice', async () => {
@@ -185,7 +186,19 @@ await step('coach: grounded answer with page citation + modes', async () => {
   await tid('coach-input').fill('¿Cuál es la capital de Mongolia?');
   await tap('coach-send');
   await see('prefiero no inventarlo');
+  // Regression: after long answers the composer stays visible and the thread scrolls (it used to be pushed off-screen).
+  await tid('coach-input').fill('Tengo miedo al rechazo'); await tap('coach-send'); await page.waitForTimeout(700);
+  const box = await tid('coach-input').boundingBox();
+  if (!box || box.y + box.height > 844 || box.y < 0) throw new Error(`composer off-screen: ${JSON.stringify(box)}`);
+  const sc = await tid('coach-scroll').evaluate((el) => ({ h: el.clientHeight, sh: el.scrollHeight, top: el.scrollTop }));
+  if (!(sc.sh > sc.h + 50)) throw new Error(`thread is not scrollable: ${JSON.stringify(sc)}`);
+  if (sc.top + sc.h < sc.sh - 40) throw new Error(`did not auto-scroll to the newest answer: ${JSON.stringify(sc)}`);
+  await tid('coach-scroll').evaluate((el) => { el.scrollTop = 0; });
+  if ((await tid('coach-scroll').evaluate((el) => el.scrollTop)) !== 0) throw new Error('cannot scroll back up');
+  await tid('coach-scroll').evaluate((el) => { el.scrollTop = el.scrollHeight; });
+  await shot('14b-coach-scrolled');
   await tap('mode-2'); await see('Modo 2 min'); await tap('focus-start'); await page.waitForTimeout(1200); await tap('focus-done');
+  await tid('coach-input').waitFor();
 });
 
 await step('evening reflection → adjustment', async () => {
@@ -196,6 +209,7 @@ await step('evening reflection → adjustment', async () => {
   await tap('evening-save');
   await see('AJUSTE PARA MAÑANA'); await see('Preparar la reunión del equipo');
   await tap('evening-close');
+  await page.waitForTimeout(400);
 });
 
 await step('weekly CEO review + future self + profile score', async () => {

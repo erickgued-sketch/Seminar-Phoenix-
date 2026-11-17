@@ -58,6 +58,7 @@ npm run docs:matrix  # regenera la matriz de cobertura del seminario
 | Sistema de IA (RAG, coach, generador) | [docs/AI_SYSTEM.md](docs/AI_SYSTEM.md) |
 | Informe de calidad | [docs/QUALITY_REPORT.md](docs/QUALITY_REPORT.md) |
 | Guía de despliegue | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) |
+| Prompt maestro para la siguiente pasada de diseño | [docs/DESIGN_V2_PROMPT.md](docs/DESIGN_V2_PROMPT.md) |
 
 ## Estructura
 

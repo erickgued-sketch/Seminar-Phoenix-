@@ -3,7 +3,7 @@
 All art was generated in this build session through the Higgsfield connector, verified (job reached `completed`, file downloaded and visually reviewed), optimised and bundled in the app.
 
 - **Model:** `gpt_image_2_6` (GPT Image 2.6) — chosen for reference-image consistency and native transparent backgrounds.
-- **Cost:** 0.25 credits per image or animation × 37 generations = **9.25 credits** (balance 56.5 → 47.25).
+- **Cost:** 0.25 credits per image or animation × 41 generations = **10.25 credits** (balance 56.5 → 46.25).
 - **Consistency:** every Rai image uses the master (`92763f5f…`) as `image_references`.
 - **Optimisation:** originals 1024 px PNG (~1.5 MB each) → WebP. Rai 512 px with alpha (~60 KB), chapters 960×537 (~60 KB), hero 880×1168 (~100 KB). Total bundled art ≈ 1.5 MB.
 
@@ -74,7 +74,19 @@ Used on the Journey chapter headers and the first card of each level.
 | Asset ID | File | Job ID | Description | Used in |
 |---|---|---|---|---|
 | ONB-01 | `assets/onboarding/hero.webp` | `222aa30d-077b-45b2-9529-9bdc5a9a0611` | Rai on a hilltop facing a sunrise and a winding path (3:4) | Onboarding splash |
-| APP-01 | `assets/icon.png` | `a6999e06-86fd-46d5-958c-95a61a46c69e` | Rai's face on an orange gradient | App icon; derived: `favicon.png`, `android-icon-foreground.png` |
+| APP-01 | (replaced) | `a6999e06-86fd-46d5-958c-95a61a46c69e` | First icon: Rai's face on an orange gradient | Superseded by APP-02 |
+
+### App icon and logo (second pass)
+
+| Asset ID | File | Job ID | Description | Used in |
+|---|---|---|---|---|
+| APP-02 | `assets/icon.png`, `assets/brand/ios-icon-1024.png` | `0f610957-1f91-410e-90ab-3ab68e18ef66` | Rai's head, front view, sunrise glow on an orange gradient. 1024×1024, opaque, square (iOS applies its own mask) | iOS icon, default icon; derived: `favicon.png`, `brand/android-play-store-512.png` |
+| APP-03 | `assets/android-icon-foreground.png` | `7860546e-c319-4b2c-98f2-dca763deafd8` | Rai's head on transparency, rescaled so all artwork sits inside Android's 66/108 safe circle | Android adaptive icon foreground; derived: `android-icon-monochrome.png` (themed icons), `splash-icon.png` |
+| APP-04 | `assets/android-icon-background.png` | — (drawn in code) | Orange gradient with a soft glow | Android adaptive icon background |
+| APP-05 | `assets/brand/icon-alt-1024.png` | `9c78f7de-1029-498d-9020-e4ffe6c6c6c5` | Alternate: Rai in three-quarter view looking up, rising sun | Not wired in; candidate for store art or an alternate icon |
+| APP-06 | `assets/brand/logo-lockup.png` | `814b0fee-0815-4bdb-b5bd-8f7b28ccd3cf` | Icon + "NEXTME AI" wordmark + tagline on cream | Store listing, splash, documents |
+
+`assets/brand/icon-preview.jpg` shows the icon under the iOS mask and the Android circle, squircle and themed treatments, down to 29 px.
 
 ## Not generated yet (prompts ready)
 

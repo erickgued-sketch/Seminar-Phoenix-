@@ -7,15 +7,38 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": { "image": "./assets/splash-icon.png", "resizeMode": "contain", "backgroundColor": "#FFF8EE" },
-    "ios": { "supportsTablet": false, "bundleIdentifier": "ai.nextme.app" },
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFF8EE"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "ai.nextme.app",
+      "icon": "./assets/icon.png"
+    },
     "android": {
       "package": "ai.nextme.app",
-      "adaptiveIcon": { "backgroundColor": "#FF9E2C", "foregroundImage": "./assets/android-icon-foreground.png" },
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png",
+        "backgroundColor": "#FF9E2C"
+      },
       "predictiveBackGestureEnabled": false
     },
-    "web": { "favicon": "./assets/favicon.png", "bundler": "metro", "output": "single" },
-    "plugins": ["expo-router", "expo-localization", "expo-font"],
-    "experiments": { "typedRoutes": false }
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-localization",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": false
+    }
   }
 }

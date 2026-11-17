@@ -2,7 +2,7 @@
 // then execution modes 2/10/25. Sources are labelled so the user can tell what comes from the
 // seminar, from their own vault, from their records, and from the coach itself.
 import { router } from 'expo-router';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
 import { Rai } from '@/components/Rai';
 import { Button, Chip, Field, Screen, Txt } from '@/components/ui';
@@ -25,6 +25,12 @@ export default function Coach() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(false);
   const scroll = useRef<React.ComponentRef<typeof ScrollView>>(null);
+  const toEnd = (animated = true) => scroll.current?.scrollToEnd({ animated });
+  // Keep the newest message in view: on open, when a message is added and while the coach is thinking.
+  useEffect(() => {
+    const id = setTimeout(() => toEnd(chat.length > 0), 60);
+    return () => clearTimeout(id);
+  }, [chat.length, busy]);
 
   const send = async (msg: string) => {
     const m = msg.trim();
@@ -39,7 +45,6 @@ export default function Coach() {
       setError(true);
     } finally {
       setBusy(false);
-      setTimeout(() => scroll.current?.scrollToEnd({ animated: true }), 80);
     }
   };
 
@@ -65,7 +70,7 @@ export default function Coach() {
         {chat.length ? <Pressable accessibilityRole="button" hitSlop={10} onPress={clearChat}><Txt v="small" color={colors.infoDeep}>{t('Borrar chat', 'Clear chat')}</Txt></Pressable> : null}
       </View>
 
-      <ScrollView ref={scroll} style={{ flex: 1 }} contentContainerStyle={{ gap: space.md, paddingVertical: space.md }} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      <ScrollView ref={scroll} testID="coach-scroll" style={{ flex: 1 }} contentContainerStyle={{ gap: space.md, paddingVertical: space.md }} keyboardShouldPersistTaps="handled" keyboardDismissMode="interactive" onContentSizeChange={() => toEnd()} showsVerticalScrollIndicator>
         {!chat.length ? (
           <View style={{ alignItems: 'center', gap: space.md }}>
             <Rai state="thinking" size={150} />

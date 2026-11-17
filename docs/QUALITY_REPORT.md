@@ -40,6 +40,7 @@ Time from first screen to first win in the automated run: ~11 s (a person readin
 | RLS test | In Supabase a column-level `REVOKE` is ineffective under default table grants: a user could have set `role = 'admin'` on their own profile. | Table-level revoke + column-level grants; tests for update **and** insert paths. |
 | visual review | Rai covered the level title on the map; coach showed only a title as the insight for some principles. | Repositioned; chunks carry an explicit summary. |
 | contrast check | White on brand orange ≈ 2.2:1. | Dark-brown text on orange (≈ 8:1). |
+| user report | Coach: after an answer the message box was pushed off-screen and the thread could not scroll, so a second question was impossible. Cause: the non-scrolling screen scaffold was not height-bounded. | Scaffold fixed (`flex: 1; minHeight: 0`), thread auto-scrolls to the newest message; e2e now asserts the composer stays on screen and the thread scrolls both ways (the check fails on the old build). |
 | lint | 22 errors: animated values read from refs during render; a component defined inside another's render. | `useState`-held animated values; component hoisted. |
 
 ## Not verified — be aware
