@@ -23,6 +23,8 @@ export type Profile = {
   memoryConsent: boolean;
   /** UI sounds. Undefined in data saved by older versions means on. */
   sound?: boolean;
+  /** Appearance. Undefined in data saved by older versions means follow the system. */
+  theme?: 'system' | 'light' | 'dark';
   email: string;
 };
 export type LevelProgress = {
@@ -74,6 +76,8 @@ export type Streak = { current: number; longest: number; lastActive: string | nu
 
 export type State = {
   hydrated: boolean;
+  /** Effective colour scheme right now (derived, not persisted). */
+  scheme: 'light' | 'dark';
   profile: Profile;
   progress: Record<string, LevelProgress>;
   xp: number;
@@ -119,6 +123,7 @@ const emptyDay = (): DayLog => ({ habits: [], practices: [] });
 
 export const initialState = (): State => ({
   hydrated: false,
+  scheme: 'light',
   profile: { onboarded: false, name: '', lang: 'es', areas: [], goalText: '', why: '', minutes: 10, coachStyle: 'warm', identity: '', reminder: '08:00', memoryConsent: true, sound: true, email: '' },
   progress: {},
   xp: 0,
@@ -218,12 +223,12 @@ export const useStore = create<State & Actions>()(
       addVault: (title, text) => set((s) => ({ vault: [{ id: uid(), title, text, addedAt: today() }, ...s.vault] })),
       removeVault: (id) => set((s) => ({ vault: s.vault.filter((v) => v.id !== id) })),
       importAll: (data) => set((s) => ({ ...s, ...data, hydrated: true })),
-      resetAll: () => set((s) => ({ ...initialState(), profile: { ...initialState().profile, lang: s.profile.lang }, hydrated: true })),
+      resetAll: () => set((s) => ({ ...initialState(), scheme: s.scheme, profile: { ...initialState().profile, lang: s.profile.lang, theme: s.profile.theme }, hydrated: true })),
     }),
     {
       name: 'nextme-v1',
       storage: createJSONStorage(() => AsyncStorage),
-      partialize: ({ hydrated, ...rest }) => Object.fromEntries(Object.entries(rest).filter(([, v]) => typeof v !== 'function')) as never,
+      partialize: ({ hydrated, scheme, ...rest }) => Object.fromEntries(Object.entries(rest).filter(([, v]) => typeof v !== 'function')) as never,
       onRehydrateStorage: () => () => useStore.setState({ hydrated: true }),
     },
   ),
@@ -231,7 +236,7 @@ export const useStore = create<State & Actions>()(
 
 /** Plain data snapshot (for export, sync and the coach). */
 export const snapshot = (): State => {
-  const { hydrated, ...s } = useStore.getState();
+  const { hydrated, scheme: _scheme, ...s } = useStore.getState();
   return JSON.parse(JSON.stringify({ hydrated, ...Object.fromEntries(Object.entries(s).filter(([, v]) => typeof v !== 'function')) }));
 };
 

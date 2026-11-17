@@ -3,7 +3,8 @@ import { router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { Rai } from '@/components/Rai';
-import { Bar, Button, Card, Empty, Field, Header, Label, Screen, Txt, haptic } from '@/components/ui';
+import { Art, hasArt } from '@/components/Art';
+import { Bar, Button, Card, Check, Empty, Field, Header, Label, Note, Screen, Txt, haptic } from '@/components/ui';
 import { practiceById } from '@/content/practices';
 import { useLang, useT } from '@/lib/i18n';
 import { play } from '@/lib/sound';
@@ -40,7 +41,7 @@ export default function PracticeScreen() {
     return () => clearInterval(tick);
   }, [running]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!p) return <Screen><Header title="" /><Empty emoji="🧭" title={t('Práctica no encontrada', 'Practice not found')} body="" /></Screen>;
+  if (!p) return <Screen><Header title="" /><Empty art="responsible" title={t('Práctica no encontrada', 'Practice not found')} body="" /></Screen>;
 
   const filled = items.filter((x) => x.trim()).length;
   const total = p.timerSeconds ?? 0;
@@ -67,12 +68,17 @@ export default function PracticeScreen() {
   }
 
   return (
-    <Screen footer={<Button testID="practice-save" kind="success" sound={null} label={t('Guardar práctica', 'Save practice')} disabled={!ready} onPress={save} />}>
+    <Screen footer={<Button testID="practice-save" kind="success" icon="check" sound={null} label={t('Guardar práctica', 'Save practice')} disabled={!ready} onPress={save} />}>
       <Header title={p.title[lang]} />
       <View style={{ gap: space.md }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.md }}>
+          {hasArt(p.id) ? <Art name={p.id} size={64} /> : null}
+          <View style={{ flex: 1 }}>
         <Label color={p.origin === 'seminar' ? colors.primaryDeep : colors.infoDeep}>{`${p.minutes} min · ${p.origin === 'seminar' ? `${t('Seminario Fénix', 'Seminario Fénix')} p. ${p.pages.join(', ')}` : t('Práctica complementaria', 'Complementary practice')}`}</Label>
+          </View>
+        </View>
         <Txt v="body" style={{ fontSize: 17 }}>{p.what[lang]}</Txt>
-        {p.note ? <Txt v="small" color={colors.text2}>ⓘ {p.note[lang]}</Txt> : null}
+        {p.note ? <Note>{p.note[lang]}</Note> : null}
 
         {p.mode !== 'steps' && p.steps.length ? (
           <Card style={{ gap: 6 }}>
@@ -86,13 +92,13 @@ export default function PracticeScreen() {
             {p.id === 'breathing' && running ? <Txt v="h2" color={colors.infoDeep}>{[t('Inhala', 'Inhale'), t('Sostén', 'Hold'), t('Exhala', 'Exhale'), t('Sostén', 'Hold')][phase]}</Txt> : null}
             <Txt v="hero" style={{ fontSize: 56, lineHeight: 62 }}>{mmss(left)}</Txt>
             <View style={{ alignSelf: 'stretch' }}><Bar value={1 - left / total} color={colors.info} /></View>
-            {left > 0 ? <Button testID="timer-toggle" kind={running ? 'ghost' : 'info'} label={running ? t('Pausar', 'Pause') : left < total ? t('Reanudar', 'Resume') : t('Comenzar', 'Begin')} onPress={() => setRunning(!running)} style={{ alignSelf: 'stretch' }} /> : null}
+            {left > 0 ? <Button testID="timer-toggle" kind={running ? 'ghost' : 'info'} icon={running ? 'pause' : 'play'} label={running ? t('Pausar', 'Pause') : left < total ? t('Reanudar', 'Resume') : t('Comenzar', 'Begin')} onPress={() => setRunning(!running)} style={{ alignSelf: 'stretch' }} /> : null}
           </View>
         ) : null}
 
         {p.mode === 'steps' ? p.steps.map((s, i) => (
           <Pressable key={i} testID={`step-${i}`} accessibilityRole="checkbox" accessibilityState={{ checked: checks[i] }} onPress={() => { haptic(); if (!checks[i]) play('check'); setChecks(checks.map((c, j) => (j === i ? !c : c))); }} style={{ flexDirection: 'row', gap: space.sm, alignItems: 'center', backgroundColor: checks[i] ? colors.successSoft : colors.surface, borderRadius: radius.md, borderWidth: 2, borderColor: checks[i] ? colors.success : colors.line, padding: space.md, minHeight: 56 }}>
-            <Txt v="h3">{checks[i] ? '✓' : i + 1}</Txt>
+            {checks[i] ? <Check on /> : <View style={{ width: 28, height: 28, alignItems: 'center', justifyContent: 'center' }}><Txt v="h3" color={colors.text2}>{i + 1}</Txt></View>}
             <Txt v="body" style={{ flex: 1 }}>{s[lang]}</Txt>
           </Pressable>
         )) : null}

@@ -1,17 +1,56 @@
+// One stroke-glyph family (24 px grid, 2.1 stroke, round caps) for navigation, controls and status.
+// Illustrative moments use the 3D set in <Art />; nothing in the interface is an emoji.
 import React from 'react';
 import Svg, { Circle, Path } from 'react-native-svg';
 
-const d: Record<string, React.ReactNode> = {
+const d = {
   today: <><Circle cx="12" cy="12" r="4.2" /><Path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M5.3 18.7 7 17M17 7l1.7-1.7" /></>,
   journey: <><Path d="M7 19.500h6.500a3.500 3.500 0 0 0 0-7h-3a3.500 3.500 0 0 1 0-7H17" /><Circle cx="5" cy="19.500" r="1.800" /><Circle cx="19" cy="5.500" r="1.800" /></>,
   coach: <Path d="M4.5 5.5h15a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H11l-4.5 3.5v-3.5h-2A1.5 1.5 0 0 1 3 15V7a1.5 1.5 0 0 1 1.5-1.5Z" />,
   mind: <Path d="M12 20c-4.5-1-7.5-4-8-8 2.5 0 4.5 1 6 3-1-3-.5-7 2-10 2.500 3 3 7 2 10 1.500-2 3.500-3 6-3-.5 4-3.500 7-8 8Z" />,
   me: <><Circle cx="12" cy="8" r="3.8" /><Path d="M4.5 20.500c.8-4 3.800-6 7.500-6s6.700 2 7.500 6" /></>,
-};
-export function Icon({ name, color, size = 26 }: { name: keyof typeof d | string; color: string; size?: number }) {
+  check: <Path d="M5 12.500l4.500 4.500L19 7.500" />,
+  close: <Path d="M6 6l12 12M18 6L6 18" />,
+  back: <Path d="M14.500 5.500L8 12l6.500 6.500" />,
+  next: <Path d="M9.500 5.500L16 12l-6.500 6.500" />,
+  down: <Path d="M5.500 9.500L12 16l6.500-6.500" />,
+  arrow: <Path d="M5 12h14M13 6l6 6-6 6" />,
+  plus: <Path d="M12 5v14M5 12h14" />,
+  flame: <Path d="M12 21c-3.900 0-6.500-2.600-6.500-6.200 0-2.600 1.500-4.400 3-6.100.6 1.300 1.300 2 2.200 2.300C10.300 7.600 11.200 4.800 13.500 3c.2 2.600 1.400 4.200 2.700 5.800 1.300 1.600 2.300 3.300 2.300 5.900 0 3.700-2.600 6.300-6.500 6.300Z" />,
+  heart: <Path d="M12 20.300s-7.500-4.400-7.500-10.100A4.200 4.200 0 0 1 12 7.600a4.200 4.200 0 0 1 7.500 2.600c0 5.700-7.500 10.100-7.500 10.100Z" />,
+  lock: <><Path d="M6.500 10.500h11A1.500 1.500 0 0 1 19 12v6.500a1.500 1.500 0 0 1-1.500 1.500h-11A1.500 1.500 0 0 1 5 18.500V12a1.500 1.500 0 0 1 1.500-1.500Z" /><Path d="M8.500 10.500V8a3.500 3.500 0 0 1 7 0v2.500" /></>,
+  star: <Path d="M12 3.500l2.600 5.400 5.900.8-4.300 4.100 1 5.800L12 16.900l-5.200 2.700 1-5.800L3.500 9.700l5.900-.8L12 3.500Z" />,
+  send: <Path d="M20.500 3.500L10.500 13.500M20.500 3.500l-6.500 17-3.500-7-7-3.500 17-6.500Z" />,
+  refresh: <Path d="M19.500 12a7.500 7.500 0 1 1-2.200-5.300M19.500 4.500v4h-4" />,
+  repeat: <Path d="M17 3.500l3 3-3 3M4 11V9.500a3 3 0 0 1 3-3h13M7 20.500l-3-3 3-3M20 13v1.500a3 3 0 0 1-3 3H4" />,
+  info: <><Circle cx="12" cy="12" r="8.500" /><Path d="M12 11v5.500M12 7.700v.1" /></>,
+  sound: <><Path d="M4.500 9.500v5h3L12 18V6L7.500 9.500h-3Z" /><Path d="M15.500 9a4 4 0 0 1 0 6M18 6.500a7.500 7.500 0 0 1 0 11" /></>,
+  mute: <><Path d="M4.500 9.500v5h3L12 18V6L7.500 9.500h-3Z" /><Path d="M16 9.500l5 5M21 9.500l-5 5" /></>,
+  moon: <Path d="M19.500 14.200A8 8 0 0 1 9.800 4.500a8 8 0 1 0 9.700 9.700Z" />,
+  auto: <><Circle cx="12" cy="12" r="8.500" /><Path d="M12 3.500a8.500 8.500 0 0 1 0 17Z" fill="currentColor" /></>,
+  bell: <><Path d="M6.500 16.500V11a5.500 5.500 0 0 1 11 0v5.500l1.500 2H5l1.500-2Z" /><Path d="M10 20.500a2 2 0 0 0 4 0" /></>,
+  download: <Path d="M12 4v11M7.500 11l4.500 4.500 4.500-4.500M5 19.500h14" />,
+  trash: <Path d="M5 7h14M9.500 7V4.500h5V7M7 7l.8 12a1.500 1.500 0 0 0 1.500 1.400h5.400a1.500 1.500 0 0 0 1.500-1.400L17 7" />,
+  clock: <><Circle cx="12" cy="12" r="8.500" /><Path d="M12 7.500V12l3 2" /></>,
+  bolt: <Path d="M13 3L5 13.500h6L10 21l8.500-10.500h-6L13 3Z" />,
+  shield: <Path d="M12 3.500l7 2.500v5.500c0 4.300-2.900 7.600-7 9-4.100-1.400-7-4.700-7-9V6l7-2.500Z" />,
+  edit: <Path d="M4.500 19.500l1-4L16 5a2.100 2.100 0 0 1 3 3L8.500 18.500l-4 1Z" />,
+  target: <><Circle cx="12" cy="12" r="8.500" /><Circle cx="12" cy="12" r="4.500" /><Circle cx="12" cy="12" r="0.800" /></>,
+  book: <Path d="M4.500 5.500c2.500-1 5-1 7.500.5v13.500c-2.500-1.500-5-1.500-7.500-.5V5.500ZM19.500 5.500c-2.500-1-5-1-7.500.5v13.500c2.500-1.500 5-1.500 7.500-.5V5.500Z" />,
+  sparkle: <Path d="M11 5l1.700 4.800L17.500 11.500l-4.800 1.700L11 18l-1.700-4.800L4.500 11.500l4.800-1.700L11 5ZM18.500 3.500v3.500M16.750 5.250h3.500" />,
+  play: <Path d="M8 5.500v13l10.500-6.500L8 5.500Z" />,
+  pause: <Path d="M8.500 5.500v13M15.500 5.500v13" />,
+  globe: <><Circle cx="12" cy="12" r="8.500" /><Path d="M3.500 12h17M12 3.500c2.500 2.500 3.500 5.500 3.500 8.500s-1 6-3.500 8.500c-2.500-2.500-3.500-5.500-3.500-8.500s1-6 3.500-8.500Z" /></>,
+  chart: <Path d="M5 19.500V13M10 19.500V8.500M15 19.500v-8M20 19.500V5" />,
+  cloud: <Path d="M7.500 18.500a4 4 0 0 1-.6-7.950 5.500 5.500 0 0 1 10.600 1.300 3.400 3.400 0 0 1-.5 6.650H7.500Z" />,
+  gem: <Path d="M7 4.500h10l3.500 5L12 20 3.500 9.500 7 4.500ZM3.500 9.500h17M9.500 4.500L8 9.500l4 10.500 4-10.500-1.500-5" />,
+} as const;
+
+export type IconName = keyof typeof d;
+export function Icon({ name, color, size = 26, filled, weight = 2.1 }: { name: IconName | (string & {}); color: string; size?: number; filled?: boolean; weight?: number }) {
   return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.1} strokeLinecap="round" strokeLinejoin="round">
-      {d[name]}
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? color : 'none'} stroke={color} strokeWidth={weight} strokeLinecap="round" strokeLinejoin="round" color={color}>
+      {d[name as IconName]}
     </Svg>
   );
 }

@@ -23,7 +23,7 @@ export default function Account() {
     setBusy(false); setMsg(err ?? ok);
     return !err;
   };
-  if (!cloudEnabled) return <Screen><Header title={t('Cuenta', 'Account')} /><Empty emoji="📱" title={t('Modo solo dispositivo', 'Device-only mode')} body={t('Esta compilación no tiene servidor configurado. Tu progreso se guarda en este dispositivo; usa «Exportar mis datos» para una copia.', 'This build has no server configured. Your progress is saved on this device; use "Export my data" for a copy.')} /></Screen>;
+  if (!cloudEnabled) return <Screen><Header title={t('Cuenta', 'Account')} /><Empty art="shield" title={t('Modo solo dispositivo', 'Device-only mode')} body={t('Esta compilación no tiene servidor configurado. Tu progreso se guarda en este dispositivo; usa «Exportar mis datos» para una copia.', 'This build has no server configured. Your progress is saved on this device; use "Export my data" for a copy.')} /></Screen>;
   return (
     <Screen>
       <Header title={t('Cuenta y respaldo', 'Account & backup')} />

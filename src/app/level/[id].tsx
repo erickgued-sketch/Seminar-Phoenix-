@@ -3,16 +3,18 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Image, PanResponder, Pressable, View } from 'react-native';
+import { Art } from '@/components/Art';
+import { Icon } from '@/components/Icon';
 import { ExerciseView, shuffle } from '@/components/Exercises';
-import { Confetti, CountUp, Slide } from '@/components/fx';
+import { Confetti, CountUp, Float, PopIn, Rays, Slide } from '@/components/fx';
 import { Rai, RaiSays } from '@/components/Rai';
-import { Bar, Button, Card, Enter, Field, Label, Screen, Txt, haptic } from '@/components/ui';
+import { Bar, Button, Card, Enter, Field, IconButton, Label, Note, Screen, Txt, haptic } from '@/components/ui';
 import { chapterOf, levelById, path } from '@/content/curriculum';
 import { chapterArt } from '@/content/art';
 import { useLang, useT } from '@/lib/i18n';
 import { play } from '@/lib/sound';
 import { activeGoal, useStore } from '@/lib/store';
-import { colors, radius, space } from '@/theme/tokens';
+import { chapterTint, colors, elevation, radius, space } from '@/theme/tokens';
 
 type Phase = 'learn' | 'reinforce' | 'reflect' | 'apply' | 'done' | 'rest';
 const HEARTS = 5;
@@ -96,11 +98,14 @@ export default function LevelPlayer() {
   // ---------- top bar ----------
   const top = (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.sm, paddingVertical: space.sm }}>
-      <Pressable accessibilityRole="button" accessibilityLabel={t('Salir del nivel', 'Leave level')} hitSlop={12} onPress={exit} style={{ width: 44, height: 44, alignItems: 'center', justifyContent: 'center' }}>
-        <Txt v="h2" color={colors.text3}>✕</Txt>
-      </Pressable>
-      <View style={{ flex: 1 }}><Bar value={at / steps} color={colors.success} height={14} /></View>
-      {!isReview ? <Txt v="h3" color={colors.danger} accessibilityLabel={t(`${hearts} vidas`, `${hearts} hearts`)}>♥ {Math.max(0, hearts)}</Txt> : null}
+      <IconButton icon="close" plain label={t('Salir del nivel', 'Leave level')} onPress={exit} color={colors.text3} />
+      <View style={{ flex: 1 }}><Bar value={at / steps} color={colors.success} height={16} /></View>
+      {!isReview ? (
+        <View accessible accessibilityLabel={t(`${hearts} vidas`, `${hearts} hearts`)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4, minWidth: 44, justifyContent: 'flex-end' }}>
+          <Icon name="heart" color={colors.danger} size={22} filled />
+          <Txt v="h3" color={colors.danger}>{Math.max(0, hearts)}</Txt>
+        </View>
+      ) : <Icon name="repeat" color={colors.infoDeep} size={22} weight={2.4} />}
     </View>
   );
 
@@ -122,35 +127,41 @@ export default function LevelPlayer() {
     return (
       <Screen footer={
         <View style={{ flexDirection: 'row', gap: space.sm }}>
-          {card > 0 ? <Button kind="ghost" label="‹" sound={null} onPress={() => go(-1)} style={{ width: 64 }} /> : null}
-          <Button testID="next-card" style={{ flex: 1 }} sound={null} label={last ? t('¡A practicar!', 'Let’s practice!') : t('Siguiente', 'Next')} onPress={() => go(1)} />
+          {card > 0 ? <Button kind="ghost" label="" icon="back" a11y={t('Anterior', 'Previous')} sound={null} onPress={() => go(-1)} style={{ width: 64 }} /> : null}
+          <Button testID="next-card" style={{ flex: 1 }} sound={null} iconRight={last ? 'bolt' : 'arrow'} label={last ? t('¡A practicar!', 'Let’s practice!') : t('Siguiente', 'Next')} onPress={() => go(1)} />
         </View>
       }>
         {top}
         <Slide k={`c${card}`} dir={dir}>
           <View style={{ gap: space.md }} {...swipe.panHandlers}>
-            <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 6 }} accessibilityLabel={`${card + 1} / ${level.cards.length}`}>
-              {level.cards.map((_, i) => <View key={i} style={{ width: i === card ? 22 : 8, height: 8, borderRadius: 4, backgroundColor: i === card ? colors.primary : colors.line }} />)}
-            </View>
             {card === 0 ? (
-              <View style={{ borderRadius: radius.lg, overflow: 'hidden' }}>
-                <Image source={chapterArt[chapterOf(level.chapter).art]} style={{ width: '100%', height: 150 }} resizeMode="cover" accessibilityIgnoresInvertColors />
-                <View style={{ position: 'absolute', left: 12, bottom: 12, backgroundColor: 'rgba(255,248,238,0.92)', borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 6 }}>
-                  <Txt v="label" color={colors.primaryDeep}>{t(`NIVEL ${n}`, `LEVEL ${n}`)} · {level.title[lang].toUpperCase()}</Txt>
+              <View style={{ borderRadius: radius.lg, overflow: 'hidden', ...elevation(1) }}>
+                <Image source={chapterArt[chapterOf(level.chapter).art]} style={{ width: '100%', height: 176 }} resizeMode="cover" accessibilityIgnoresInvertColors />
+                <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 4, backgroundColor: chapterTint[(level.chapter - 1) % chapterTint.length] }} />
+                <View style={{ position: 'absolute', left: 12, top: 12, backgroundColor: colors.glass, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 6 }}>
+                  <Txt v="label" color={colors.primaryDeep}>{t(`NIVEL ${n}`, `LEVEL ${n}`)} · {chapterOf(level.chapter).title[lang].toUpperCase()}</Txt>
                 </View>
               </View>
-            ) : <Label>{`${t('Tarjeta', 'Card')} ${card + 1} / ${level.cards.length}`}</Label>}
-            <Card style={{ gap: space.md }}>
+            ) : null}
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }} accessibilityLabel={`${card + 1} / ${level.cards.length}`}>
+              {level.cards.map((_, i) => <View key={i} style={{ flex: i === card ? 2.4 : 1, height: 6, borderRadius: 3, backgroundColor: i <= card ? colors.primary : colors.line }} />)}
+            </View>
+            <Card level={2} style={{ gap: space.md, padding: space.lg }}>
+              <Label>{card === 0 ? level.title[lang] : `${t('Tarjeta', 'Card')} ${card + 1} / ${level.cards.length}`}</Label>
               <Txt v="h1">{c.title[lang]}</Txt>
-              <Txt v="body" style={{ fontSize: 18, lineHeight: 27 }}>{c.body[lang]}</Txt>
-              <View style={{ backgroundColor: colors.surfaceAlt, borderRadius: radius.md, padding: space.md, gap: 4 }}>
-                <Txt v="label" color={colors.primaryDeep}>{t('EJEMPLO', 'EXAMPLE')}</Txt>
+              <Txt v="body" style={{ fontSize: 18, lineHeight: 28 }}>{c.body[lang]}</Txt>
+              <View style={{ backgroundColor: colors.surfaceAlt, borderRadius: radius.md, padding: space.md, gap: 6, borderLeftWidth: 4, borderLeftColor: colors.primary }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                  <Icon name="sparkle" color={colors.primaryDeep} size={16} weight={2.3} />
+                  <Txt v="label" color={colors.primaryDeep}>{t('EJEMPLO', 'EXAMPLE')}</Txt>
+                </View>
                 <Txt v="body" color={colors.text}>{c.example[lang]}</Txt>
               </View>
             </Card>
             {last ? <RaiSays state="encouraging"><Txt v="label" color={colors.primaryDeep}>{t('RECUERDA ESTO', 'REMEMBER THIS')}</Txt><Txt v="bodyBold">{level.principle[lang]}</Txt></RaiSays> : null}
-            {last && level.caveat ? <Txt v="small" color={colors.text2}>ⓘ {level.caveat[lang]}</Txt> : null}
+            {last && level.caveat ? <Note>{level.caveat[lang]}</Note> : null}
             {card === 0 ? <Txt v="small" color={colors.text3}>{t(`Fuente: Seminario Fénix, pp. ${level.pages[0]}–${level.pages[level.pages.length - 1]}. Lección original, sin texto copiado.`, `Source: Seminario Fénix, pp. ${level.pages[0]}–${level.pages[level.pages.length - 1]}. Original lesson, no copied text.`)}</Txt> : null}
+            {card === 0 && level.cards.length > 1 ? <Txt v="small" color={colors.text3} center>{t('Desliza o toca «Siguiente»', 'Swipe or tap “Next”')}</Txt> : null}
           </View>
         </Slide>
       </Screen>
@@ -160,17 +171,24 @@ export default function LevelPlayer() {
   // ---------- REINFORCE ----------
   if (phase === 'reinforce') {
     return (
-      <Screen footer={result !== null ? (
-        <View style={{ gap: space.sm }} accessibilityLiveRegion="polite">
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.sm }}>
-            <Rai state={result ? 'happy' : 'encouraging'} size={64} />
-            <View style={{ flex: 1 }}>
-              <Txt v="h3" color={result ? colors.successDeep : colors.dangerDeep}>{result ? t('¡Correcto!', 'Correct!') : t('Casi. Mira por qué:', 'Almost. Here is why:')}</Txt>
-              <Txt v="body">{ex.why[lang]}</Txt>
+      <Screen footerBg={result === null ? undefined : result ? colors.successSoft : colors.dangerSoft} footer={result !== null ? (
+        <Enter k={`${exI}-${String(result)}`}>
+          <View style={{ gap: space.sm }} accessibilityLiveRegion="polite">
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.sm }}>
+              <Rai state={result ? 'happy' : 'encouraging'} size={72} />
+              <View style={{ flex: 1, gap: 2 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                  <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: result ? colors.success : colors.danger, alignItems: 'center', justifyContent: 'center' }}>
+                    <Icon name={result ? 'check' : 'refresh'} color={result ? colors.onSuccess : colors.onDanger} size={16} weight={3} />
+                  </View>
+                  <Txt v="h2" color={result ? colors.successDeep : colors.dangerDeep}>{result ? t('¡Correcto!', 'Correct!') : t('Casi. Mira por qué:', 'Almost. Here is why:')}</Txt>
+                </View>
+                <Txt v="body" color={colors.text}>{ex.why[lang]}</Txt>
+              </View>
             </View>
+            <Button testID="continue" kind={result ? 'success' : 'danger'} iconRight="arrow" label={t('Continuar', 'Continue')} onPress={next} />
           </View>
-          <Button testID="continue" kind={result ? 'success' : 'primary'} label={t('Continuar', 'Continue')} onPress={next} />
-        </View>
+        </Enter>
       ) : undefined}>
         {top}
         {isReview ? <Label color={colors.infoDeep}>{`${t('Repaso', 'Review')} · ${level.title[lang]}`}</Label> : null}
@@ -186,9 +204,9 @@ export default function LevelPlayer() {
   // ---------- out of hearts: supportive, never shaming ----------
   if (phase === 'rest') {
     return (
-      <Screen footer={<Button testID="retry" label={t('Repasar las tarjetas', 'Review the cards')} onPress={restart} />}>
+      <Screen footer={<Button testID="retry" icon="refresh" label={t('Repasar las tarjetas', 'Review the cards')} onPress={restart} />}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: space.md }}>
-          <Rai state="breathing" size={180} />
+          <Rai state="breathing" size={200} breathe={4000} />
           <Txt v="h1" center>{t('Respira. Vas bien.', 'Breathe. You are doing fine.')}</Txt>
           <Txt v="body" color={colors.text2} center>{t('Equivocarte es parte de aprender. Repasemos las tarjetas con calma y lo intentas de nuevo.', 'Mistakes are part of learning. Let’s calmly review the cards and try again.')}</Txt>
         </View>
@@ -203,10 +221,10 @@ export default function LevelPlayer() {
         {top}
         <Enter>
           <View style={{ gap: space.md }}>
-            <Label>{t('Reflexiona · 30 segundos', 'Reflect · 30 seconds')}</Label>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}><Icon name="clock" color={colors.primaryDeep} size={16} weight={2.4} /><Label>{t('Reflexiona · 30 segundos', 'Reflect · 30 seconds')}</Label></View>
             <RaiSays state="thinking"><Txt v="bodyBold">{level.reflect[lang]}</Txt></RaiSays>
             <Field testID="reflect-input" multiline value={reflection} onChangeText={setReflection} placeholder={t('Escribe lo primero que te venga a la mente…', 'Write the first thing that comes to mind…')} />
-            <Txt v="small" color={colors.text3}>{t('Tu reflexión es privada y se guarda en tu dispositivo.', 'Your reflection is private and stored on your device.')}</Txt>
+            <Note color={colors.text3}>{t('Tu reflexión es privada y se guarda en tu dispositivo.', 'Your reflection is private and stored on your device.')}</Note>
           </View>
         </Enter>
       </Screen>
@@ -216,14 +234,17 @@ export default function LevelPlayer() {
   // ---------- APPLY ----------
   if (phase === 'apply') {
     return (
-      <Screen footer={<Button testID="commit" kind="success" label={t('Me comprometo a hacerlo hoy', 'I commit to doing it today')} onPress={finish} />}>
+      <Screen footer={<Button testID="commit" kind="success" icon="check" label={t('Me comprometo a hacerlo hoy', 'I commit to doing it today')} onPress={finish} />}>
         {top}
         <Enter>
           <View style={{ gap: space.md }}>
             <Label>{`${t('Aplica', 'Apply')} · ${level.applyMinutes} min`}</Label>
-            <Card style={{ gap: space.sm }}>
+            <Card level={2} style={{ gap: space.sm, flexDirection: 'row', alignItems: 'flex-start' }}>
+              <Art name="goal" size={56} />
+              <View style={{ flex: 1, gap: space.sm }}>
               <Txt v="h2">{t('Tu acción de hoy', 'Your action for today')}</Txt>
               <Txt v="body" style={{ fontSize: 17 }}>{level.apply[lang]}</Txt>
+              </View>
             </Card>
             {personal ? (
               <View style={{ backgroundColor: colors.infoSoft, borderRadius: radius.md, padding: space.md, gap: 4 }}>
@@ -240,34 +261,49 @@ export default function LevelPlayer() {
   }
 
   // ---------- DONE ----------
+  // A staged reveal: rays + Rai → headline → stats pop in one by one → takeaway card.
+  const milestone = !isReview && n % 5 === 0;
   return (
-    <Screen footer={<Button testID="done" label={first === '1' ? t('Ver mi programa', 'See my program') : t('Continuar', 'Continue')} onPress={exit} />}>
-      <Confetti k={level.id} count={isReview ? 18 : 40} />
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: space.md }}>
-        <Rai state={isReview ? 'happy' : n % 5 === 0 ? 'levelup' : 'celebrate'} size={210} />
-        <Txt v="hero" center>{isReview ? t('¡Repaso hecho!', 'Review done!') : first === '1' ? t('Cumpliste tu primera promesa', 'You kept your first promise') : t('¡Nivel completado!', 'Level complete!')}</Txt>
+    <Screen tint={milestone ? colors.primarySoft : undefined} footer={<Button testID="done" iconRight="arrow" label={first === '1' ? t('Ver mi programa', 'See my program') : t('Continuar', 'Continue')} onPress={exit} />}>
+      <Confetti k={level.id} count={isReview ? 18 : milestone ? 60 : 40} />
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: space.md, paddingVertical: space.md }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center', width: 260, height: 240 }}>
+          <Rays size={300} color={milestone ? colors.primary : colors.gold} />
+          <Rai state={isReview ? 'happy' : milestone ? 'levelup' : 'celebrate'} size={220} />
+        </View>
+        <PopIn delay={150}>
+          <Txt v="hero" center>{isReview ? t('¡Repaso hecho!', 'Review done!') : first === '1' ? t('Cumpliste tu primera promesa', 'You kept your first promise') : milestone ? t(`¡Hito: nivel ${n}!`, `Milestone: level ${n}!`) : t('¡Nivel completado!', 'Level complete!')}</Txt>
+        </PopIn>
         {first === '1' ? <Txt v="body" color={colors.text2} center>{t('Tu próxima versión ya empezó.', 'Your next self has started.')}</Txt> : null}
         <View style={{ flexDirection: 'row', gap: space.sm }}>
-          <Stat label={t('Aciertos', 'Correct')} value={`${correct}/${exercises.length}`} />
-          <Stat label="XP" value={isReview ? 5 : 20 + Math.round(score / 10)} />
+          <PopIn delay={450}><Stat art="focus" label={t('Aciertos', 'Correct')} value={`${correct}/${exercises.length}`} /></PopIn>
+          <PopIn delay={650}><Stat art="gem" label="XP" value={isReview ? 5 : 20 + Math.round(score / 10)} /></PopIn>
         </View>
         {!isReview ? (
-          <Card style={{ alignSelf: 'stretch', gap: 4 }}>
-            <Txt v="label" color={colors.primaryDeep}>{t('TE LLEVAS', 'YOU TAKE WITH YOU')}</Txt>
-            <Txt v="bodyBold">{level.principle[lang]}</Txt>
-            <Txt v="small" color={colors.text2}>{t('Repaso programado para mañana. Registra tu evidencia en «Hoy» cuando hayas aplicado la acción.', 'Review scheduled for tomorrow. Log your evidence in "Today" once you have applied the action.')}</Txt>
-          </Card>
+          <Enter delay={900} style={{ alignSelf: 'stretch' }}>
+            <Card level={2} style={{ gap: 6 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <Float><Art name="star" size={34} /></Float>
+                <Txt v="label" color={colors.primaryDeep}>{t('TE LLEVAS', 'YOU TAKE WITH YOU')}</Txt>
+              </View>
+              <Txt v="bodyBold" style={{ fontSize: 17 }}>{level.principle[lang]}</Txt>
+              <Txt v="small" color={colors.text2}>{t('Repaso programado para mañana. Registra tu evidencia en «Hoy» cuando hayas aplicado la acción.', 'Review scheduled for tomorrow. Log your evidence in "Today" once you have applied the action.')}</Txt>
+            </Card>
+          </Enter>
         ) : null}
       </View>
     </Screen>
   );
 }
 
-function Stat({ label, value }: { label: string; value: string | number }) {
+function Stat({ label, value, art }: { label: string; value: string | number; art: 'focus' | 'gem' }) {
   return (
-    <View style={{ backgroundColor: colors.surface, borderRadius: radius.md, borderWidth: 2, borderColor: colors.line, paddingVertical: 10, paddingHorizontal: space.lg, alignItems: 'center', minWidth: 96 }}>
-      {typeof value === 'number' ? <CountUp to={value} prefix="+" color={colors.primaryDeep} /> : <Txt v="h2" color={colors.primaryDeep}>{value}</Txt>}
-      <Txt v="label" color={colors.text2}>{label.toUpperCase()}</Txt>
+    <View style={{ backgroundColor: colors.surface, borderRadius: radius.md, borderWidth: 1, borderColor: colors.line, paddingVertical: 10, paddingHorizontal: space.md, alignItems: 'center', minWidth: 116, flexDirection: 'row', gap: 8, ...elevation(1) }}>
+      <Art name={art} size={36} />
+      <View>
+        {typeof value === 'number' ? <CountUp to={value} prefix="+" color={colors.primaryDeep} /> : <Txt v="h2" color={colors.primaryDeep}>{value}</Txt>}
+        <Txt v="label" color={colors.text2}>{label.toUpperCase()}</Txt>
+      </View>
     </View>
   );
 }

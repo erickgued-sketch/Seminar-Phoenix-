@@ -1,7 +1,8 @@
 // Habit Builder: weekly frequency, 7-day strip, consistency and link to the active goal.
 import React, { useState } from 'react';
 import { Pressable, View } from 'react-native';
-import { Bar, Button, Card, Chip, Empty, Field, Header, Label, Screen, Txt, haptic } from '@/components/ui';
+import { Icon } from '@/components/Icon';
+import { Bar, Button, Card, Check, Chip, Empty, Field, Header, Label, Screen, Txt, haptic } from '@/components/ui';
 import { lastNDays, parse, today } from '@/lib/dates';
 import { useLang, useT } from '@/lib/i18n';
 import { activeGoal, habitsFor, uid, useStore } from '@/lib/store';
@@ -30,7 +31,7 @@ export default function Habits() {
     <Screen>
       <Header title={t('Hábitos', 'Habits')} />
       <View style={{ gap: space.md }}>
-        {!habits.length ? <Empty emoji="🌱" title={t('Tu primer hábito', 'Your first habit')} body={t('Empieza con uno pequeño que dependa solo de ti. El seminario insiste: lo que repites se vuelve automático.', 'Start with a small one that depends only on you. The seminar insists: what you repeat becomes automatic.')} /> : null}
+        {!habits.length ? <Empty art="habits" title={t('Tu primer hábito', 'Your first habit')} body={t('Empieza con uno pequeño que dependa solo de ti. El seminario insiste: lo que repites se vuelve automático.', 'Start with a small one that depends only on you. The seminar insists: what you repeat becomes automatic.')} /> : null}
         {habits.map((h) => {
           const hits = week.filter((d) => s.days[d]?.habits.includes(h.id)).length;
           const m = month.filter((d) => s.days[d]?.habits.includes(h.id)).length;
@@ -40,8 +41,8 @@ export default function Habits() {
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <View style={{ flex: 1 }}>
                   <Txt v="h3">{h.name}</Txt>
-                  <Txt v="small" color={colors.text2}>{hits}/{h.perWeek} {t('esta semana', 'this week')} · {m} {t('en 28 días', 'in 28 days')} · {hits > prev ? '↗' : hits < prev ? '↘' : '→'} {t('vs. semana anterior', 'vs. last week')}</Txt>
-                  {h.goalId && goal?.id === h.goalId ? <Txt v="small" color={colors.infoDeep}>↳ {goal.title}</Txt> : null}
+                  <Txt v="small" color={colors.text2}>{hits}/{h.perWeek} {t('esta semana', 'this week')} · {m} {t('en 28 días', 'in 28 days')} · {hits > prev ? t('subiendo', 'up') : hits < prev ? t('bajando', 'down') : t('estable', 'steady')} {t('vs. semana anterior', 'vs. last week')}</Txt>
+                  {h.goalId && goal?.id === h.goalId ? <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}><Icon name="target" color={colors.infoDeep} size={14} /><Txt v="small" color={colors.infoDeep} style={{ flexShrink: 1 }}>{goal.title}</Txt></View> : null}
                 </View>
                 <Pressable accessibilityRole="button" accessibilityLabel={t(`Archivar ${h.name}`, `Archive ${h.name}`)} hitSlop={10} onPress={() => s.archiveHabit(h.id)}><Txt v="small" color={colors.text3}>{t('Archivar', 'Archive')}</Txt></Pressable>
               </View>
@@ -51,7 +52,7 @@ export default function Habits() {
                   return (
                     <Pressable key={d} testID={`h-${h.name}-${d}`} accessibilityRole="checkbox" accessibilityState={{ checked: on }} accessibilityLabel={d} onPress={() => { haptic(); s.toggleHabit(h.id, d); }} style={{ alignItems: 'center', gap: 4, minWidth: 40, minHeight: 56 }}>
                       <Txt v="label" color={d === today() ? colors.primaryDeep : colors.text3}>{parse(d).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', { weekday: 'narrow' }).toUpperCase()}</Txt>
-                      <View style={{ width: 34, height: 34, borderRadius: 12, borderWidth: 2, borderColor: on ? colors.success : colors.line, backgroundColor: on ? colors.success : colors.surface, alignItems: 'center', justifyContent: 'center' }}>{on ? <Txt v="bodyBold" color="#173B00">✓</Txt> : null}</View>
+                      <Check on={on} size={34} />
                     </Pressable>
                   );
                 })}
@@ -71,7 +72,7 @@ export default function Habits() {
           <View style={{ flexDirection: 'row', gap: 6 }}>
             {[1, 2, 3, 4, 5, 6, 7].map((n) => <Chip key={n} testID={`pw-${n}`} label={String(n)} selected={perWeek === n} onPress={() => setPerWeek(n)} />)}
           </View>
-          {goal ? <Chip label={`${link ? '✓ ' : ''}${t('Vincular a mi meta', 'Link to my goal')}`} selected={link} onPress={() => setLink(!link)} /> : null}
+          {goal ? <Chip icon={link ? 'check' : 'target'} label={t('Vincular a mi meta', 'Link to my goal')} selected={link} onPress={() => setLink(!link)} /> : null}
           <Button testID="habit-add" label={t('Añadir hábito', 'Add habit')} disabled={name.trim().length < 2} onPress={add} />
         </Card>
       </View>

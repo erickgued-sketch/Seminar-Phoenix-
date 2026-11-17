@@ -9,7 +9,7 @@ import { heroArt } from '@/content/art';
 import { totalLevels } from '@/content/curriculum';
 import { useT } from '@/lib/i18n';
 import { useStore, type CoachStyle } from '@/lib/store';
-import { colors, radius, space } from '@/theme/tokens';
+import { colors, palettes, radius, space } from '@/theme/tokens';
 
 const AREAS: [string, string, string][] = [
   ['work', 'Trabajo y carrera', 'Work & career'], ['health', 'Salud y energía', 'Health & energy'], ['money', 'Dinero', 'Money'],
@@ -54,9 +54,10 @@ export default function Onboarding() {
         <View style={{ flex: 1 }}>
           <Image source={heroArt} style={{ position: 'absolute', width: '100%', height: '100%' }} resizeMode="cover" accessibilityLabel={t('Rai mira un amanecer sobre un camino', 'Rai looks at a sunrise over a path')} />
           <View style={{ padding: space.lg, paddingTop: space.xxl + space.md, gap: space.sm }}>
-            <Txt v="label" color={colors.primaryEdge}>NEXTME AI</Txt>
-            <Txt v="hero" style={{ fontSize: 38, lineHeight: 42 }}>{t('Conviértete en tu próxima versión.', 'Become your next self.')}</Txt>
-            <Txt v="h3" color={colors.text2}>{t('Una acción a la vez.', 'One action at a time.')}</Txt>
+            {/* The sunrise art is light in both appearances, so this text keeps the light palette's ink. */}
+            <Txt v="label" color={palettes.light.primaryEdge}>NEXTME AI</Txt>
+            <Txt v="hero" color={palettes.light.text} style={{ fontSize: 38, lineHeight: 42 }}>{t('Conviértete en tu próxima versión.', 'Become your next self.')}</Txt>
+            <Txt v="h3" color={palettes.light.text2}>{t('Una acción a la vez.', 'One action at a time.')}</Txt>
           </View>
         </View>
       </Screen>

@@ -5,7 +5,7 @@ import { router } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
 import { Rai } from '@/components/Rai';
-import { Button, Chip, Field, Screen, Txt } from '@/components/ui';
+import { Button, Chip, Field, Note, Screen, Txt } from '@/components/ui';
 import { askCoach } from '@/lib/coach';
 import { modes } from '@/lib/coach/compose';
 import { useLang, useT } from '@/lib/i18n';
@@ -59,7 +59,7 @@ export default function Coach() {
     <Screen scroll={false} footer={
       <View style={{ flexDirection: 'row', gap: space.sm, alignItems: 'flex-end' }}>
         <View style={{ flex: 1 }}><Field testID="coach-input" value={text} onChangeText={setText} placeholder={t('Escribe a tu coach…', 'Message your coach…')} onSubmitEditing={() => send(text)} returnKeyType="send" /></View>
-        <Button testID="coach-send" label="➤" onPress={() => send(text)} disabled={!text.trim() || busy} style={{ width: 60 }} />
+        <Button testID="coach-send" label="" icon="send" a11y={t('Enviar', 'Send')} onPress={() => send(text)} disabled={!text.trim() || busy} style={{ width: 60 }} />
       </View>
     }>
       <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: space.sm }}>
@@ -113,7 +113,7 @@ function ReplyCard({ r, t, lang }: { r: CoachReply; t: (es: string, en: string) 
       <View style={{ alignSelf: 'flex-start', backgroundColor: src.kind === 'none' ? colors.surfaceAlt : colors.infoSoft, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 4 }}>
         <Txt v="small" color={src.kind === 'none' ? colors.text2 : colors.infoDeep} style={{ fontFamily: 'Nunito_700Bold' }}>{srcLabel}</Txt>
       </View>
-      {r.caveat ? <Txt v="small" color={colors.text2}>ⓘ {r.caveat}</Txt> : null}
+      {r.caveat ? <Note>{r.caveat}</Note> : null}
       <Row tag={t('Por qué importa · sugerencia del coach', 'Why it matters · coach suggestion')} color={colors.text2}>{r.why}</Row>
       {r.dataNote ? <Row tag={t('Tus datos', 'Your data')} color={colors.text2}>{r.dataNote}</Row> : null}
       <View style={{ backgroundColor: colors.successSoft, borderRadius: radius.md, padding: space.md, gap: 2 }}>

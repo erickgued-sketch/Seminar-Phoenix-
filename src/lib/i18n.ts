@@ -2,8 +2,14 @@ import type { L, Lang } from '@/content/types';
 import { useStore } from './store';
 
 /** `const t = useT(); t('Hola', 'Hello')` — Spanish first, it is the product's base language. */
+/** Subscribes the caller to appearance changes so inline `colors.*` values are re-read. */
+export function useScheme() {
+  return useStore((s) => s.scheme);
+}
+
 export function useT() {
   const lang = useStore((s) => s.profile.lang);
+  useScheme(); // every screen calls useT, so every screen repaints when the appearance changes
   return (es: string, en: string) => (lang === 'en' ? en : es);
 }
 export function useLang(): Lang {

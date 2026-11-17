@@ -50,7 +50,7 @@ export default function Vault() {
             </View>
             <Pressable accessibilityRole="button" accessibilityLabel={t(`Eliminar ${v.title}`, `Delete ${v.title}`)} hitSlop={10} onPress={() => removeVault(v.id)}><Txt v="small" color={colors.dangerDeep}>{t('Eliminar', 'Delete')}</Txt></Pressable>
           </Card>
-        )) : <Empty emoji="📚" title={t('Tu bóveda está vacía', 'Your vault is empty')} body={t('El coach ya conoce el programa Fénix. Añade tus notas para que también las use.', 'The coach already knows the Fénix program. Add your notes so it uses them too.')} />}
+        )) : <Empty art="vault" title={t('Tu bóveda está vacía', 'Your vault is empty')} body={t('El coach ya conoce el programa Fénix. Añade tus notas para que también las use.', 'The coach already knows the Fénix program. Add your notes so it uses them too.')} />}
       </View>
     </Screen>
   );

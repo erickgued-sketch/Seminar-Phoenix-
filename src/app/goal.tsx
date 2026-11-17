@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { RaiSays } from '@/components/Rai';
-import { Bar, Button, Card, Chip, Field, Header, Label, Screen, Txt, haptic } from '@/components/ui';
+import { Bar, Button, Card, Check, Chip, Field, Header, Label, Screen, Txt, haptic } from '@/components/ui';
 import { diffDays, today } from '@/lib/dates';
 import { buildWeeks, draftIssues, toGoal, type Draft } from '@/lib/goalPlan';
 import { formatDate, useLang, useT } from '@/lib/i18n';
@@ -48,7 +48,7 @@ export default function GoalArchitect() {
           <Label>{t('Plan semanal', 'Weekly plan')}</Label>
           {goal.weeks.map((w) => (
             <Pressable key={w.week} testID={`week-${w.week}`} accessibilityRole="checkbox" accessibilityState={{ checked: w.done }} onPress={() => { haptic(w.done ? 'tap' : 'ok'); if (!w.done) play('check'); s.toggleWeek(goal.id, w.week); }} style={{ flexDirection: 'row', gap: space.sm, alignItems: 'center', minHeight: 48 }}>
-              <View style={{ width: 28, height: 28, borderRadius: 9, borderWidth: 2, borderColor: w.done ? colors.success : colors.line, backgroundColor: w.done ? colors.success : colors.surface, alignItems: 'center', justifyContent: 'center' }}>{w.done ? <Txt v="bodyBold" color="#173B00">✓</Txt> : null}</View>
+              <Check on={w.done} />
               <Txt v="body" style={{ flex: 1 }} color={w.done ? colors.text3 : colors.text}><Txt v="bodyBold" color={w.done ? colors.text3 : colors.text}>{t('S', 'W')}{w.week} · </Txt>{w.focus}</Txt>
             </Pressable>
           ))}
@@ -82,7 +82,7 @@ export default function GoalArchitect() {
           {weeks.map((w, i) => (
             <Field key={w.week} testID={`plan-week-${w.week}`} label={`${t('Semana', 'Week')} ${w.week}`} value={w.focus} onChangeText={(v) => setWeeks(weeks.map((x, j) => (j === i ? { ...x, focus: v } : x)))} />
           ))}
-          <Chip label={`${habit ? '✓ ' : ''}${t('Crear hábito con mi acción diaria (5×/semana)', 'Create a habit from my daily action (5×/week)')}`} selected={habit} onPress={() => setHabit(!habit)} />
+          <Chip icon={habit ? 'check' : 'plus'} label={t('Crear hábito con mi acción diaria (5×/semana)', 'Create a habit from my daily action (5×/week)')} selected={habit} onPress={() => setHabit(!habit)} />
         </View>
       </Screen>
     );

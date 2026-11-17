@@ -18,7 +18,7 @@ export default function Future() {
   const [mins, setMins] = useState(15);
   const h = habits[Math.min(sel, habits.length - 1)];
   if (!h) {
-    return <Screen><Header title={t('Mi futuro yo', 'My future self')} /><Empty emoji="🔭" title={t('Necesito un hábito para proyectar', 'I need a habit to project')} body={t('Crea un hábito en Hoy → Hábitos. La proyección usa tus registros reales.', 'Create a habit in Today → Habits. The projection uses your real records.')} /></Screen>;
+    return <Screen><Header title={t('Mi futuro yo', 'My future self')} /><Empty art="future" title={t('Necesito un hábito para proyectar', 'I need a habit to project')} body={t('Crea un hábito en Hoy → Hábitos. La proyección usa tus registros reales.', 'Create a habit in Today → Habits. The projection uses your real records.')} /></Screen>;
   }
   const last28 = lastNDays(today(), 28).filter((d) => s.days[d]?.habits.includes(h.id)).length;
   const current = Math.round((last28 / 4) * 10) / 10;

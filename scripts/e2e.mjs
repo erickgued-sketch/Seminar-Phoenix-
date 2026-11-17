@@ -12,6 +12,8 @@ const { chromium } = createRequire(import.meta.url)('playwright');
 const DIST = join(import.meta.dirname, '..', 'dist');
 const SHOTS = process.env.SHOTS_DIR ?? join(import.meta.dirname, '..', '.e2e-shots');
 const SCALE = Number(process.env.SCALE ?? 1);
+// COLOR_SCHEME=dark runs the whole flow with the OS in dark mode (the app follows the system by default).
+const SCHEME = process.env.COLOR_SCHEME === 'dark' ? 'dark' : 'light';
 mkdirSync(SHOTS, { recursive: true });
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.ico': 'image/x-icon', '.ttf': 'font/ttf' };
 const server = createServer(async (req, res) => {
@@ -26,7 +28,7 @@ const server = createServer(async (req, res) => {
 const base = `http://localhost:${server.address().port}`;
 
 const browser = await chromium.launch();
-const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: SCALE, locale: 'es-ES', hasTouch: true });
+const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: SCALE, locale: 'es-ES', hasTouch: true, colorScheme: SCHEME });
 const page = await ctx.newPage();
 const errors = [];
 page.on('pageerror', (e) => errors.push(String(e)));
@@ -83,7 +85,7 @@ await step('level 1: four reinforce games + explanations', async () => {
   await see('Según el seminario');
   await tap('opt-0'); await tap('check'); // deliberately wrong → heart lost + explanation
   await see('Casi. Mira por qué');
-  await shot('04-wrong');
+  await page.waitForTimeout(450); await shot('04-wrong'); // let the feedback sheet finish rising
   await tap('continue');
   await tap('opt-0'); await tap('check'); await see('¡Correcto!'); await tap('continue'); // fill
   await see('Ordena la idea central');
@@ -97,11 +99,11 @@ await step('level 1: reflect → apply → first win, no sign-up wall', async ()
   await tid('reflect-input').fill('En mi inglés: lo decidí pero no tengo método.');
   await tap('reflect-next');
   await see('PARA TU META');
-  await shot('06-apply');
+  await page.waitForTimeout(450); await shot('06-apply');
   await tid('commit-input').fill('Hoy a las 19:00');
   await tap('commit');
   await see('Cumpliste tu primera promesa');
-  await page.waitForTimeout(700);
+  await page.waitForTimeout(1400); // the completion screen reveals in stages (≈1.2 s)
   await shot('07-first-win');
   results.push(['INFO', 'time to first win (automated run)', `${Math.round((Date.now() - t0) / 1000)} s`]);
   await tap('done');
@@ -228,6 +230,20 @@ await step('vault: add note → coach cites it', async () => {
   await page.goto(`${base}/coach`);
   await tid('coach-input').fill('reuniones individuales semanales equipo delega');
   await tap('coach-send'); await see('Tu bóveda · Notas de liderazgo');
+});
+
+await step('appearance switch repaints, persists and returns to the system setting', async () => {
+  const ground = () => page.evaluate(() => [...document.querySelectorAll('div')].map((d) => getComputedStyle(d).backgroundColor).find((c) => c === 'rgb(22, 17, 13)' || c === 'rgb(255, 248, 238)'));
+  const sys = SCHEME === 'dark' ? 'rgb(22, 17, 13)' : 'rgb(255, 248, 238)';
+  await page.goto(`${base}/me`); await see('NEXTME Score');
+  if ((await ground()) !== sys) throw new Error('does not follow the system appearance');
+  const other = SCHEME === 'dark' ? 'light' : 'dark';
+  await tap(`theme-${other}`); await page.waitForTimeout(250);
+  if ((await ground()) === sys) throw new Error('appearance did not change');
+  await page.reload(); await see('NEXTME Score');
+  if ((await ground()) === sys) throw new Error('appearance not persisted');
+  await tap('theme-system'); await page.waitForTimeout(250);
+  if ((await ground()) !== sys) throw new Error('did not return to the system appearance');
 });
 
 await step('language switch keeps progress', async () => {

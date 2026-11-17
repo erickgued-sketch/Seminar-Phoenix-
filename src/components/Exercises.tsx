@@ -1,11 +1,12 @@
 // The four reinforce mini-games (+ scenario, a multiple-choice variant).
 // Each one reports a single boolean through onResult and never shames a wrong answer.
 import React, { useMemo, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View, type ViewStyle } from 'react-native';
 import type { Exercise, Lang } from '@/content/types';
 import { play } from '@/lib/sound';
-import { colors, radius, space } from '@/theme/tokens';
+import { colors, radius, space, themed } from '@/theme/tokens';
 import { Feedback } from './fx';
+import { Icon } from './Icon';
 import { Button, Txt, haptic } from './ui';
 
 /** Deterministic shuffle so a level always looks the same (and tests are stable). */
@@ -45,6 +46,7 @@ export function ExerciseView(p: Props) {
 }
 
 function Choice({ ex, lang, locked, onResult, t }: Props) {
+  const styles = S();
   const [sel, setSel] = useState<number | null>(null);
   if (ex.type === 'order' || ex.type === 'match') return null;
   return (
@@ -63,9 +65,12 @@ function Choice({ ex, lang, locked, onResult, t }: Props) {
               accessibilityState={{ selected: on, disabled: locked }}
               disabled={locked}
               onPress={() => { haptic(); play('select', 0.5); setSel(i); }}
-              style={[styles.opt, on && styles.optOn, right && styles.optRight, wrong && styles.optWrong]}
+              style={({ pressed }) => [styles.opt, styles.optRow, on && styles.optOn, right && styles.optRight, wrong && styles.optWrong, pressed && { transform: [{ translateY: 2 }], borderBottomWidth: 2, marginBottom: 2 }]}
             >
-              <Txt v="bodyBold" color={right ? '#173B00' : wrong ? colors.dangerDeep : colors.text}>{o[lang]}</Txt>
+              <View style={[styles.badge, on && { backgroundColor: colors.info, borderColor: colors.info }, right && { backgroundColor: colors.success, borderColor: colors.success }, wrong && { backgroundColor: colors.danger, borderColor: colors.danger }]}>
+                {right ? <Icon name="check" color={colors.onSuccess} size={16} weight={3.2} /> : wrong ? <Icon name="close" color={colors.onDanger} size={15} weight={3.2} /> : <Txt v="label" color={on ? colors.onInfo : colors.text2} style={{ letterSpacing: 0 }}>{'ABCDEF'[i]}</Txt>}
+              </View>
+              <Txt v="bodyBold" style={{ flex: 1 }} color={right ? colors.successDeep : wrong ? colors.dangerDeep : colors.text}>{o[lang]}</Txt>
             </Pressable>
           );
         })}
@@ -76,6 +81,7 @@ function Choice({ ex, lang, locked, onResult, t }: Props) {
 }
 
 function Order({ ex, lang, seed, locked, onResult, t }: Props) {
+  const styles = S();
   const tokens = ex.type === 'order' ? ex.tokens[lang] : [];
   const pool = useMemo(() => shuffle(tokens.map((w, i) => ({ w, i })), seed), [seed, lang]); // eslint-disable-line react-hooks/exhaustive-deps
   const [picked, setPicked] = useState<number[]>([]);
@@ -95,7 +101,7 @@ function Order({ ex, lang, seed, locked, onResult, t }: Props) {
         {pool.map(({ w, i }) => {
           const used = picked.includes(i);
           return (
-            <Pressable key={i} testID={`tile-${i}`} disabled={locked || used} accessibilityRole="button" accessibilityLabel={w} onPress={() => { haptic(); play('select', 0.5); setPicked([...picked, i]); }} style={[styles.tile, used && { opacity: 0.25 }]}>
+            <Pressable key={i} testID={`tile-${i}`} disabled={locked || used} accessibilityRole="button" accessibilityLabel={w} onPress={() => { haptic(); play('select', 0.5); setPicked([...picked, i]); }} style={[styles.tile, used && { opacity: 0.22, borderStyle: 'dashed' }]}>
               <Txt v="bodyBold">{w}</Txt>
             </Pressable>
           );
@@ -109,6 +115,7 @@ function Order({ ex, lang, seed, locked, onResult, t }: Props) {
 }
 
 function Match({ ex, lang, seed, locked, onResult, t }: Props) {
+  const styles = S();
   const pairs = ex.type === 'match' ? ex.pairs : [];
   const right = useMemo(() => shuffle(pairs.map((_, i) => i), seed), [seed]); // eslint-disable-line react-hooks/exhaustive-deps
   const [a, setA] = useState<number | null>(null);
@@ -158,14 +165,16 @@ function Match({ ex, lang, seed, locked, onResult, t }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  opt: { minHeight: 56, borderRadius: radius.md, borderWidth: 2, borderBottomWidth: 4, borderColor: colors.line, backgroundColor: colors.surface, paddingHorizontal: space.md, paddingVertical: 12, justifyContent: 'center' },
-  optOn: { borderColor: colors.info, backgroundColor: colors.infoSoft },
-  optRight: { borderColor: colors.success, backgroundColor: colors.successSoft },
-  optWrong: { borderColor: colors.danger, backgroundColor: colors.dangerSoft },
-  matchCell: { minHeight: 72, paddingHorizontal: 10 },
-  answerRow: { minHeight: 64, flexDirection: 'row', flexWrap: 'wrap', gap: space.sm, borderBottomWidth: 2, borderBottomColor: colors.line, paddingBottom: space.sm, alignContent: 'flex-start' },
-  tiles: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm, justifyContent: 'center' },
-  tile: { minHeight: 44, paddingHorizontal: 14, borderRadius: radius.sm, borderWidth: 2, borderBottomWidth: 4, borderColor: colors.line, backgroundColor: colors.surface, justifyContent: 'center' },
-  tileOn: { borderColor: colors.info },
-});
+const S = themed(() => ({
+  opt: { minHeight: 58, borderRadius: radius.md, borderWidth: 2, borderBottomWidth: 4, borderColor: colors.lineStrong, backgroundColor: colors.surface, paddingHorizontal: space.md, paddingVertical: 12, justifyContent: 'center' } as ViewStyle,
+  optRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingLeft: 12 } as ViewStyle,
+  optOn: { borderColor: colors.info, backgroundColor: colors.infoSoft } as ViewStyle,
+  optRight: { borderColor: colors.success, backgroundColor: colors.successSoft } as ViewStyle,
+  optWrong: { borderColor: colors.danger, backgroundColor: colors.dangerSoft } as ViewStyle,
+  badge: { width: 30, height: 30, borderRadius: 10, borderWidth: 2, borderColor: colors.lineStrong, alignItems: 'center', justifyContent: 'center' } as ViewStyle,
+  matchCell: { minHeight: 72, paddingHorizontal: 10 } as ViewStyle,
+  answerRow: { minHeight: 64, flexDirection: 'row', flexWrap: 'wrap', gap: space.sm, borderBottomWidth: 2, borderBottomColor: colors.lineStrong, paddingBottom: space.sm, alignContent: 'flex-start' } as ViewStyle,
+  tiles: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm, justifyContent: 'center' } as ViewStyle,
+  tile: { minHeight: 46, paddingHorizontal: 14, borderRadius: radius.sm, borderWidth: 2, borderBottomWidth: 4, borderColor: colors.lineStrong, backgroundColor: colors.surface, justifyContent: 'center' } as ViewStyle,
+  tileOn: { borderColor: colors.info, backgroundColor: colors.infoSoft } as ViewStyle,
+}));

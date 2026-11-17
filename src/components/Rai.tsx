@@ -5,7 +5,7 @@
 import { Image } from 'expo-image';
 import React, { useEffect, useState } from 'react';
 import { Animated, Easing, View } from 'react-native';
-import { colors } from '@/theme/tokens';
+import { colors, elevation } from '@/theme/tokens';
 import { useReduceMotion } from './ui';
 
 const still = {
@@ -91,9 +91,13 @@ export function Rai({ state = 'idle', size = 140, breathe }: { state?: RaiState;
 /** Rai next to a speech bubble. */
 export function RaiSays({ state, children, size = 96 }: { state?: RaiState; children: React.ReactNode; size?: number }) {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
       <Rai state={state} size={size} />
-      <View style={{ flex: 1, backgroundColor: colors.surface, borderRadius: 20, borderBottomLeftRadius: 6, padding: 14, borderWidth: 2, borderColor: colors.line }}>{children}</View>
+      <View style={{ flex: 1 }}>
+        <View style={{ position: 'absolute', left: -6, bottom: 18, width: 16, height: 16, borderRadius: 4, backgroundColor: colors.surface, borderLeftWidth: 1, borderBottomWidth: 1, borderColor: colors.line, transform: [{ rotate: '45deg' }] }} />
+        <View style={{ backgroundColor: colors.surface, borderRadius: 22, padding: 14, borderWidth: 1, borderColor: colors.line, ...elevation(1) }}>{children}</View>
+        <View style={{ position: 'absolute', left: -5, bottom: 19, width: 14, height: 14, borderRadius: 3, backgroundColor: colors.surface, transform: [{ rotate: '45deg' }] }} />
+      </View>
     </View>
   );
 }

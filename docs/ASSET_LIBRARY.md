@@ -88,6 +88,43 @@ Used on the Journey chapter headers and the first card of each level.
 
 `assets/brand/icon-preview.jpg` shows the icon under the iOS mask and the Android circle, squircle and themed treatments, down to 29 px.
 
+### 3D icon set (Design 2.0)
+
+26 illustrations that replace emoji in the interface (practices, tools, rewards, empty states). Model `gpt_image_2_6`, 1:1, 1K, `background: transparent`. Every icon after the first passed the anchor (ICO-01) as `image_references`, so they share one material, light and palette. Prompt template:
+
+> Same icon family and exact rendering style as the reference image (soft glossy clay-like 3D, rounded friendly shapes, warm orange, peach and cream palette with a small teal accent, gentle top-left studio light). A single object: **&lt;object&gt;**. Centered, filling about 80% of the canvas. Transparent background, no ground shadow, no text, no frame, no extra objects.
+
+Each one was checked on cream and on the dark ground before use. `scripts/make-icons.py` trims and centres the renders and writes them as 256 px WebP (340 KB in total). **Cost: 26 × 0.25 = 6.5 credits** (balance 46.25 → 39.75).
+
+| Asset ID | File | Job ID | Object |
+|---|---|---|---|
+| ICO-01 | `assets/icons/meditation.webp` | `b2714d9f-2419-47ff-a12b-c9be4cfc73be` | Lotus with teal leaves; **style anchor** for the whole set |
+| ICO-02 | `assets/icons/gratitude.webp` | `23c64397-f218-49e7-8084-055af07c2c0a` | Plump heart with a golden sparkle |
+| ICO-03 | `assets/icons/breathing.webp` | `8dbf07a1-ea0c-49b5-b7d8-a188e37d5dc4` | Breeze swirl in cream and teal |
+| ICO-04 | `assets/icons/silence.webp` | `3c087204-b8e4-48c9-974a-9a0e019dc0ac` | Stacked zen stones with a leaf |
+| ICO-05 | `assets/icons/affirmations.webp` | `5015cbdb-7278-49cf-8ebb-eff3b3135894` | Speech bubble with a sparkle star |
+| ICO-06 | `assets/icons/visualization.webp` | `54b58483-be25-43d4-96aa-8c9dbc40e6c1` | Eye with a star highlight |
+| ICO-07 | `assets/icons/worry.webp` | `73b72b35-c859-4fb0-b101-ea3e1d572fc5` | Cloud with the sun rising behind it |
+| ICO-08 | `assets/icons/beliefs.webp` | `135a80e5-61f0-4ea3-9b73-b4f9c57eb6cb` | Magnifying glass |
+| ICO-09 | `assets/icons/seven.webp` | `3b58a796-7bad-4b8e-977a-ee20384ba70d` | Puffy question mark |
+| ICO-10 | `assets/icons/mindstorm.webp` | `eadcc4ef-eb2f-4c4c-9987-5ea15f30e82b` | Glowing light bulb |
+| ICO-11 | `assets/icons/forgive.webp` | `a33bb071-8dcb-472f-9b25-18828f2843d1` | Dove with a leaf twig |
+| ICO-12 | `assets/icons/responsible.webp` | `3fdc0ee5-f7c8-4738-998d-54286f452d27` | Pocket compass |
+| ICO-13 | `assets/icons/written-goals.webp` | `c1e375e8-cf4c-48ba-84d6-1fdd0b274461` | Notebook with a pencil |
+| ICO-14 | `assets/icons/mental-diet.webp` | `3e835e7b-d9cc-4e13-93d4-8589e9920b28` | Bowl with an orange and leaves |
+| ICO-15 | `assets/icons/goal.webp` | `456cedc3-ab96-418f-87be-4dbc708d073e` | Target with an arrow in the bullseye |
+| ICO-16 | `assets/icons/habits.webp` | `78438291-6d65-4e22-870e-3dd794da83b3` | Sprout in a pot |
+| ICO-17 | `assets/icons/review.webp` | `2b849a7c-1342-49bf-a2a2-390ffbf6b712` | Rising bar chart with an arrow |
+| ICO-18 | `assets/icons/future.webp` | `67bc7087-e73a-401f-b7b3-8fe141553670` | Telescope with a star |
+| ICO-19 | `assets/icons/vault.webp` | `12c5523b-5cc1-45c4-adfd-a25254409a1d` | Stack of three books |
+| ICO-20 | `assets/icons/evening.webp` | `e3067ebf-8b29-48c6-82cf-5db366b947b5` | Crescent moon with stars |
+| ICO-21 | `assets/icons/flame.webp` | `7c69dd3b-121c-411a-bdf2-fe08bd362531` | Layered flame (streak) |
+| ICO-22 | `assets/icons/gem.webp` | `133e789f-8d2b-4514-96cd-c39a491da379` | Teal gem (XP) |
+| ICO-23 | `assets/icons/trophy.webp` | `96745f98-0895-4406-81cb-d4df0ef3309f` | Golden trophy (levels, all done) |
+| ICO-24 | `assets/icons/star.webp` | `1a8ddc1e-7afb-4198-89ee-4a8e760a6f4e` | Puffy gold star (takeaway) |
+| ICO-25 | `assets/icons/shield.webp` | `11ab1a94-c8ae-4bd1-b78b-676e3fe5661d` | Teal shield with a check (evidence, account) |
+| ICO-26 | `assets/icons/focus.webp` | `d76605c4-c70a-472e-aa30-47b5a5cd4060` | Hourglass (correct answers stat) |
+
 ## Not generated yet (prompts ready)
 
 | Asset | Why not yet | Direction to use |

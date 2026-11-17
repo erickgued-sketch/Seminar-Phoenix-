@@ -5,7 +5,7 @@ import { Animated, Easing, StyleSheet, View, type StyleProp, type TextStyle, typ
 import { colors } from '@/theme/tokens';
 import { Txt, useReduceMotion } from './ui';
 
-const PALETTE = [colors.primary, colors.success, colors.info, colors.gold, colors.danger, '#B57BFF'];
+const PALETTE = [colors.primary, colors.success, colors.info, colors.gold, colors.danger, colors.violet];
 
 /** A burst of confetti that fans out from the top-centre and falls. Remount (change `k`) to replay. */
 export function Confetti({ k, count = 36 }: { k: string | number; count?: number }) {
@@ -112,4 +112,54 @@ export function Pulse({ children, on = true, scale = 1.04 }: { children: React.R
     return () => loop.stop();
   }, [on, reduce]); // eslint-disable-line react-hooks/exhaustive-deps
   return <Animated.View style={{ transform: [{ scale: a.interpolate({ inputRange: [0, 1], outputRange: [1, scale] }) }] }}>{children}</Animated.View>;
+}
+
+/** Slow rotating sunburst behind a hero illustration (completion moments). Static under Reduce Motion. */
+export function Rays({ size = 320, color = colors.gold }: { size?: number; color?: string }) {
+  const reduce = useReduceMotion();
+  const a = useState(() => new Animated.Value(0))[0];
+  const grow = useState(() => new Animated.Value(0))[0];
+  useEffect(() => {
+    if (reduce) { grow.setValue(1); return; }
+    Animated.spring(grow, { toValue: 1, friction: 7, tension: 50, useNativeDriver: true }).start();
+    const loop = Animated.loop(Animated.timing(a, { toValue: 1, duration: 16000, easing: Easing.linear, useNativeDriver: true }));
+    loop.start();
+    return () => loop.stop();
+  }, [reduce]); // eslint-disable-line react-hooks/exhaustive-deps
+  return (
+    <Animated.View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={{ position: 'absolute', width: size, height: size, alignItems: 'center', justifyContent: 'center', opacity: grow.interpolate({ inputRange: [0, 1], outputRange: [0, 0.5] }), transform: [{ scale: grow }, { rotate: a.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] }) }] }}>
+      {Array.from({ length: 12 }, (_, i) => (
+        <View key={i} style={{ position: 'absolute', width: size * 0.07, height: size, alignItems: 'center', transform: [{ rotate: `${i * 30}deg` }] }}>
+          <View style={{ width: 0, height: 0, borderLeftWidth: size * 0.035, borderRightWidth: size * 0.035, borderBottomWidth: size * 0.5, borderLeftColor: 'transparent', borderRightColor: 'transparent', borderBottomColor: color, transform: [{ rotate: '180deg' }] }} />
+        </View>
+      ))}
+    </Animated.View>
+  );
+}
+
+/** Scale-in with overshoot, optionally delayed — for staged reveals (stats, badges). */
+export function PopIn({ children, delay = 0, k, style }: { children: React.ReactNode; delay?: number; k?: string | number; style?: StyleProp<ViewStyle> }) {
+  const reduce = useReduceMotion();
+  const a = useState(() => new Animated.Value(0))[0];
+  useEffect(() => {
+    a.setValue(reduce ? 1 : 0);
+    if (!reduce) Animated.sequence([Animated.delay(delay), Animated.spring(a, { toValue: 1, friction: 5, tension: 130, useNativeDriver: true })]).start();
+  }, [k, reduce]); // eslint-disable-line react-hooks/exhaustive-deps
+  return <Animated.View style={[style, { opacity: a.interpolate({ inputRange: [0, 0.4, 1], outputRange: [0, 1, 1] }), transform: [{ scale: a.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1] }) }] }]}>{children}</Animated.View>;
+}
+
+/** Gentle vertical float for illustrations. */
+export function Float({ children, range = 5, period = 2600 }: { children: React.ReactNode; range?: number; period?: number }) {
+  const reduce = useReduceMotion();
+  const a = useState(() => new Animated.Value(0))[0];
+  useEffect(() => {
+    if (reduce) { a.setValue(0); return; }
+    const loop = Animated.loop(Animated.sequence([
+      Animated.timing(a, { toValue: 1, duration: period, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+      Animated.timing(a, { toValue: 0, duration: period, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+    ]));
+    loop.start();
+    return () => loop.stop();
+  }, [reduce, period]); // eslint-disable-line react-hooks/exhaustive-deps
+  return <Animated.View style={{ transform: [{ translateY: a.interpolate({ inputRange: [0, 1], outputRange: [0, -range] }) }] }}>{children}</Animated.View>;
 }
