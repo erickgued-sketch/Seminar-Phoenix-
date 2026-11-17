@@ -2,10 +2,10 @@
 import { getLocales } from 'expo-localization';
 import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
+import { Clip } from '@/components/Clip';
 import { Rai, RaiSays } from '@/components/Rai';
 import { Bar, Button, Chip, Enter, Field, Screen, Txt } from '@/components/ui';
-import { heroArt } from '@/content/art';
 import { totalLevels } from '@/content/curriculum';
 import { useT } from '@/lib/i18n';
 import { useStore, type CoachStyle } from '@/lib/store';
@@ -52,7 +52,7 @@ export default function Onboarding() {
         </>
       }>
         <View style={{ flex: 1 }}>
-          <Image source={heroArt} style={{ position: 'absolute', width: '100%', height: '100%' }} resizeMode="cover" accessibilityLabel={t('Rai mira un amanecer sobre un camino', 'Rai looks at a sunrise over a path')} />
+          <Clip name="welcome" loop style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} label={t('Rai mira un amanecer sobre un camino', 'Rai looks at a sunrise over a path')} />
           <View style={{ padding: space.lg, paddingTop: space.xxl + space.md, gap: space.sm }}>
             {/* The sunrise art is light in both appearances, so this text keeps the light palette's ink. */}
             <Txt v="label" color={palettes.light.primaryEdge}>NEXTME AI</Txt>

@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
+import { authored } from '@/content/curriculum';
 import { composeReply } from '@/lib/coach/compose';
 import { MIN_SCORE, search, tokenize } from '@/lib/coach/retrieval';
 import { addDays, diffDays, weekStart } from '@/lib/dates';
 import { scenarios } from '@/lib/future';
 import { buildWeeks, draftIssues, toGoal } from '@/lib/goalPlan';
-import { dueReviews, isUnlocked, nextLevel, pendingEvidence } from '@/lib/progress';
+import { dueReviews, isUnlocked, milestoneOf, nextLevel, pendingEvidence } from '@/lib/progress';
 import { buildReview } from '@/lib/review';
 import { computeScore } from '@/lib/score';
 import { advance, GRADUATED, initial, INTERVALS, isDue } from '@/lib/srs';
@@ -189,5 +190,16 @@ describe('coach retrieval and grounding', () => {
     const r = composeReply('a veces pienso en quitarme la vida', ctx());
     expect(r.safety).toBe(true);
     expect(r.action).toMatch(/emergencia|crisis/i);
+  });
+});
+
+describe('milestones', () => {
+  it('marks the last level of each chapter as a chapter unlock and the final level as the program end', () => {
+    const ends = authored.filter((l, i) => i < authored.length - 1 && authored[i + 1].chapter !== l.chapter);
+    expect(ends).toHaveLength(11);
+    for (const l of ends) expect(milestoneOf(l.id)).toMatchObject({ kind: 'chapter', next: { n: l.chapter + 1 } });
+    expect(milestoneOf(authored[authored.length - 1].id)).toEqual({ kind: 'program' });
+    expect(milestoneOf(authored[0].id)).toBeNull();
+    expect(milestoneOf('nope')).toBeNull();
   });
 });

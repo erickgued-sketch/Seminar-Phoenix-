@@ -4,15 +4,18 @@ import { router, useLocalSearchParams } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Image, PanResponder, Pressable, View } from 'react-native';
 import { Art } from '@/components/Art';
+import { Clip } from '@/components/Clip';
 import { Icon } from '@/components/Icon';
 import { ExerciseView, shuffle } from '@/components/Exercises';
 import { Confetti, CountUp, Float, PopIn, Rays, Slide } from '@/components/fx';
 import { Rai, RaiSays } from '@/components/Rai';
-import { Bar, Button, Card, Enter, Field, IconButton, Label, Note, Screen, Txt, haptic } from '@/components/ui';
+import { Bar, Button, Card, Enter, Field, IconButton, Label, Note, Pill, Screen, Txt, haptic } from '@/components/ui';
 import { chapterOf, levelById, path } from '@/content/curriculum';
 import { chapterArt } from '@/content/art';
 import { useLang, useT } from '@/lib/i18n';
 import { play } from '@/lib/sound';
+import { today } from '@/lib/dates';
+import { milestoneOf } from '@/lib/progress';
 import { activeGoal, useStore } from '@/lib/store';
 import { chapterTint, colors, elevation, radius, space } from '@/theme/tokens';
 
@@ -45,6 +48,7 @@ export default function LevelPlayer() {
   const [commit, setCommit] = useState('');
   const [attempt, setAttempt] = useState(0);
   const [dir, setDir] = useState<1 | -1>(1);
+  const [streakUp, setStreakUp] = useState(0); // > 0 when this completion extended the daily streak
 
   if (!level) {
     return (
@@ -88,8 +92,15 @@ export default function LevelPlayer() {
     setHearts(HEARTS); setCorrect(0); setExI(0); setCard(0); setResult(null); setAttempt((a) => a + 1); setPhase('learn');
   };
   const finish = () => {
+    const firstToday = useStore.getState().streak.lastActive !== today();
     completeLevel(level.id, { score, reflection: reflection.trim(), commit: commit.trim() || level.apply[lang] });
-    play(n % 5 === 0 ? 'levelup' : 'complete');
+    const m = milestoneOf(level.id);
+    // One sound per beat: the moment itself, then (if earned) the streak flame as the stats land.
+    play(m?.kind === 'program' ? 'celebrate' : m?.kind === 'chapter' ? 'unlock' : n % 5 === 0 ? 'levelup' : 'complete');
+    if (firstToday) {
+      setStreakUp(useStore.getState().streak.current);
+      setTimeout(() => play('streak', 0.8), 1100);
+    }
     haptic('ok');
     setPhase('done');
   };
@@ -261,26 +272,45 @@ export default function LevelPlayer() {
   }
 
   // ---------- DONE ----------
-  // A staged reveal: rays + Rai → headline → stats pop in one by one → takeaway card.
-  const milestone = !isReview && n % 5 === 0;
+  // A staged reveal: hero (clip or rays + Rai) → headline → stats pop in one by one → takeaway card.
+  const ms = isReview ? null : milestoneOf(level.id);
+  const milestone = !isReview && !ms && n % 5 === 0;
+  const headline = isReview ? t('¡Repaso hecho!', 'Review done!')
+    : ms?.kind === 'program' ? t('¡Completaste el programa Fénix!', 'You completed the Fénix program!')
+    : ms?.kind === 'chapter' ? t(`Capítulo ${ms.next.n} desbloqueado`, `Chapter ${ms.next.n} unlocked`)
+    : first === '1' ? t('Cumpliste tu primera promesa', 'You kept your first promise')
+    : milestone ? t(`¡Hito: nivel ${n}!`, `Milestone: level ${n}!`) : t('¡Nivel completado!', 'Level complete!');
   return (
-    <Screen tint={milestone ? colors.primarySoft : undefined} footer={<Button testID="done" iconRight="arrow" label={first === '1' ? t('Ver mi programa', 'See my program') : t('Continuar', 'Continue')} onPress={exit} />}>
-      <Confetti k={level.id} count={isReview ? 18 : milestone ? 60 : 40} />
+    <Screen tint={milestone || ms ? colors.primarySoft : undefined} footer={<Button testID="done" iconRight="arrow" label={first === '1' ? t('Ver mi programa', 'See my program') : ms?.kind === 'chapter' ? t('Empezar el capítulo', 'Start the chapter') : t('Continuar', 'Continue')} onPress={exit} />}>
+      <Confetti k={level.id} count={isReview ? 18 : ms ? 70 : milestone ? 60 : 40} />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: space.md, paddingVertical: space.md }}>
-        <View style={{ alignItems: 'center', justifyContent: 'center', width: 260, height: 240 }}>
-          <Rays size={300} color={milestone ? colors.primary : colors.gold} />
-          <Rai state={isReview ? 'happy' : milestone ? 'levelup' : 'celebrate'} size={220} />
-        </View>
+        {ms ? (
+          <PopIn>
+            <Clip testID="milestone-clip" name={ms.kind === 'program' ? 'complete' : 'unlock'} style={{ width: 236, height: 236, borderRadius: radius.xl, borderWidth: 4, borderColor: colors.surface, ...elevation(2) }} label={ms.kind === 'program' ? t('Rai levanta una estrella dorada', 'Rai raises a golden star') : t('Rai salta de alegría', 'Rai jumps for joy')} />
+          </PopIn>
+        ) : (
+          <View style={{ alignItems: 'center', justifyContent: 'center', width: 260, height: 240 }}>
+            <Rays size={300} color={milestone ? colors.primary : colors.gold} />
+            <Rai state={isReview ? 'happy' : milestone ? 'levelup' : 'celebrate'} size={220} />
+          </View>
+        )}
         <PopIn delay={150}>
-          <Txt v="hero" center>{isReview ? t('¡Repaso hecho!', 'Review done!') : first === '1' ? t('Cumpliste tu primera promesa', 'You kept your first promise') : milestone ? t(`¡Hito: nivel ${n}!`, `Milestone: level ${n}!`) : t('¡Nivel completado!', 'Level complete!')}</Txt>
+          <Txt v="hero" center>{headline}</Txt>
         </PopIn>
+        {ms?.kind === 'chapter' ? <Txt v="h3" color={colors.primaryDeep} center>{ms.next.title[lang]}</Txt> : null}
+        {ms?.kind === 'program' ? <Txt v="body" color={colors.text2} center>{t(`${n} niveles completados. Sigue repasando y aplicando: ahí es donde ocurre el cambio.`, `${n} levels completed. Keep reviewing and applying: that is where the change happens.`)}</Txt> : null}
         {first === '1' ? <Txt v="body" color={colors.text2} center>{t('Tu próxima versión ya empezó.', 'Your next self has started.')}</Txt> : null}
-        <View style={{ flexDirection: 'row', gap: space.sm }}>
+        <View style={{ flexDirection: 'row', gap: space.sm, flexWrap: 'wrap', justifyContent: 'center' }}>
           <PopIn delay={450}><Stat art="focus" label={t('Aciertos', 'Correct')} value={`${correct}/${exercises.length}`} /></PopIn>
           <PopIn delay={650}><Stat art="gem" label="XP" value={isReview ? 5 : 20 + Math.round(score / 10)} /></PopIn>
         </View>
+        {streakUp > 0 ? (
+          <PopIn delay={1100}>
+            <Pill art="flame" value={t(`Racha: ${streakUp} ${streakUp === 1 ? 'día' : 'días'}`, `Streak: ${streakUp} ${streakUp === 1 ? 'day' : 'days'}`)} label={t(`Racha de ${streakUp} días`, `${streakUp}-day streak`)} />
+          </PopIn>
+        ) : null}
         {!isReview ? (
-          <Enter delay={900} style={{ alignSelf: 'stretch' }}>
+          <Enter delay={1250} style={{ alignSelf: 'stretch' }}>
             <Card level={2} style={{ gap: 6 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <Float><Art name="star" size={34} /></Float>

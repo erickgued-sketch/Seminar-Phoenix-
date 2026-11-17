@@ -1,4 +1,5 @@
-// UI sounds (synthesised by scripts/make-sounds.py). Players are created lazily and reused.
+// UI sounds (Sound 2.0, built by scripts/make-sounds.py: synthesised micro-sounds + Higgsfield moment sounds).
+// Players are created lazily and reused.
 // Every call is best-effort: a missing audio backend must never break a tap.
 import { createAudioPlayer, type AudioPlayer } from 'expo-audio';
 import { useStore } from './store';
@@ -15,6 +16,9 @@ const files = {
   levelup: require('../../assets/sounds/levelup.mp3'),
   bell: require('../../assets/sounds/bell.mp3'),
   nudge: require('../../assets/sounds/nudge.mp3'),
+  unlock: require('../../assets/sounds/unlock.mp3'),
+  streak: require('../../assets/sounds/streak.mp3'),
+  celebrate: require('../../assets/sounds/celebrate.mp3'),
 } as const;
 export type SoundName = keyof typeof files;
 

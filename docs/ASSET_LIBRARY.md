@@ -125,15 +125,46 @@ Each one was checked on cream and on the dark ground before use. `scripts/make-i
 | ICO-25 | `assets/icons/shield.webp` | `11ab1a94-c8ae-4bd1-b78b-676e3fe5661d` | Teal shield with a check (evidence, account) |
 | ICO-26 | `assets/icons/focus.webp` | `d76605c4-c70a-472e-aa30-47b5a5cd4060` | Hourglass (correct answers stat) |
 
+### Cinematic clips (Sound & Motion 2.0)
+
+Image-to-video, 4 s, silent (the app's own sounds carry each moment). Encoded to H.264 with no audio track and `+faststart`, 600–640 px, CRF 26: **0.81 MB for all three**. They play muted through `expo-video`, never interrupt the user's music (`audioMixingMode: mixWithOthers`), and fall back to a poster still under Reduce Motion.
+
+| Asset ID | File | Job ID | Model · settings | Source frame | Used in | Cost |
+|---|---|---|---|---|---|---|
+| CLIP-01 | `assets/clips/welcome.mp4` | `0a442372-97ed-44ca-b5a2-a40c5c5fa5e7` | `wan2_7`, 4 s, 720p, 3:4, start **and** end frame = ONB-01 so it loops | ONB-01 | Onboarding splash, looping behind the headline | 6 |
+| CLIP-02 | `assets/clips/unlock.mp4` + `unlock-poster.webp` | `61c6a90f-33d7-4e30-9859-d6ace1b7a7dc` | `kling3_0` std, 4 s, 1:1, sound off | IMG-01 | Completion screen of the last level of chapters 1–11 ("Chapter N unlocked") | 6 |
+| CLIP-03 | `assets/clips/complete.mp4` + `complete-poster.webp` | `18a7bad5-2820-4ab5-82e1-bd42b39415ef` | `kling3_0` std, 4 s, 1:1, sound off | RAI-07 | Completion screen of level 117 (program finale) | 6 |
+| IMG-01 | (input only) | `7b012f5c-702a-4dc7-ae39-86ec794106b5` | `gpt_image_2_6`, 1:1, refs RAI-06 + RAI-00 | — | Opaque cream start frame for CLIP-02 | 0.25 |
+| — | rejected | `e5a8d2e5-ea34-4af2-82db-dded0df063b7` | `kling3_0` from RAI-06 | RAI-06 | Rejected: RAI-06 is transparent, the model read it as black; the clip hard-cut from black to a cream studio and Rai drifted off-model | 6 |
+
+Post-processing: CLIP-01's first and last frames still differed slightly, so its last 0.5 s is crossfaded into its first 0.5 s (3.5 s seamless loop). CLIP-03 opens dark and flares to gold, which reads as the star lighting the scene, so it was kept. Prompts are stored with each job in Higgsfield; the gist is in the table.
+
 ## Not generated yet (prompts ready)
 
 | Asset | Why not yet | Direction to use |
 |---|---|---|
-| Cinematic video clips (welcome, chapter unlock, program complete) | Rai's looping animations cover the in-app motion; full-screen video would add weight and a player dependency. | Image-to-video from ONB-01 / RAI-06 / RAI-07, 3–4 s, slow push-in, loopable, 720p, no text. |
 | Onboarding concepts 2–5 (decisions, growth, habits, action) | Onboarding uses Rai's states instead; one hero was enough for a < 2 min flow. | Same 3:4 style as ONB-01 with the master reference. |
 | Store screenshots frames, launch cover, social creatives | Depend on final store copy and device frames. | Compose real app screenshots (`docs/screenshots/`) over CH-08 / ONB-01. |
 | Splash at full resolution | `splash-icon.png` is a 400 px derivative of RAI-02. | Regenerate RAI-02 at 2k if a larger splash is wanted. |
 
-## Sounds (not Higgsfield)
+## Sounds (Sound 2.0)
 
-The 11 interface sounds in `assets/sounds/` are synthesised by `scripts/make-sounds.py` (original tones, no samples; 136 KB total): tap, select, card, correct, wrong, check, xp, complete, levelup, bell, nudge. They share one pentatonic scale so they sound like a family, the "wrong" tone is deliberately soft, and they can be turned off in Profile → Sounds.
+Fourteen sounds in `assets/sounds/` (220 KB), built by `python3 scripts/make-sounds.py --sfx <folder of raw renders>`. Without the folder, the same script rebuilds a fully synthesised fallback set. The set is a hybrid, decided by measurement because nobody listened to it during the build (see QUALITY_REPORT):
+
+| Sound | Source | Higgsfield job (`mirelo_text_to_audio`) | Where it plays |
+|---|---|---|---|
+| tap, select, card, check | Synthesised (marimba, click, swoosh) | — (renders `51722c4a…`, `e7cf6e28…`, `1fd7aeca…`, `c575e4dc…` rejected: hiss, near-silence or scattered hits) | Every press, option, card swipe, checkbox |
+| correct | Synth chime + Higgsfield sparkle transient | `825a3adb-76f3-476e-8f03-ff413a37b53f` | Right answer |
+| wrong | Higgsfield (loudest 0.45 s event) | `d79b0db4-82f6-4591-aeea-c693f43f0679` | Wrong answer (soft knock, not a buzzer) |
+| xp | Synth arpeggio + Higgsfield shimmer | `3855793f-e952-41b2-aead-64f2a5a6b116` | Evidence logged |
+| nudge | Higgsfield | `7951d8d7-129f-49ae-9534-5e4ee46e66b5` | Coach answer |
+| complete | Higgsfield (melodic jingle) | `0128fda5-a0b4-4360-9b83-24563c491c72` (first try `65ae08a3…` rejected: 70 ms blip) | Level complete |
+| levelup | Higgsfield fanfare | `c9d5f7e4-b7d9-4edb-be2f-95790234bc88` | Every 5th level |
+| bell | Higgsfield singing bowl + decay envelope | `4e2c59be-3b40-44ff-b78b-f038864fa6da` | Meditation and focus timers |
+| unlock | Higgsfield lock click + synth harp rise | `18718cc0-c18c-4df1-8527-de88bd6706a4` | Chapter unlocked (new) |
+| streak | Higgsfield ignite + sparkle | `3259cda2-ed80-4b97-a772-a5c5e444848d` | First completion of the day (new) |
+| celebrate | Higgsfield swell | `1ba8d580-8621-43dd-b4b3-b451e7f05380` | Program finale (new) |
+
+Processing: high-pass at 70 Hz; trimmed to the first onset (or the loudest window for busy renders); 3 ms fade-in and a shaped fade-out; loudness set per role (−27 dBFS RMS for taps up to −16 for the finale), so constant sounds stay quiet and payoffs stand out; soft-limited to ≤ −1.2 dBFS peak. Every synthesised tone uses one major-pentatonic palette. **Cost: 25 s of renders × 0.25 = 6.25 credits.**
+
+Total spent on Sound & Motion 2.0: **30.5 credits** (balance 39.75 → 9.25).

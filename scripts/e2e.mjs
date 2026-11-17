@@ -6,6 +6,7 @@ import { readFile } from 'node:fs/promises';
 import { extname, join } from 'node:path';
 import { mkdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
+import { execFileSync } from 'node:child_process';
 // Resolved through require so a globally installed Playwright (CI images, cloud sandboxes) also works.
 const { chromium } = createRequire(import.meta.url)('playwright');
 
@@ -15,7 +16,7 @@ const SCALE = Number(process.env.SCALE ?? 1);
 // COLOR_SCHEME=dark runs the whole flow with the OS in dark mode (the app follows the system by default).
 const SCHEME = process.env.COLOR_SCHEME === 'dark' ? 'dark' : 'light';
 mkdirSync(SHOTS, { recursive: true });
-const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.ico': 'image/x-icon', '.ttf': 'font/ttf' };
+const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.ico': 'image/x-icon', '.ttf': 'font/ttf', '.mp3': 'audio/mpeg', '.mp4': 'video/mp4' };
 const server = createServer(async (req, res) => {
   const p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   try {
@@ -58,7 +59,10 @@ const t0 = Date.now();
 await step('onboarding: splash → 4 questions', async () => {
   await page.goto(base);
   await see('Conviértete en tu próxima versión');
-  await page.waitForTimeout(600);
+  await page.waitForTimeout(900);
+  // The welcome clip (expo-video → <video>) must actually be playing, muted and looping.
+  const v = await page.evaluate(() => { const el = document.querySelector('video'); return el && { paused: el.paused, muted: el.muted, loop: el.loop, t: el.currentTime, ready: el.readyState }; });
+  if (!v || v.paused || !v.muted || !v.loop || v.ready < 2 || v.t <= 0) throw new Error(`welcome clip not playing: ${JSON.stringify(v)}`);
   await shot('01-splash');
   await tap('start');
   await tap('area-discipline'); await tap('area-work');
@@ -103,7 +107,7 @@ await step('level 1: reflect → apply → first win, no sign-up wall', async ()
   await tid('commit-input').fill('Hoy a las 19:00');
   await tap('commit');
   await see('Cumpliste tu primera promesa');
-  await page.waitForTimeout(1400); // the completion screen reveals in stages (≈1.2 s)
+  await page.waitForTimeout(1900); // the completion screen reveals in stages (≈1.6 s)
   await shot('07-first-win');
   results.push(['INFO', 'time to first win (automated run)', `${Math.round((Date.now() - t0) / 1000)} s`]);
   await tap('done');
@@ -273,6 +277,48 @@ await step('small screen (320×568) has no horizontal overflow', async () => {
     if (over > 1) throw new Error(`${r} overflows by ${over}px`);
   }
   await page.setViewportSize({ width: 390, height: 844 });
+});
+
+// Plays a level to the end with the right answers, read from the lesson data itself (so the test follows the content).
+const levelPlan = (kind, lang) => JSON.parse(execFileSync('npx', ['tsx', '-e', `import { authored } from './src/content/curriculum'; import { milestoneOf } from './src/lib/progress';
+  const lang = '${lang}'; const i = authored.findIndex((l) => milestoneOf(l.id)?.kind === '${kind}'); const l = authored[i];
+  console.log(JSON.stringify({ id: l.id, prev: authored.slice(0, i).map((x) => x.id), cards: l.cards.length,
+    ex: l.exercises.map((e) => ({ t: e.type, a: 'answer' in e ? e.answer : 0, n: e.type === 'order' ? e.tokens[lang].length : e.type === 'match' ? e.pairs.length : 0 })) }));`], { cwd: join(import.meta.dirname, '..'), encoding: 'utf8' }).trim().split('\n').pop());
+async function finishLevel(L) {
+  await page.evaluate((prev) => {
+    const st = JSON.parse(localStorage.getItem('nextme-v1'));
+    for (const id of prev) st.state.progress[id] ??= { completedAt: '2026-01-01', score: 100, reflection: '', commit: '', srsStage: 0, nextReview: null };
+    localStorage.setItem('nextme-v1', JSON.stringify(st));
+  }, L.prev);
+  await page.goto(`${base}/level/${L.id}`);
+  for (let i = 0; i < L.cards; i++) await tap('next-card');
+  for (const e of L.ex) {
+    if (e.t === 'order') { for (let i = 0; i < e.n; i++) await tap(`tile-${i}`); await tap('check'); }
+    else if (e.t === 'match') { for (let i = 0; i < e.n; i++) { await tap(`ma-${i}`); await tap(`mb-${i}`); } }
+    else { await tap(`opt-${e.a}`); await tap('check'); }
+    await tap('continue');
+  }
+  await tid('reflect-input').fill('Listo'); await tap('reflect-next'); await tap('commit');
+}
+async function clipPlaying() {
+  await tid('milestone-clip').waitFor();
+  await page.waitForTimeout(1900);
+  const v = await page.evaluate(() => { const el = document.querySelector('video'); return el && { paused: el.paused, t: el.currentTime }; });
+  if (!v || v.t <= 0) throw new Error(`milestone clip not playing: ${JSON.stringify(v)}`);
+}
+
+await step('finishing a chapter plays the unlock moment (clip + headline)', async () => {
+  await finishLevel(levelPlan('chapter', 'en'));
+  await see('Chapter 2 unlocked'); // the UI is in English at this point of the run
+  await clipPlaying();
+  await shot('18-chapter-unlock');
+});
+
+await step('finishing level 117 plays the program finale', async () => {
+  await finishLevel(levelPlan('program', 'en'));
+  await see('You completed the Fénix program!');
+  await clipPlaying();
+  await shot('19-program-complete');
 });
 
 await step('delete all data returns to onboarding', async () => {
