@@ -147,24 +147,33 @@ Post-processing: CLIP-01's first and last frames still differed slightly, so its
 | Store screenshots frames, launch cover, social creatives | Depend on final store copy and device frames. | Compose real app screenshots (`docs/screenshots/`) over CH-08 / ONB-01. |
 | Splash at full resolution | `splash-icon.png` is a 400 px derivative of RAI-02. | Regenerate RAI-02 at 2k if a larger splash is wanted. |
 
-## Sounds (Sound 2.0)
+## Sounds (Sound 3.0, "playful game")
 
-Fourteen sounds in `assets/sounds/` (220 KB), built by `python3 scripts/make-sounds.py --sfx <folder of raw renders>`. Without the folder, the same script rebuilds a fully synthesised fallback set. The set is a hybrid, decided by measurement because nobody listened to it during the build (see QUALITY_REPORT):
+Fourteen sounds in `assets/sounds/`, built in about 2 s by `python3 scripts/make-sounds.py` (add `--sfx <folder>` to use the Higgsfield bowl for the meditation bell). You can audition every sound on the sound board artifact.
 
-| Sound | Source | Higgsfield job (`mirelo_text_to_audio`) | Where it plays |
-|---|---|---|---|
-| tap, select, card, check | Synthesised (marimba, click, swoosh) | — (renders `51722c4a…`, `e7cf6e28…`, `1fd7aeca…`, `c575e4dc…` rejected: hiss, near-silence or scattered hits) | Every press, option, card swipe, checkbox |
-| correct | Synth chime + Higgsfield sparkle transient | `825a3adb-76f3-476e-8f03-ff413a37b53f` | Right answer |
-| wrong | Higgsfield (loudest 0.45 s event) | `d79b0db4-82f6-4591-aeea-c693f43f0679` | Wrong answer (soft knock, not a buzzer) |
-| xp | Synth arpeggio + Higgsfield shimmer | `3855793f-e952-41b2-aead-64f2a5a6b116` | Evidence logged |
-| nudge | Higgsfield | `7951d8d7-129f-49ae-9534-5e4ee46e66b5` | Coach answer |
-| complete | Higgsfield (melodic jingle) | `0128fda5-a0b4-4360-9b83-24563c491c72` (first try `65ae08a3…` rejected: 70 ms blip) | Level complete |
-| levelup | Higgsfield fanfare | `c9d5f7e4-b7d9-4edb-be2f-95790234bc88` | Every 5th level |
-| bell | Higgsfield singing bowl + decay envelope | `4e2c59be-3b40-44ff-b78b-f038864fa6da` | Meditation and focus timers |
-| unlock | Higgsfield lock click + synth harp rise | `18718cc0-c18c-4df1-8527-de88bd6706a4` | Chapter unlocked (new) |
-| streak | Higgsfield ignite + sparkle | `3259cda2-ed80-4b97-a772-a5c5e444848d` | First completion of the day (new) |
-| celebrate | Higgsfield swell | `1ba8d580-8621-43dd-b4b3-b451e7f05380` | Program finale (new) |
+**Direction (user feedback after Sound 2.0):** "like the Duolingo or Mario Bros sounds, not the same but something similar". The set is now fully synthesised in two voice families that share one tuning and one small "arcade room" (slap echo plus a tiny reverb):
+- **Chip voices:** band-limited pulse (12.5/25/50 % duty) and triangle waves, pitch bends, rapid arpeggios, triangle bass and noise drums. This is the retro-platformer feel.
+- **Pluck voices:** rounded sine/triangle plucks that spring up into the note, with a soft bell partial. This is the bright learning-app feel.
 
-Processing: high-pass at 70 Hz; trimmed to the first onset (or the loudest window for busy renders); 3 ms fade-in and a shaped fade-out; loudness set per role (−27 dBFS RMS for taps up to −16 for the finale), so constant sounds stay quiet and payoffs stand out; soft-limited to ≤ −1.2 dBFS peak. Every synthesised tone uses one major-pentatonic palette. **Cost: 25 s of renders × 0.25 = 6.25 credits.**
+All melodies are original. The intervals those games' signature sounds are known for (for example a coin's rising fourth) are avoided: check rises a fifth, XP is a major-triad blip, level-up is a scale run rather than a chord glissando, and the fanfares are new tunes.
+
+| Sound | Character | Where it plays |
+|---|---|---|
+| tap | bubbly pop (sine drop 1.1 kHz → 520 Hz) | every press |
+| select | springy chip blip | choosing an answer or chip |
+| card | little triangle swoop | next lesson card |
+| check | two-note chip tick (C6 → G6) | habits, priorities |
+| correct | happy C-E-G pluck arpeggio, ringing top note + sparkle, chip body | right answer |
+| wrong | soft comic "bwoop" down a fourth with a droopy slide | wrong answer |
+| xp | coin-style G6-B6-D7 blip with vibrato | evidence logged |
+| nudge | friendly "boop-bip" | coach answers |
+| complete | 8-bit fanfare: run up, bounce, held C chord, triangle bass, kick/snare | level complete |
+| levelup | power-up scale run into a shining tremolo chord | every 5th level |
+| streak | flame whoosh + rising chip sweep + bright ting | first completion of the day |
+| unlock | two curious notes, then a sparkling A-major rise | chapter unlocked |
+| celebrate | original ~2.5 s victory fanfare (lead, chords, bass, drums) | program finale |
+| bell | Higgsfield singing bowl with decay (`4e2c59be-3b40-44ff-b78b-f038864fa6da`); synthesised bowl as fallback | meditation and focus timers |
+
+Processing: DC removed, silent tail trimmed, loudness set per role (taps quietest, finale loudest), soft-limited to ≤ −3.7 dBFS peak in practice, MP3 112 kbps. Measured: every sound starts within 2 ms, except streak, whose whoosh swells in over ~50 ms and plays 1.1 s after the moment anyway. There is essentially no energy above 16 kHz (≤ 0.7 %), so no harsh aliasing. The Higgsfield sound-effect renders from Sound 2.0 (jobs listed in git history) are no longer used, apart from the bell.
 
 Total spent on Sound & Motion 2.0: **30.5 credits** (balance 39.75 → 9.25).

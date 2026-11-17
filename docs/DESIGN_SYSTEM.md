@@ -60,12 +60,12 @@ Tokens: press 110 ms · quick 180 · enter 320 · slow 520 · celebrate 1400 · 
 When the OS "Reduce Motion" setting is on, every loop, entrance, sunburst and frame animation is replaced by its resting state. All motion uses React Native `Animated` on the native driver (bar width is the one exception). Reanimated is installed but was not adopted: the existing system already meets the budget, and mixing two animation systems adds risk.
 
 ## Sound
-Fourteen sounds in three tiers (details and sources in [ASSET_LIBRARY](ASSET_LIBRARY.md#sounds-sound-20)):
-- **Micro** (tap, select, card, check): synthesised, ≤ 0.36 s, start in < 1 ms (card's swoosh swells in over ~20 ms), quiet (−27 to −23 dBFS RMS).
-- **Feedback** (correct, wrong, xp, nudge): 0.45–0.65 s. `wrong` is a soft knock, never a buzzer.
-- **Moments** (complete, levelup, unlock, streak, celebrate, bell): 1.3–3 s, the loudest tier.
+"Playful game" set, fully synthesised: chip voices (pulse and triangle waves, arpeggios, noise drums) for a retro-platformer feel, and springy pluck voices for a bright learning-app feel. The melodies are original (see [ASSET_LIBRARY](ASSET_LIBRARY.md)). Three tiers:
+- **Micro** (tap, select, card, check): ≤ 0.3 s and quiet.
+- **Feedback** (correct, wrong, xp, nudge): 0.4–0.7 s. `wrong` is a soft comic "bwoop", never a buzzer.
+- **Moments** (complete, levelup, streak, unlock, celebrate): 0.8–2.6 s, the loudest tier. The meditation **bell** stays calm.
 
-One sound per beat. On the completion screen the moment plays first (complete, levelup, unlock or celebrate), then `streak` at 1.1 s if this was the day's first completion. Sound is never the only signal and can be turned off in Profile → Sounds.
+One sound per beat. On the completion screen the moment plays first, then `streak` at 1.1 s if this was the day's first completion. Sound is never the only signal and can be turned off in Profile → Sounds.
 
 ## Cinematic moments
 Three silent 4-second clips play through `Clip` (`expo-video`): the welcome loop behind the onboarding headline, **Chapter N unlocked** at the end of chapters 1–11, and the **program finale** at level 117. They are framed as a 236 pt rounded tile and pop in. They never take sound focus from the user's music, and show a still under Reduce Motion. `milestoneOf(levelId)` in `src/lib/progress.ts` decides which moment a completion earns.
